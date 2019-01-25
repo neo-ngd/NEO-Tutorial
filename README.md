@@ -3,10 +3,10 @@
  - Introduction to BlockChain
     - The introduction of Cryptography and CryptoCurrency 
     - NEO
-        - The history of NEO
-        - The NEO community
-        - The properties of NEO
-        - The future plan of NEO
+        - History
+        - White Paper
+        - Features
+        - Documentations
 
  - Wallet 
     - Keys and address
