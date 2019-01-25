@@ -1,6 +1,6 @@
 # NEO-Tutorial
 
- - Introduction to BlockChain
+ - Introduction to NEO
     - The introduction of Cryptography and CryptoCurrency 
     - NEO
         - History
