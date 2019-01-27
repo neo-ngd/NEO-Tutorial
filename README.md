@@ -101,29 +101,35 @@
         - Storage
         - Triggers
         - Data types
-    - Write your first NEO contact with C#
-        - Prepare the development environment of your smartcontract    
-        - NEO smart contract basics
+    - Write NEO contact with C#
+        - Prepare the development environment for C# smart contract    
+        - NEO smart contract API
         - Smart contract procedure
             - compile the contract 
             - Deploy the contractprocedure
             - Invoke the contract
-        - NEO smart contract by example
+        - Learn NEO smart contract by example
             - Hello world 
             - NEP5 token
+        - NEO smart contract demo
             - cGas
     - Write NEO smart contract with Python 
         - what is Neo-python
         - Prepare the Neo-python developmentprocedure environment 
         - NEO python basics
-        - python smart contract example
+        - Python smart contract example
             - Domain Name Service
+        - Dapp demo based on neo python
+            - lucky neo 
+    - Write NEO smart contract with JS
+        - Introduction of neo-one
+        - neo-one smart contract example
+            - ICO template
+            - Escrow
+        - Build a Dapp based on neo-one 
     - Write NEO smart contract with Go.
         - Introduction to neo-storm framework
         - Issue a NEP5 token on using Go.
-    - Write NEO smart contract with JS
-        - Installation of neon-js
-        - neon-js structure and API core
-
-
-
+    - Build game on blockchain
+        - The structure of blockchain game
+        - Build a game with NEO + Unity 
