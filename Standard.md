@@ -1,4 +1,4 @@
-# Standard for NEO tutorial
+# Standard for NEO Tutorial
 
 Due to the differenct part of NEO tutorial and favor of different contributors, there is no fixed format for the whole NEO tutorial. However, in order to assure the quality of the NEO tutorial and not mess up the whole tutorial, there are some standard for the tutorial which contributors should follow.
 
