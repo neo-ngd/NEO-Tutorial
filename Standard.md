@@ -62,6 +62,8 @@ The development environment set-up for demo should consider all the Linux, windo
 
 ## Assessment of tutorial
 After contributors commit some part of the tutorial, there will be assessment based on the draft before the neo tutorial released. Some assessment can be done by contributors themselves.
-1. Match the goal of this part. Before writing the tutorial, the contributor should list the goal of this part and put it at the begining of the doc (can be deleted later). After finish the draft, the contributor can compareThe the content and the goal and check if the content match the goal completely and precisely.
-2. The assessment from the student's perspective.   The aim of the tutorial is help student  understand the NEO and can use NEO to do blockchain development. Therefore, the best to assess the tutorial is let someone who did not deeply dive into the blockchain read the tutorial and provide the feedback. After geting these feedbacks, the tutorial can be improved according to the feedback.
-3. Assessed by the NGD. NGD will assess each tutorial and discuss with the whole communities if there are questions.
+
+1.  Match the goal of this part. Before writing the tutorial, the contributor should list the goal of this part and put it at the begining of the doc (can be deleted later). After finish the draft, the contributor can compareThe the content and the goal and check if the content match the goal completely and precisely.
+2.  The assessment from the student's perspective.   The aim of the tutorial is help student  understand the NEO and can use NEO to do blockchain development. Therefore, the best to assess the tutorial is let someone who did not deeply dive into the blockchain read the tutorial and provide the feedback. After geting these feedbacks, the tutorial can be improved according to the feedback.
+3.  Assessed by the NGD. NGD will assess each tutorial and discuss with the whole communities if there are questions.
+	
