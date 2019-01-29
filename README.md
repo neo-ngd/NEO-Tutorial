@@ -92,27 +92,33 @@
         - Block operations
     - Gas Consumption During Execution
 
- - Smart Contract
-    - Introduction to smart contract.
-        - Transactions
-        - Blocks
-        - Account
-        - I/O
-        - Storage
-        - Triggers
-        - Data types
-    - Write NEO contact with C#
-        - Prepare the development environment for C# smart contract    
-        - NEO smart contract API
-        - Smart contract procedure
-            - compile the contract 
-            - Deploy the contractprocedure
-            - Invoke the contract
-        - Learn NEO smart contract by example
-            - Hello world 
-            - NEP5 token
-        - NEO smart contract demo
-            - cGas
+- Smart Contract
+    - what is smart contract
+    - Write your first NEO contact with C#
+    	- Prepare the development environment of your smartcontract
+    	- Learn smart contract by demos
+    		- NEP5 token
+    			- Introduction to NEP-5 
+    			- smart contract structure 
+    			- compile, test and deploy your smart contract
+    			- peroperties, constuctor and methods
+    			- Data types
+    			- storage usage
+    			- Events 
+    			- Find your own tokens
+    		- ICO template
+    			- Transactions and blocks
+    			- Minting Tokens
+    			- Withdraw global asset
+    			- Timestamp in blockchain
+    		- CGAS
+    			- Gloal asset and NEP-5
+    			- UTXO model
+    			- Trigger
+    			- Signature and Verification
+    			- Transaction Invocation
+    			- Strorage map
+    			- NEP5 Asset <-> Global Asset
     - Write NEO smart contract with Python 
         - what is Neo-python
         - Prepare the Neo-python developmentprocedure environment 
@@ -132,4 +138,4 @@
         - Issue a NEP5 token on using Go.
     - Build game on blockchain
         - The structure of blockchain game
-        - Build a game with NEO + Unity 
+        - Build a game with NEO + Unity
