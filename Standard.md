@@ -8,7 +8,7 @@ The target of NEO tutorial are those beginner to blockchain and to NEO, even som
 
 ## The format of text
 
-The neo tutorial is put on the github and should written in markdown. The github markdown standard of markdown is specified in this [doc](https://github.github.com/gfm/). 
+The neo tutorial is put on the github and should written in markdown. The github markdown standard of markdown is specified in this [doc](https://github.github.com/gfm/).  For the image used in the documentation, please upload the original file and use the relative link from the repository.
 
 ## The language of the tutorial
 The first version of NEO tutorial is in English. Although some contributos' mother language is not English, the content of such a tutorial can be written in basic english without too much complicated sentences. Try to check the word spelling and grammer after finishing each part of tutorial. In the tutorial, all the technical key word should be same with the content of NEO [white paper](https://docs.neo.org/en-us/whitepaper.html) and [NEO official documentation](https://docs.neo.org/en-us/index.html)
@@ -18,8 +18,18 @@ The first version of NEO tutorial is in English. Although some contributos' moth
 
 As mentioned in the begining, the target of this tutorial is aming to let peopole understand NEO deeper and get their hands dirty, the content should as much detailed as possible. The tutorial consists of several large chapters and each chapter can be splitted into several sections. There is a [NEO-turoial-syllabus]() can be used as reference but not need to be same. Contributors can splite the contents by theri own considerations.
 
-
-
+For instance,  in terms of transaction in tutorial, it can  be a independant part of the whole tutorial, whose targe is to let people know what transaction is. Inside of it, it can be splited into small sections, e.g. one section can be 
+process of transactions, and inside of it it can consist of different content depend on different contributor's understand.
+``` 
+  -  .....
+  - The process of transcactions
+         - Create a transaction
+         - Signature
+         - Transaction validation
+         - Process of transaction
+   -  .....
+    
+```
 ## The code
 
 Coding example must includes the structure of the source directland y (project layer). There is an example below:
@@ -48,7 +58,7 @@ const testnetNeo = new Neo({ network: 'testnet' })
 
 
 ### The environment 
-The environment set-up for development should consoder all the Linux, windows and macos except the guide which use the docker to develope. When the requirement of some package or dependencies, please specify the exact version of it.
+The development environment set-up for demo should consider all the Linux, windows and macos users except the guide which use the docker to develope. When the requirement of some package or dependencies, please specify the exact version of it.
 
 ## Assessment of tutorial
 After contributors commit some part of the tutorial, there will be assessment based on the draft before the neo tutorial released. Some assessment can be done by contributors themselves.
