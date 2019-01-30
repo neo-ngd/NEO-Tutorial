@@ -52,8 +52,8 @@
             -  The calculaton of next consensus
         - The broadcast of blocks
         - Validation of blocks
-            - the legalness of block
-            - the witeness validation
+            - The legalness of block
+            - The witeness validation
         - proccess of blocks
             - UTXO trnsaction process
             - Contract invocation process
@@ -99,11 +99,11 @@
     	- Learn smart contract by demos
     		- NEP5 token
     			- Introduction to NEP-5 
-    			- smart contract structure 
+    			- Smart contract structure 
     			- compile, test and deploy your smart contract
     			- peroperties, constuctor and methods
     			- Data types
-    			- storage usage
+    			- Storage usage
     			- Events 
     			- Find your own tokens
     		- ICO template
@@ -126,7 +126,7 @@
         - Python smart contract example
             - Domain Name Service
         - Dapp demo based on neo python
-            - lucky neo 
+            - Lucky neo 
     - Write NEO smart contract with JS
         - Introduction of neo-one
         - neo-one smart contract example
