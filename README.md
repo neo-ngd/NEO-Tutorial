@@ -97,7 +97,7 @@
     - Write your first NEO contact with C#
     	- Prepare the development environment of your smartcontract
     	- Learn smart contract by demos
-    		- NEP5 token
+    		- ITO(Initial Token Offering)
     			- Introduction to NEP-5 
     			- Smart contract structure 
     			- compile, test and deploy your smart contract
@@ -106,7 +106,7 @@
     			- Storage usage
     			- Events 
     			- Find your own tokens
-    		- ICO template
+    		- NFT (Non-Fungible Tokens)
     			- Transactions and blocks
     			- Minting Tokens
     			- Withdraw global asset
