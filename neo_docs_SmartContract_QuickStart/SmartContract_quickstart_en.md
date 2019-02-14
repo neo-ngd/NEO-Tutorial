@@ -81,7 +81,7 @@ At least 4 nodes must reach consensus before NEO private chain is successfully d
 
 Install SimplePolicy plugin to activate consensus policy, a mechanism that nodes rely on to reach consensus.
 
-1. Download and unzip [SimplePolicy](https://github.com/neo-project/neo-plugins/releases/download/v2.9.0/SimplePolicy.zip) plugins.
+1. Download and unzip [SimplePolicy](https://github.com/neo-project/neo-plugins/releases) plugins.
 2. Make 4 copies of Plugins File Folder and place each in a separate node file.
 
 ### Place wallet files
