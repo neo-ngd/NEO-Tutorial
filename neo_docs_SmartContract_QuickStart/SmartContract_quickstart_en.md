@@ -2,24 +2,24 @@
 
 This tutorial acts as a beginer's guide for NEO C# develpers. Advanced learners may refer to [NEO Documentation](http://docs.neo.org/zh-cn/index.html) for more details.
 
-## What you will be taught
+## What you will learn
 
-This article provides a step-by-step guide on developmet environment set-up and configuration, smart contract compilation, smart contract deployment on private chain and smart contract invocation by demonstrating how to release NEO-5 assets on NEO blockchain.
+In the sections that follow, we will work you through an example of how to release an NEP-5 asset on NEO blockchain, which includes the tasks of development environment set-up and configuration, smart contract compilation, smart contract deployment, and smart contract invocation on private chain.
 
 - Set up a local network (URL)
 - Develop and deploy NEP-5 contracts (URL)
 
-## Preparation
+## Before you begin
 
 This tutorial is based on the usage of the two full-node NEO clients: NEO-GUI and NEO-CLI. NEO-CLI will be used to set up a private chain accessible by nodes and NEO-GUI will be used to release smart contracts. Detailed information about the clients can be found in [NEO Node Introduction](https://docs.neo.org/zh-cn/node/introduction.html).
 
-### System configuration
+### System environment
 
 NEO-GUI runs in the following environments:
 
 Windows 7 SP1 / Windows 8 / Windows 10
 
- [.NET Framework 4.7.1](https://www.microsoft.com/net/download/framework) must be installed for system versioned prior to Windows 10.
+ [.NET Framework 4.7.1](https://www.microsoft.com/net/download/framework) must be installed for system versions prior to Windows 10.
 
 NEO-CLI runs in the following environments: 
 
@@ -48,41 +48,41 @@ NEO-CLI runs in the following environments:
   $ git clone https://github.com/neo-project/neo-cli.git
   ```
 
-### Creat wallet files
+### Create wallet files
 
-Users need to create 4 wallet files reserved for private chain set-up, which will be elaborated later in this article. The wallets, which can either be created in NEO-GUI or NEO-CLI, are used to store both NEO account info and the asset info in the accounts. In this artcile, we will create 4 wallets in NEO-GUI for example and name them 1, 2, 3, 4.json respectively.
+Users need to create 4 wallet files reserved for private chain set-up, which will be elaborated later. The wallets, which can either be created in NEO-GUI or NEO-CLI, are used to store both NEO account info and the asset info in the accounts. In this section, we will create 4 wallets in NEO-GUI for example and name them 1, 2, 3, 4.json respectively.
 
 1. Open NEO-GUI and click `wallet` ->  `create a wallet database`, then follow the instructions shown on the screen.
-2. When the wallet is successfully created, right click the address in the standard account and select `view private key` to view the account info (address, public key, private key).
+2. When the wallet is successfully created, right click the address in the standard account and select `view private key` tod view the account info (address, public key, private key).
 3. Copy the public key of the address for later use.
 
 [![2_gui_4](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/2_gui_4.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/2_gui_4.png)
 
-After you have created 4 wallets and saved the public key, close NEO-GUI and proceed to the next step - development environment set-up.
+After you have created 4 wallets and saved the public key, close NEO-GUI and proceed to the next step - Setting up local network.
 
-# Set up local network
+# Setting up local network
 
 We will complete the following tasks in this section:
 
 - Set-up a private chain
 - Connect the nodes to the private network
 - Retrieve NEO and GAS from genesis block
-- Create wallet files
+- Create a wallet file
 
-## Set up a private chain
+## Setting up a private chain
 
-NEO Official provides a test net for development, debugging and testing purposes. Besides, users may also choose to set up their own private chain where they can operate more flexibly with plenty pf test tokens. This article only describes a quick method to set up private chain. Please refer to [Build a Private Chain](http://docs.neo.org/zh-cn/network/private-chain/private-chain.html) for standard method.
+NEO Official provides a test net for development, debugging and testing purposes. Besides, users may also choose to set up their own private chain where they can operate more flexibly with plenty of test tokens. This article only describes a quick method to set up private chain. For the standard method refer to [Build a Private Chain](http://docs.neo.org/zh-cn/network/private-chain/private-chain.html).
 
 ### Install nodes
 
-At least 4 nodes must reach consensus before NEO private chain is successfully deployed. As such, here we make 4 copies of the neo-cli file folder, which was installed in the early steps, and name them node1, node2, node3 and node4 respectively.
+At least 4 nodes must reach consensus before NEO private chain is successfully deployed. As such, here we make 4 copies of the neo-cli file folder, which was installed in the early steps, and name them node1, node2, node3, and node4 respectively.
 
 ### Install plugins
 
-Install SimplePolicy plugin to activate consensus policy, a mechanism that nodes rely on to reach consensus.
+Install the SimplePolicy plugin to activate consensus policy, a mechanism that nodes rely on to reach consensus.
 
-1. Download and unzip [SimplePolicy](https://github.com/neo-project/neo-plugins/releases/download/v2.9.0/SimplePolicy.zip) plugins.
-2. Make 4 copies of Plugins File Folder and place each in a separate node file.
+1. Download and unzip [SimplePolicy](https://github.com/neo-project/neo-plugins/releases).
+2. Make 4 copies of Plugins File Folder and place each in each of the 4 node files.
 
 ### Place wallet files
 
@@ -218,7 +218,7 @@ The following configurations may serve as references:
 Redefine the following parameters of the protocal.json file of each node and keep the consistency of each node settings. 
 
 - Magic: The private chain ID can be defined as any integar ranging from 0 to 4294967295.
-- StandbyValidators: Type in the public keys of the 4 wallets in the "standby consensus node public key".
+- StandbyValidators: The public key of the alternate consensus node. Enter the public keys of four wallets.
 - SeedList: Define the IP address of the seed node as localhost and the port as the 4 P2P Port configured in config.json. 
 
 Below is a recommended configuration for your reference:
@@ -253,11 +253,11 @@ Below is a recommended configuration for your reference:
 
 > [!Note]
 >
-> Provide the public keys of the wallets just created or paste the standby public keys you saved when you created the wallet right after "StandbyValidators".
+> The public keys filled in the "StandbyValidators" section must be replaced with your own public keys of the wallets created before.
 
-### Create QuickStart
+### Create a shortcut
 
-To enable a quickstart path of the private chain, you may create a .txt file, input  `dotnet neo-cli.dll /rpc` , rename it to 1Run.cmd and copy it to the directory of the 4 nodes.
+To start the private chain quickly, here we create a .txt file and input  `dotnet neo-cli.dll /rpc`. Then rename it to 1Run.cmd and copy it to the directory of the 4 nodes.
 
 Thus far, we have successfully built a private chain. The amended file structure is presented below.
 
@@ -289,15 +289,15 @@ Thus far, we have successfully built a private chain. The amended file structure
 
 ### Start private chain
 
-Enter the directory of each node and double click `1Run.cmd`, as shown in the screenshot below:：
+Enter the directory of each node and double click `1Run.cmd`, as shown in the screenshot below:
 
 [![2_privatechain_demo](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/2_privatechain_demo.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/2_privatechain_demo.png)
 
 Right click the `command prompt` and click `close all windows` to disable the private chain.
 
-## Connect to private chain
+## Connecting to private chain
 
-After the private chain is successfully built, you may proceed to connect NEO nodes to the private chain.
+After the private chain is successfully built, do the following to connect your nodes to the private chain:
 
 1. Copy the protocal.json file from the directory of whichever node you choose from node1 ~ node4 to overwrite the protocal.json file in NEO-GUI directory. 
 
@@ -307,7 +307,7 @@ After the private chain is successfully built, you may proceed to connect NEO no
 
    Otherwise, NEO-GUI and NEO-CLI won't be able to run at the same time.
 
-Run neo-gui.exe and open 1.json wallet file. You will see that the connection counts shown on the left corner of the interface is more than 0 and the three values start to increase, which represents wallet height/block height.block head height each. 
+Run neo-gui.exe and open the 1.json wallet file. You will see that the connection counts shown on the left corner of the interface is more than 0 and the three values start to increase, which represents wallet height/block height.block head height each. 
 
 [![2_wallet_height](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/2_wallet_height.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/2_wallet_height.png)
 
@@ -317,7 +317,7 @@ As of now, we have successfully built a private chain and connected the nodes to
 >
 > If the connection counts of NEO-GUI is 0, you may delete the "Chain_xx" and "Index_xx" files in the root directory and reconnect.
 
-## Retrieve NEO and GAS
+## Retrieving NEO and GAS
 
 100mn NEO are stored in NEO genesis block and Gas is generated with every new block generated after the private chain is set up. Our next step is to retrieve these NEO and GAS from multi-signature smart contract for test use. 
 
@@ -335,7 +335,7 @@ Open the four wallets in sequence in NEO-GUI and follow the instructions below:
 
 > [!Note]
 >
-> Users are required to add multi-signature addresses to all four wallets, otherwise the signature may be deemed invalid.
+> You must add multi-signature addresses to all four wallets, otherwise the signature may be deemed invalid.
 
 100mn NEO will show up in the contract address as indicated in the screenshot below.
 
@@ -367,7 +367,7 @@ Take the following steps to transfer NEO from a contract address to a standard a
 
 ### Transfer GAS to standard address
 
-Open the recipient wallet and click `advance` -> `retrieve NeoGas` -> `retrieve all`.
+Open the recipient wallet and click `advance` -> `Claim NeoGas` -> `Claim all`.
 
 [![2_privatechain_21](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/2_privatechain_21.jpg)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/2_privatechain_21.jpg)
 
@@ -375,19 +375,19 @@ The following operation is quite similar to NEO transfer operation. Copy the cod
 
 [![2_privatechain_26](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/2_privatechain_26.jpg)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/2_privatechain_26.jpg)
 
-## Prepare node wallet file
+## Preparing a wallet file
 
 Now we will create a new wallet file named 0.json and place it in the root directory of the nodes for smart contract release.
 
 1. Create a new wallet file named 0.json and copy the default address in case of later use.
 2. Open the recipient wallets of NEO and GAS, transfer all the wallet assets to 0.json and wait for the transaction to be confirmed.
-3. Open 0.json and assets will be displayed in the account.
+3. Open 0.json and assets is displayed in the account.
 
 > [!Note]
 >
 > Smart contract deployment and invocation cost GAS. Since GAS is generated with every new block generated, causing limited GAS generated on freshly-built private chains, therefore users are advised not to shut down private chains now in order to generate enough GAS in case of later use.
 
-# Develop and deploy NEP-5 contract
+# Developing and deploying NEP-5 contract
 
 So far, we have learned how to build a private chain and connect nodes to the chain. The following part will proceed to environment configuration, NEO smart contract coding and compilation and NEO smart contract deployment and invocation on private chain using C# and Windows 10.
 
@@ -400,17 +400,17 @@ We will complete the following tasks in this section:
 - Invoke a contract
 - View contract assets
 
-## Install development environment
+## Installing development environment
 
 ### Install Visual Studio 2017
 
-Download [Visual Studio 2017](https://www.visualstudio.com/products/visual-studio-community-vs)  and get it installed. Select `.NET Core cross-platform development` option during installation.
+Download and install [Visual Studio 2017](https://www.visualstudio.com/products/visual-studio-community-vs) . Select `.NET Core cross-platform development` option during installation.
 
 [![3_install_core_cross_platform_development_toolset](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_install_core_cross_platform_development_toolset.jpg)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_install_core_cross_platform_development_toolset.jpg)
 
 ### Install NeoContractPlugin
 
-Open Visual Studio 2017 and click `tool` -> `extensions and update`，click `online`on the left column, search NEO and install NeoContractPlugin (the process must be completed online).
+Open Visual Studio 2017 and click `tool` -> `extensions and Updates`，click `online`on the left column, search NEO and install NeoContractPlugin (the process must be completed online).
 
 [![3_download_and_install_smart_contract_plugin](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_download_and_install_smart_contract_plugin.jpg)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_download_and_install_smart_contract_plugin.jpg)
 
@@ -426,7 +426,7 @@ Open Visual Studio 2017 and click `tool` -> `extensions and update`，click `onl
 
 4. After the release path is configured, click `release`.
 
-   Upon successful release, a neon.exe file will be generated in bin\Release\PublishOutput.
+   Upon successful release, a neon.exe file is generated in bin\Release\PublishOutput.
 
    [![3_publish_and_profile_settings](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_publish_and_profile_settings.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_publish_and_profile_settings.png)
 
@@ -458,30 +458,30 @@ After the path is added, run CMD or PowerShell for testing purpose (if CMD start
 
 [![3_1545037391347](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_1545037391347.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_1545037391347.png)
 
-## Create a NEO contract project
+## Creating a NEO contract project
 
-Upon completition of the previous steps, you may start to create NEO smart contract project in Visual Studio 2017 (no specific requirement for .NET Framework version): 
+Upon completion of the previous steps, you may start to create NEO smart contract project in Visual Studio 2017 (no specific requirement for .NET Framework version): 
 
 1. Click `file` -> `create` -> `project`.
 2. Select `NeoContract` in the list and change settings where necessary, then click `confirm`.
 
 [![3_new_smart_contract_project](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_new_smart_contract_project.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_new_smart_contract_project.png)
 
-A C# file will be auto-generated after the project is created with a default class inherited from the SmartContract. As indicated in the screenshot below, now you have a Hello World stored in the contract.
+A C# file will be auto-generated after the project is created with a default class inherited from the SmartContract. As indicated in the screenshot below, now you have a Hello World contract.
 
 [![3_smart_contract_function_code](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_smart_contract_function_code.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_smart_contract_function_code.png)
 
 Nevertheless, the above only demonstrates a simple data storage method - to store data in private storage area using key-value method.
 
-## Edit NEP-5 code
+## Editing NEP-5 code
 
 Many developers are curious about how to release their own contract assets on NEO public chain. Now let's walk through the process on private chain. 
 
-1. Download NEP-5 examples from [Github](https://github.com/neo-project/examples).
+1. Download the NEP-5 template from [Github](https://github.com/neo-project/examples).
 
 2. Create a NEO smart contract project in Visual Studio 2017 and name it NEP5.
 
-3. Open NEP5.cs example
+3. Open NEP5.cs
 
    The code contains basic information of the assets and the methods available to be invoked. You can make changes when needed.
 
@@ -635,13 +635,13 @@ namespace NEP5
 
 When the editing is done, the coding part of the smart contract is done.
 
-## Compile contract file
+## Compiling contract file
 
 Click `generate`->`generate solutions` (hotkeys: Ctrl + Shift + B) in the menu to start compilation.
 
 [![img](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/compile.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/compile.png)
 
-When the compilation is done, NEO smart contract file named`NEP5.avm`  will be generated in the `bin/Debug` directory of the project.
+When the compilation is done, NEO smart contract file named`NEP5.avm` is generated in the `bin/Debug` directory of the project.
 
 [![img](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/contractfile.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/contractfile.png)
 
@@ -649,7 +649,7 @@ When the compilation is done, NEO smart contract file named`NEP5.avm`  will be g
 
 > [!Note]
 >
-> Given that neon compiles .dll with nep-8 support by default, which conflicts with nep-5, thus we need to execute .avm using nep-5 compatible method. 
+> Given that neon compiles .dll with nep-8 by default, which conflicts with nep-5, thus we need to execute .avm using nep-5 compatible method. 
 >
 > Open Power Shell or command prompt (CMD), enter bin/Debug directory and input the following command (replace nep5.dll with your own project file):
 >
@@ -659,7 +659,7 @@ When the compilation is done, NEO smart contract file named`NEP5.avm`  will be g
 >
 > The new `nep5.avm`  file and `nep5.abi.json`  file will overwrite the old files.
 
-## Deploy contract
+## Deploying contract
 
 We may use NEO-GUI to deploy the newly generated contract file.
 
@@ -667,7 +667,7 @@ We may use NEO-GUI to deploy the newly generated contract file.
 
 2. Click `load` to select the compiled contract file in the contract deployment dialog.
 
-   Copy the contract scripthash displayed under the code box for late use in contract invocation.
+   Copy the contract script hash displayed under the code box for late use in contract invocation.
 
 3. Fill in the params in the information and meta data fields. Do not leave any parameter undefined, otherwise the `deploy` button won't function properly.
 
@@ -687,7 +687,7 @@ We may use NEO-GUI to deploy the newly generated contract file.
 
 Upon successful deployment, your smart contract is now released to the blockchain.
 
-## Invoke contract
+## Invoking contract
 
 Now you may invoke the smart contract released just recently.
 
@@ -699,13 +699,13 @@ Now you may invoke the smart contract released just recently.
 
    [![3_1546846629992](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_1546846629992.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_1546846629992.png)
 
-4. Concerning the smart contract you wrote, [0] represents the function name while [1] the input param of the function (ignore if not exist). If you need to invoke deploy function and release the assets onto the chain, please take the following steps: click [0], fill in "deploy" (all in lowercase letters) in the new value, click`update `and close the window.
+4. Concerning the smart contract you wrote, [0] represents the function name while [1] the input param of the function (ignore if not exist). If you need to invoke deploy function and release the assets onto the chain, take the following steps: click [0], fill in "deploy" (all in lowercase letters) in the new value, click `update `and close the window.
 
    [![3_1545633970239](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/3_1545633970239.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/3_1545633970239.png)
 
 5. Click `trial run` to test the contract. If no error is spotted, click `invoke`, which may cost several GAS.
 
-## View contract assets
+## Viewing contract assets
 
 Click `advance`-> `options` in NEO-GUI and fill in the scripthash of the recently deployed assets. The NEP-5 assets will show up in your asset page.
 
