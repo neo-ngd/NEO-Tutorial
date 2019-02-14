@@ -6,8 +6,8 @@ This tutorial acts as a beginer's guide for NEO C# develpers. Advanced learners 
 
 This article provides a step-by-step guide on developmet environment set-up and configuration, smart contract compilation, smart contract deployment on private chain and smart contract invocation by demonstrating how to release NEO-5 assets on NEO blockchain.
 
-- Set up a local network (URL)
-- Develop and deploy NEP-5 contracts (URL)
+- Set up a local network
+- Develop and deploy NEP-5 contracts
 
 ## Preparation
 
@@ -58,7 +58,7 @@ Users need to create 4 wallet files reserved for private chain set-up, which wil
 
 [![2_gui_4](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/raw/master/2_gui_4.png)](https://github.com/nicolegys/neo_docs_SmartContract_QuickStart/blob/master/2_gui_4.png)
 
-After you have created 4 wallets and saved the public key, close NEO-GUI and proceed to the next step - development environment set-up.
+After you have created 4 wallets and saved the public key, close NEO-GUI and proceed to the next step - local network set-up.
 
 # Set up local network
 
