@@ -1,5 +1,10 @@
-# NEO-Tutorial
+<div align="center">  
+<h1>NEO-Tutorial</h1>
+<img src="neo-rebranding.png" alt="NEO-Tutorial" height="150">
+<p>An complete learning tutorial for NEO developers and learners</p>
+</div>
 
+##Table of Tutorials
  - Introduction to NEO
     - The introduction of Cryptography and CryptoCurrency 
     - NEO
@@ -139,3 +144,6 @@
     - Build game on blockchain
         - The structure of blockchain game
         - Build a game with NEO + Unity
+## Smart contract development Learning Resources
+- [Neo-python tutorial]()
+- [Neo Smart contract quick start]()
