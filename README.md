@@ -1,7 +1,7 @@
 <div align="center">  
 <h1>NEO-Tutorial</h1>
 <img src="neo-rebranding.png" alt="NEO-Tutorial" height="150">
-<p>An complete learning tutorial for NEO developers and learners</p>
+<p>A complete learning tutorial for NEO developers and learners</p>
 </div>
 
 ## Table of Tutorials
