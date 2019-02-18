@@ -12,7 +12,7 @@ From the blockchain's Perspective, a smart contract is a set of commitments that
 
 Let's comparet the smart contract with vending machines. In the real world, after inserting 10 dollars and press button, you will get the thing like potato chips which you expected. In the smart contract, you drop some digital coin and data, you will get the expected outcome, e.g. driver licence, into your own account. Smart contract is self-executing and is moitord by thounds of people, which makes it immutable and independent from centralization.
 
-![](/home/steven/Desktop/smart-contracts.png) 
+![](./images/smart-contracts.png) 
 
 ## The merit of smart contract
 
