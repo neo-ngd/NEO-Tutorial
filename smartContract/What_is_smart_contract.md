@@ -74,4 +74,7 @@ def Main():
     print("Hello World")
 ```
 
-After compiled and tested by using the tools NEO provided, the smart contract can be invoked on the main-net, test-net, or the private-net by yourselft.
+After compiled and tested by using the tools NEO provided, the smart contract can be invoked on the main-net, test-net, or the private-net by yourself.
+
+In this smart contrat tutorial, developers can understand the theory behind the smart contract itself with the technical detail of NEO blockchain, and learn how to develope a smart contract based on different programming languages and using different tools.
+
