@@ -31,9 +31,12 @@ All the transaction and blocks can be viewed on the [NEO scan](https://neoscan-t
 
 In addition, building a private chain using four nodes and withdraw NEO and GAS from the private chain is a more convinient and fast way of developers like us who want to begin to learn how to develop the smart contract by step to step. By using such a private chain, developers do not have to worry about the GAS and also deploy and test on such a local network is much faster.
 
+
+#### set up your  private chain
 In this tutorial, our development is based on a simplified private Chain which can be downloaded in this [Github Repository](https://github.com/steven1227/NEO-Private-Net).
 
 This repository contains a configured private-chain and you can run it after downloads. The neo-cli in it version is 2.8.0. The gui version is 2.7.6
+
 After clonning or download the repository, you cat start the private-net by run four cmd scripts.
 
 ```
@@ -47,7 +50,9 @@ enter node4 folder，double click 1Run.cmd
 
 ```
 
- Now you see the privatge chain is running and all of the genesis NEO and GAS are taken into the wallet 1.json, the password is **11111111**. The blockchain height is approximately 30. Please open the Neo-GUI and view the account balance.
+ Now you see the privatge chain is running. All of the genesis NEO and GAS are taken into the wallet 1.json. Open it and type the password is **11111111**.  
+ 
+ The blockchain height is approximately 30. Please open the Neo-GUI and view the account balance.
  
 > [!Note]
 > Smart contract deployment and invocation cost GAS. Since GAS is generated with every new block generated, causing limited GAS generated on freshly-built private chains, therefore users are advised not to shut down private chains now in order to generate enough GAS in case of later use.
