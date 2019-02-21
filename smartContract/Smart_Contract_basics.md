@@ -1,5 +1,7 @@
 # NEO Smart contract 101
 
+In this tutorial, you will learn the basics of developing a smart contract
+
 ## 1. Contract structure
 Let's have a look at our basic hello world contract
 ```C#
@@ -163,6 +165,7 @@ public static bool FunctionA(params object[] args)
 #### 5. CheckWitness 
 In many, if not all cases, you will probably be wanting to validate whether the address invoking your contract code is really who they say they are.
 
+![](./imgs/check.jpg)
 
 #### 6. Events
 Well, in Smart contract, events are a way  to communicate that something happened on the blockchain to your app front-end (or back-end), which can be 'listening' for certain events and take action when they happen. You might use this to update an external database, do analytics, or update a UI. In some specified contract standard,  it defined some events should be posted. For instance, in the NEP-5 Token, the events `transfer` should be fired when user invoke the transfer function.
