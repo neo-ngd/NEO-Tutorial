@@ -94,6 +94,6 @@ A token contract which creates new tokens MUST trigger a <code>transfer</code> e
 
 A token contract which burns tokens MUST trigger a <code>transfer</code> event with the <code>to</code> address set to <code>null</code> when tokens are burned.
 
-Now let us implement a NEP5-Token
+Now let us implement a NEP5-Token!
 
 ## Implementation of NEP-5
