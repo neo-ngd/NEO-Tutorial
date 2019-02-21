@@ -1,5 +1,8 @@
 # NEO Smart contract 101
 
+<p align="center">
+  <img width="60%" src="./imgs/newbie.jpg">
+</p>
 In this tutorial, you will learn the basics of developing a smart contract
 
 ## 1. Contract structure
