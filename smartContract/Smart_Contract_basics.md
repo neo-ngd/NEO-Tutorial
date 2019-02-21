@@ -1,4 +1,4 @@
-# Your first Smart Contract - Initial Token Offering
+# NEO Smart contract 101
 
 ## 1. Contract structure
 Let's have a look at our basic hello world contract
