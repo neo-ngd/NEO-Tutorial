@@ -165,11 +165,33 @@ public static bool FunctionA(params object[] args)
 #### 5. CheckWitness 
 In many, if not all cases, you will probably be wanting to validate whether the address invoking your contract code is really who they say they are.
 
-![](./imgs/check.jpg)
+<p align="center">
+  <img width="80%"  src="./imgs/check.jpg" />
+ </p>
+ 
+The `Runtime.CheckWitness` method accepts a single parameter which represents the address that you would like to validate against the address used to invoke the contract code. In more deeper detail, it verifies that the transactions / block of the calling contract has validated the required script hashes.
+
+Usually this method is used to check whether an specified address is the the contract caller,  and then the address can be used to do storage change or something else.
+
+For example, when you  want to delete some of your data in the storage, you must be the owner of that data, which means you are caling the smart contract with a address that match the specified address.
+
+```csharp
+        private static bool Delete(string domain)
+        {
+	        // The owner is the owner which is store before
+            byte[] owner = Storage.Get(Storage.CurrentContext, domain);
+            if (owner == null) return false;
+            //Check if the contract invoker is the data owner 
+            if (!Runtime.CheckWitness(owner)) return false;
+            Storage.Delete(Storage.CurrentContext, domain);
+            return true;
+        }
+```
 
 #### 6. Events
-Well, in Smart contract, events are a way  to communicate that something happened on the blockchain to your app front-end (or back-end), which can be 'listening' for certain events and take action when they happen. You might use this to update an external database, do analytics, or update a UI. In some specified contract standard,  it defined some events should be posted. For instance, in the NEP-5 Token, the events `transfer` should be fired when user invoke the transfer function.
+In  Smart contract, events are a way  to communicate that something happened on the blockchain to your app front-end (or back-end), which can be 'listening' for certain events and take action when they happen. You might use this to update an external database, do analytics, or update a UI. In some specified contract standard,  it defined some events should be posted. For instance, in the NEP-5 Token, the events `transfer` should be fired when user invoke the transfer function.
 ```csharp
+//Should be called when caller transfer nep-5 asset.
 public static event transfer(byte[] from, byte[] to, BigInteger amount)
 ```
 
@@ -222,7 +244,14 @@ namespace Neo.SmartContract
             return true;
         }
 
-		// Delete the domain owner using storage
+		// Delete the domain owner using storage        private static bool Delete(string domain)
+        {
+            byte[] owner = Storage.Get(Storage.CurrentContext, domain);
+            if (owner == null) return false;
+            if (!Runtime.CheckWitness(owner)) return false;
+            Storage.Delete(Storage.CurrentContext, domain);
+            return true;
+        }
         private static bool Delete(string domain)
         {
             byte[] owner = Storage.Get(Storage.CurrentContext, domain);
