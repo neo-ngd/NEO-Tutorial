@@ -86,13 +86,13 @@ The *asset* type is `NEO`, the amount is your prefred amount to transfer, and th
 Select  `.NET Core cross-platform` development option during installation
  
  <p align="center">
-  <img width="60%"  src="./imgs/vs.jpg" />
+  <img width="80%"  src="./imgs/vs.jpg" />
  </p>
  
 #### Install NeoContractPlugin
 Open Visual Studio 2017 and click `tool` -> `extensions and Updates`，click `online`on the left column, search NEO and install NeoContractPlugin (the process must be completed online).
  <p align="center">
-  <img width="60%" src="./imgs/plugin.jpg" />
+  <img width="80%" src="./imgs/plugin.jpg" />
  </p>
 #### Configure neo-compiler
 
