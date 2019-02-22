@@ -1,5 +1,5 @@
 
-# Implement an NEP-5 contract
+#  NEP-5 contract
 
 ## Introduction to NEP-5
 
@@ -96,4 +96,92 @@ A token contract which burns tokens MUST trigger a <code>transfer</code> event w
 
 Now let us implement a NEP5-Token!
 
+
+
 ## Implementation of NEP-5
+
+First of all, we define a readonly property owner to prepresent the owner of the contract. The is the `Owner` and it is a `20` length byte array.
+```csharp
+// Here string "xxx" stands for the address you assigned as the onwer of address.
+private static readonly byte[] Owner = "xxxxxxxxxxxxxxxxxxxxx".ToScriptHash(); //Owner Address
+```
+
+Now we begin with the main method and the  trigger:
+
+```csharp
+    public static object Main(string method, object[] args)
+        {
+            if (Runtime.Trigger == TriggerType.Verification)
+            {
+                return Runtime.CheckWitness(Owner);
+            }
+            else if (Runtime.Trigger == TriggerType.Application)
+            {
+	            return true;
+            }
+        }
+}
+```
+Here the main method accept two arguments. The first one is string `method`,  which is a nep-5 method the user will call to this smart contract. The second one is an array `args`, which represents a list of arguments used in the nep-5 method.
+
+Here we also judge the trigger here. When the triggerType is `Verification`, it means the end user invoke the transaction with the asset transaction. In other words, end user may want to send global asset such as NEO or GAS to or from this contract. In this condition, we should judge if the invoker ( or the Address that signed the contract ) is  owner.
+
+When the triggerType is Application, that means the smart contract is being called by the application (Web/App) with  an InvocationTransaction. In this case, we should call other functions according to the method value. We will fill this part later.
+
+Then we define the functions for name, symbol, decimals, which are fixed value for this contract.
+
+```csharp
+[DisplayName("name")]
+public static string Name() => "MyToken"; //name of the token
+```
+
+```csharp
+[DisplayName("decimals")]
+public static byte Decimals() => 8;
+```
+
+```csharp
+[DisplayName("symbol")]
+public static string Symbol() => "MYT"; //symbol of the token
+```      
+
+
+Now. Let's define the totalSupply method of the contract. Before that, we should first define a `deploy` method. The deploy method is not specified in the `NEP-5` standard, but should be the first function that called by smart contract owner and called only once. The purpose of deploy function is to set the `totalSupply` value of your `NEP-5` token, and move all the token into the Owner's account balance.   
+
+It is worth noticing that, in tokenized smart contract, the asset is stored in the storage as the key is the address and the value is the balance. Here is tha table which may declare it.
+
+<center>
+
+| Address |   value |
+|--|--|
+| address1 | 1000 |
+| address2 | 200 |
+| address3 | 700 |
+
+</center>
+
+```csharp
+[DisplayName("deploy")]
+public static bool Deploy()
+{
+      if (TotalSupply() != 0) return false;
+      StorageMap contract = Storage.CurrentContext.CreateMap(nameof(contract));
+      contract.Put("totalSupply", TotalSupplyValue);
+      StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
+      asset.Put(Owner, TotalSupplyValue);
+      Transferred(null, Owner, TotalSupplyValue);
+      return true;
+}
+```
+
+Now , we have the totalSupply defined in the deployment stage, we can fill our totalSupply method, which get the totalSupply value from the storage.
+
+```csharp
+[DisplayName("totalSupply")]
+public static BigInteger TotalSupply()
+{
+    StorageMap contract = Storage.CurrentContext.CreateMap(nameof(contract));
+    return contract.Get("totalSupply").AsBigInteger();
+}
+```
+
