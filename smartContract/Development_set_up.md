@@ -147,10 +147,10 @@ When the compilation is done, NEO smart contract file named`NEP5.avm` is generat
 > Open Power Shell or command prompt (CMD), enter bin/Debug directory and input the following command (replace nep5.dll with your own project file):
 >
 > ```
-> neon nep5.dll --compatible
+> neon SmartContractDemo.dll --compatible
 > ```
 
-> The new `nep5.avm`  file and `nep5.abi.json`  file will overwrite the old files.
+> The new `SmartContractDemo.avm`  file and `SmartContractDemo.abi.json`  file will overwrite the old files.
 
 
 #### Deploy the contract
