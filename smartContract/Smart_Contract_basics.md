@@ -20,7 +20,7 @@ namespace SmartContractDemo
     
             return true;
         }
-    }##### Verification
+    }
 }
 ```
 Every Smart Contract inherits the `SmartContract` base class which is in the NEO framework and provides some basic methods.
