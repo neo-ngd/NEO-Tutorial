@@ -215,33 +215,33 @@ public static BigInteger BalanceOf(byte[] account)
 
 Now, we have defiend almost all the method required in the `NEP-5` standard except the transfer method, let us fill the main method first.
 ```csharp
-        public static object Main(string method, object[] args)
-        {
-            if (Runtime.Trigger == TriggerType.Verification)
-            {
-                return Runtime.CheckWitness(Owner);
-            }
-            else if (Runtime.Trigger == TriggerType.Application)
-            {
-                if (method == "balanceOf") return BalanceOf((byte[])args[0]);
+public static object Main(string method, object[] args)
+{
+     if (Runtime.Trigger == TriggerType.Verification)
+     {
+         return Runtime.CheckWitness(Owner);
+     }
+     else if (Runtime.Trigger == TriggerType.Application)
+     {
+	     if (method == "balanceOf") return BalanceOf((byte[])args[0]);
 
-                if (method == "decimals") return Decimals();
+	     if (method == "decimals") return Decimals();
 
-                if (method == "name") return Name();
+	     if (method == "name") return Name();
 
-                if (method == "symbol") return Symbol();
+	     if (method == "symbol") return Symbol();
 
-                if (method == "supportedStandards") return SupportedStandards();
+	     if (method == "supportedStandards") return SupportedStandards();
 
-                if (method == "totalSupply") return TotalSupply();
+	     if (method == "totalSupply") return TotalSupply();
 
-                if (method == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
-            }
-            return false;
-        }
+	     if (method == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
+	  }
+	 return false;
+}
 ``` 
 
-Now, the only method left is  the transfer method.
+Now, the only method left is  the transfer method. What the transfer function has to do is first checking the arguments and check if the contract invoker is the owner. If it meets all requirements, get the `from` address's balance from the storage, and check if it has enough asset to deal with the transfer. If it has enough amount `NEP-5` token,  do the calculation and update the new account balance for the `from` account and `to` account.
 
 ```csharp
 private static bool Transfer(byte[] from, byte[] to, BigInteger amount, byte[] callscript)
@@ -274,4 +274,8 @@ private static bool Transfer(byte[] from, byte[] to, BigInteger amount, byte[] c
       return true;
   }
 ```
+
+Now the NEP-5 Token has been finished and it can be tested on our [privateNet]().
+
+After compile the NEP5.cs and get the avm file, deploy it.
 
