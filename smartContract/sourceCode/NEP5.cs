@@ -34,7 +34,6 @@ namespace NEP5
 
                 if (method == "symbol") return Symbol();
 
-
                 if (method == "totalSupply") return TotalSupply();
 
                 if (method == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
