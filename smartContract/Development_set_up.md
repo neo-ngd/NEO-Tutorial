@@ -134,7 +134,7 @@ Click `generate`->`generate solutions` (hotkeys: Ctrl + Shift + B) in the menu t
 When the compilation is done, NEO smart contract file named`NEP5.avm` is generated in the `bin/Debug` directory of the project.
 
 
-`NEP5.abi.json` is a descriptive file of the smart contract, which contains desciptions of the ScriptHash, entry, parameters and return values of the contract. More information about the smart contract ABI can be found in [NeoContract ABI](https://github.com/neo-project/proposals/blob/master/nep-3.mediawiki).
+`SmartContractDemo.abi.json` is a descriptive file of the smart contract, which contains desciptions of the ScriptHash, entry, parameters and return values of the contract. More information about the smart contract ABI can be found in [NeoContract ABI](https://github.com/neo-project/proposals/blob/master/nep-3.mediawiki).
 
  <p align="center">
   <img src="imgs/20190219-140640.png" />
@@ -147,10 +147,10 @@ When the compilation is done, NEO smart contract file named`NEP5.avm` is generat
 > Open Power Shell or command prompt (CMD), enter bin/Debug directory and input the following command (replace nep5.dll with your own project file):
 >
 > ```
-> neon nep5.dll --compatible
+> neon SmartContractDemo.dll --compatible
 > ```
 
-> The new `nep5.avm`  file and `nep5.abi.json`  file will overwrite the old files.
+> The new `SmartContractDemo.avm`  file and `SmartContractDemo.abi.json`  file will overwrite the old files.
 
 
 #### Deploy the contract
