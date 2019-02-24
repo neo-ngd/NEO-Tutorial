@@ -300,5 +300,7 @@ After the transaction to be recorded and confirmed, you can open the wallet of t
 	<img src="imgs/20190222-155608.png">
 </p>
 
+## Conclusion
 
+In this tutorial, you have learned the standard of NEP-5 and how to implement the NEP-5 standard by define your own token
 
