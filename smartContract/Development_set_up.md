@@ -5,7 +5,7 @@ For NEO C# develpers, it is very fortune for them  because  NEO blockchain is bu
 ## Environment
 For smart contract using C#, the best way is to develop with a local development environment with a IDE which supporte the NEO smart contract. Luckily, NEO is prepareing a number of tools that achieve this. The only requirement for that is the operating system of your computer is Windows, prefered Windows 10 64 bit.
 
-For non-windows users, such as MAC and Linux users, the best choicee is to use the online editor and compiler which is more convenient for smart contract developing and deopyinng. This will be detailed in this [document]().
+For non-windows users, such as MAC and Linux users, the best choice is to use the online editor and compiler which is more convenient for smart contract developing and deopyinng. This will be detailed in this [document](https://medium.com/neweconolab/with-neoray-neo-smart-contract-development-has-never-been-easier-edad41cc3ae6).
 
 
 
