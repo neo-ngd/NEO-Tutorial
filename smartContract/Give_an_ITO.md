@@ -42,7 +42,48 @@ private static ulong CurrentSwapRate()
 
 ## MintToken
 
-The `MintToken` method is the most important method in the ITO contract (which also has more things to learn).  In the `MintToken` method
+The `MintToken` method is the most important method in the ITO contract (which also has more things to learn).  Firstly, in the `MintToken` method, we have to fetch the `Transaction` object first, which is the script container for this smart contract. 
 ```csharp
-  Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
+Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
+```
+
+Next, we have to get the `references` of this transaction. After get the references
+Here we can find  more knowledge of References, Inputs and Outputs in the [UTXO]()
+```csharp
+TransactionOutput reference = tx.GetReferences()[0];
+```
+
+```csharp
+// check whether asset is neo
+if (reference.AssetId != neo_asset_id) return false;
+byte[] sender = reference.ScriptHash;
+TransactionOutput[] outputs = tx.GetOutputs();
+byte[] receiver = ExecutionEngine.ExecutingScriptHash;
+ulong value = 0;
+// get the total amount of Neo
+// 获取转入智能合约地址的Neo总量
+foreach (TransactionOutput output in outputs){
+    if (output.ScriptHash == receiver){
+        value += (ulong)output.Value;```csharp
+    }
+}
+```
+if the swap_rate is equal to 0, it means the ITO has been finished or the ITO amount has exceed the total supply of token. That will lead to the failure of the crowdfunding and trigger the `Refund` event.
+```csharp
+// crowdfunding failure
+if (swap_rate == 0){
+    Refund(sender, value);
+    return false;
+}
+```
+
+```csharp           
+// crowdfunding success
+ulong token = value * swap_rate / 100000000;
+BigInteger balance = Storage.Get(Storage.CurrentContext, sender).AsBigInteger();
+Storage.Put(Storage.CurrentContext, sender, token + balance);
+BigInteger totalSupply = Storage.Get(Storage.CurrentContext, "totalSupply").AsBigInteger();
+Storage.Put(Storage.CurrentContext, "totalSupply", token + totalSupply);
+Transferred(null, sender, token);
+return true;
 ```
