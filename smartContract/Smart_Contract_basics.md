@@ -201,7 +201,8 @@ public static event transfer(byte[] from, byte[] to, BigInteger amount)
 
 ## Learn by demo
 
-Here we provide a very simple DNS system which was written in C#. The main function of the DNS is store the domain for users. It contains all the points above except the events. Developers can refere this to learn how to make a basic smart contract.
+Here we provide a very simple DNS system which was written in C#. The main function of the DNS is store the domain for users. It contains all the points above except the events. We can investigate this smart contract to learn how to make a basic smart contract. The source code is here:
+
 ```csharp
 using Neo.SmartContract.Framework; 
 using Neo.SmartContract.Framework.Services.Neo;
@@ -209,19 +210,14 @@ namespace Neo.SmartContract
 {
     public class Domain : SmartContract
     {
-	    // The main point of smart contract
         public static object Main(string operation, params object[] args)
         {
-	        // Trigger  judge where user invoke smart contract with invocationTransaction
 	        if (Runtime.Trigger == TriggerType.Application){
-				    //Call other function depends on the operation type
 		            switch (operation){
 		                case "query":
 		                    return Query((string)args[0]);
 		                case "register":
 		                    return Register((string)args[0], (byte[])args[1]);
-		                case "transfer":
-		                    return Transfer((string)args[0], (byte[])args[1]);
 		                case "delete":
 		                    return Delete((string)args[0]);
 		                default:
@@ -230,13 +226,12 @@ namespace Neo.SmartContract
 	        } 
         }
 		
-		// Query the domain owner stored in Storage
         private static byte[] Query(string domain)
         {
             return Storage.Get(Storage.CurrentContext, domain);
         }
 
-		// Register the domain owner using storage
+		
         private static bool Register(string domain, byte[] owner)
         {
 	        // Check if  the owner is the same as the one who invoke the contract
@@ -247,14 +242,6 @@ namespace Neo.SmartContract
             return true;
         }
 
-		// Delete the domain owner using storage        private static bool Delete(string domain)
-        {
-            byte[] owner = Storage.Get(Storage.CurrentContext, domain);
-            if (owner == null) return false;
-            if (!Runtime.CheckWitness(owner)) return false;
-            Storage.Delete(Storage.CurrentContext, domain);
-            return true;
-        }
         private static bool Delete(string domain)
         {
             byte[] owner = Storage.Get(Storage.CurrentContext, domain);
@@ -264,5 +251,61 @@ namespace Neo.SmartContract
             return true;
         }
     }
+}
+```
+
+Let's learn it step by step.
+
+The first function is the `main` function which is the main entry of the smart contract. The main function reads the first argument as operation and the remainings as other arguments.
+
+```csharp
+public static object Main(string operation, params object[] args){
+	if (Runtime.Trigger == TriggerType.Application){
+		switch (operation){
+		case "query":
+			return Query((string)args[0]);
+		case "register":
+		        return Register((string)args[0], (byte[])args[1]);
+		case "delete":
+		        return Delete((string)args[0]);re
+		default:
+		        return false;
+		}
+	} 
+}
+```
+Inside the main function, we first use the Trigger to judge whether user invoke smart contract with `invocationTransaction`, which means user calls the smart contract application. In side of the judgement statement, the function will redirect other function depends on the operation type.
+
+Now we can see what happend in each detailed function. The first one is the Query function, which query the owner of the domain address. Here we use the `Storage.Get`method, and the first argument is context, and here we pass the CurrentContext. The second parameter is the key of the storing key-value pair. Here we use the domain.
+```csharp
+private static byte[] Query(string domain){
+	return Storage.Get(Storage.CurrentContext, domain);
+}
+```
+
+The Register function is firstly check if the owner is the same as the one who invoke the contract. Here we use the `Runtime.CheckWitness` function. Then we try to fetch the domain owner first to see if the domain is already exists in the storage. If not, we can store our domain->owner pair using the `Storage.Put`method.
+
+```csharp
+private static bool Register(string domain, byte[] owner){
+     if (!Runtime.CheckWitness(owner)) 
+     	return false;
+     byte[] value = Storage.Get(Storage.CurrentContext, domain);
+     if (value != null) 
+     	return false;
+     Storage.Put(Storage.CurrentContext, domain, owner);
+     return true;
+ }
+```
+
+Similar to the Register method, the Delete function check the owner first and if it exists and it is the same as the one who invoke the contract, delete the pair using the `Storage.Delete`method. 
+```csharp
+private static bool Delete(string domain)
+{
+     byte[] owner = Storage.Get(Storage.CurrentContext, domain);
+     if (owner == null)
+     	return false;
+     if (!Runtime.CheckWitness(owner)) return false;
+     Storage.Delete(Storage.CurrentContext, domain);
+     return true;
 }
 ```
