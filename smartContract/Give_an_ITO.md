@@ -47,16 +47,18 @@ The `MintToken` method is the most important method in the ITO contract (which a
 Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
 ```
 
-Next, we have to get the `references` of this transaction. After get the references
-Here we can find  more knowledge of References, Inputs and Outputs in the [UTXO]()
-```csharp
-TransactionOutput reference = tx.GetReferences()[0];
-```
+Next, we have to get the `references` of this transaction. Here, a reference stands for the corresponding output for the inputs of the transaction. After get the references，we’re verifying that the output that is sent to the contract address (this.address) is NEO. After confirm this, we can get the corresponding `sender` address through the `ScriptHash` of this `TransactionOutput` object. We can learn more about `reference`,`inputs` and `outputs` in the [UTXO]().
 
 ```csharp
+TransactionOutput reference = tx.GetReferences()[0];
 // check whether asset is neo
 if (reference.AssetId != neo_asset_id) return false;
 byte[] sender = reference.ScriptHash;
+```
+
+Now we have to collect the total amount of NEO from the outputs of the transactionOutput.  The `outputs` here is every output of the current transaction. In this kind of `MintToken` method of ITO contract, usually we only aaccpt one global asset such as `NEO`. Therefore, in the for loop that checks for only NEO assets, sum the amount by `output.Value` .
+
+```csharp
 TransactionOutput[] outputs = tx.GetOutputs();
 byte[] receiver = ExecutionEngine.ExecutingScriptHash;
 ulong value = 0;
@@ -64,7 +66,10 @@ ulong value = 0;
 // 获取转入智能合约地址的Neo总量
 foreach (TransactionOutput output in outputs){
     if (output.ScriptHash == receiver){
-        value += (ulong)output.Value;```csharp
+       if (output.AssetId != neo_asset_id) {
+          return false;
+        }
+        value += (ulong)output.Value;
     }
 }
 ```
@@ -76,7 +81,7 @@ if (swap_rate == 0){
     return false;
 }
 ```
-
+After successfully handle statements all above, the mint process can be finished. First get the token which exchanged by the global asset. After that, update the balance and the totoalSupply respectively. Finally, fire the Transferred event and returne true.
 ```csharp           
 // crowdfunding success
 ulong token = value * swap_rate / 100000000;
