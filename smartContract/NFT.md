@@ -4,11 +4,7 @@
 
 A non-fungible token (NFT) can be thought of like a property deed - each one is unique and carries some non-mutable information (e.g. the physical address of the property) although other information, such as the owner of the property can be changed. An NFT smart contract is useful to track ownership of real-world items, as well as in online gaming, allowing users to posess unique characters or items of a limited supply, that can be transferred between users without requiring the permission of the game owner.
 
-The NFT proposal standard for the Neo Smart Economy is currently in development. This is a draft template example in Python showing how such a smart contract might be written. There is some overlap between NEP-5 (fungible) token functionality to make adoption easier by API writers.
-
-## Motivation
-
-NFTs are required to track, exchange and enforce ownership of digital assets. A non-fungible token (NFT) can be thought of like a property deed - each one is unique and carries some non-mutable information (e.g. the physical address of the property). Other information, such as the owner of the property, can be changed. Also, we provide a built-in optional divisibility within each non-fungible asset. This allows for high value objects to be tokenized more effectively.
+The NFT proposal standard for the Neo Smart Economy is currently in development. This is example in C# showing how such a smart contract might be written. There is some overlap between NEP-5 (fungible) token functionality to make adoption easier by API writers.
 
 
 ### Methods
