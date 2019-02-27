@@ -127,7 +127,6 @@ namespace ITO
             Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
             TransactionOutput reference = tx.GetReferences()[0];
             // check whether asset is neo
-            // 检查资产是否为neo
             if (reference.AssetId.AsBigInteger() != AssetId.AsBigInteger()) return false;
 
             byte[] sender = reference.ScriptHash;
@@ -135,29 +134,28 @@ namespace ITO
             byte[] receiver = ExecutionEngine.ExecutingScriptHash;
             ulong value = 0;
             // get the total amount of Neo
-            // 获取转入智能合约地址的Neo总量
             foreach (TransactionOutput output in outputs)
             {
                 if (output.ScriptHash == receiver)
                 {
-                    if (output.AssetId.AsBigInteger() != AssetId.AsBigInteger()) {
-                      return false;
+                    // do not accept any other global assets 
+                    if (output.AssetId.AsBigInteger() != AssetId.AsBigInteger())
+                    {
+                        return false;
                     }
                     value += (ulong)output.Value;
                 }
             }
+
             // the current exchange rate between ico tokens and neo during the token swap period
-            // 获取众筹期间ico token和neo间的转化率
             ulong swap_rate = CurrentSwapRate();
             // crowdfunding failure
-            // 众筹失败
             if (swap_rate == 0)
             {
                 Refund(sender, value);
                 return false;
             }
             // crowdfunding success
-            // 众筹成功
             ulong token = value * swap_rate / 100000000;
 
 
@@ -173,7 +171,8 @@ namespace ITO
             return true;
         }
 
-        private static ulong CurrentSwapRate(){
+        private static ulong CurrentSwapRate()
+        {
             // factor is detemined by the decimal, which is a constant. The raate means 1 NEO => 1000 NEP5
             const ulong basic_rate = 1000 * factor;
             const int ico_duration = ico_end_time - ico_start_time;
@@ -181,13 +180,18 @@ namespace ITO
             if (total_supply >= total_amount) return 0;
             uint now = Blockchain.GetHeader(Blockchain.GetHeight()).Timestamp;
             int time = (int)now - ico_start_time;
-            if (time < 0){
+            if (time < 0)
+            {
                 return 0;
-            } else if (time > ico_duration){
+            }
+            else if (time > ico_duration)
+            {
                 return 0;
-            } else{
+            }
+            else
+            {
                 return basic_rate;
             }
         }
     }
-}        
+}
