@@ -1,19 +1,25 @@
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using Neo.SmartContract.Framework.Services.System;
+using Helper = Neo.SmartContract.Framework.Helper;
 using System;
 using System.ComponentModel;
 using System.Numerics;
 
-namespace NEP5
+namespace NFT
 {
-    public class NEP5 : SmartContract
+    public class NFT : SmartContract
     {
+
         [DisplayName("transfer")]
-        public static event Action<byte[], byte[], BigInteger> Transferred;
+        public static event Action<string, string, BigInteger> Transferred;
+
 
         private static readonly byte[] Owner = "Ad1HKAATNmFT5buNgSxspbW68f4XVSssSw".ToScriptHash(); //Owner Address
-        private static readonly BigInteger TotalSupplyValue = 10000000000000000;
+        private static readonly String Owner_address = "Ad1HKAATNmFT5buNgSxspbW68f4XVSssSw";
+        private const ulong total_supply = 100000000;
+        private static readonly String TOKEN_ID_KEY = "TOKEN_ID_KEY";
+        private static readonly String TOKEN_COUNTER_KEY = "TOKEN_COUNTER_KEY";
 
         public static object Main(string method, object[] args)
         {
@@ -24,7 +30,7 @@ namespace NEP5
             else if (Runtime.Trigger == TriggerType.Application)
             {
 
-                if (method == "balanceOf") return BalanceOf((byte[])args[0]);
+                if (method == "balanceOf") return BalanceOf((string)args[0], (string)args[1]);
 
                 if (method == "decimals") return Decimals();
 
@@ -36,19 +42,56 @@ namespace NEP5
 
                 if (method == "totalSupply") return TotalSupply();
 
-                if (method == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
+                if (method == "mintTokens") return MintTokens();
+
+                if (method == "transfer")
+                {
+                    if (args.Length==2)
+                    {
+                        return transfer((string)args[0], (string)args[1], (BigInteger)args[2], (string)args[3]);
+                    }
+                    else
+                    {
+                        return transfer((string)(args[0]), (string)args[1]);
+                    }
+                }
             }
             return false;
         }
 
-        [DisplayName("balanceOf")]
-        public static BigInteger BalanceOf(byte[] account)
+        private static bool MintTokens()
         {
-            if (account.Length != 20)
-                throw new InvalidOperationException("The parameter account SHOULD be 20-byte addresses.");
-            StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
-            return asset.Get(account).AsBigInteger();
+            if (!Runtime.CheckWitness(Owner))
+            {
+                return false;
+            }
+            BigInteger token_counter = Storage.Get(Storage.CurrentContext, TOKEN_COUNTER_KEY).AsBigInteger();
+            token_counter = token_counter + 1;
+            if(token_counter > total_supply)
+            {
+                return false;
+            }
+            String random_token_id = "";
+            Storage.Put(Storage.CurrentContext, TOKEN_COUNTER_KEY, token_counter);
+            System.Text.UTF8Encoding enc = new System.Text.UTF8Encoding();
+            StorageMap asset = Storage.CurrentContext.CreateMap("balance" + Owner);
+            asset.Put(random_token_id, new BigInteger(1));
+            Storage.Put(Storage.CurrentContext, TOKEN_ID_KEY + token_counter, random_token_id);
+            Storage.Put(Storage.CurrentContext, TOKEN_COUNTER_KEY, token_counter);
+            Storage.Put(Storage.CurrentContext, Owner+random_token_id,random_token_id );
+            Storage.Put(Storage.CurrentContext, random_token_id+Owner, Owner);
+            return true;
         }
+
+        [DisplayName("balanceOf")]
+        public static BigInteger BalanceOf(string account, string tokenid)
+        {
+             if (account.Length != 34)
+                throw new InvalidOperationException("The parameter account SHOULD be 20-byte addresses.");
+                StorageMap asset = Storage.CurrentContext.CreateMap("balance" + account);
+                return asset.Get(tokenid).AsBigInteger();
+        }
+
         [DisplayName("decimals")]
         public static byte Decimals() => 8;
 
@@ -57,19 +100,17 @@ namespace NEP5
         public static bool Deploy()
         {
             if (TotalSupply() != 0) return false;
-            StorageMap contract = Storage.CurrentContext.CreateMap(nameof(contract));
-            contract.Put("totalSupply", TotalSupplyValue);
-            StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
-            asset.Put(Owner, TotalSupplyValue);
-            Transferred(null, Owner, TotalSupplyValue);
+            Storage.Put(Storage.CurrentContext, "totalSupply", total_supply);
+            Storage.Put(Storage.CurrentContext, TOKEN_COUNTER_KEY, 1);
+            Storage.Put(Storage.CurrentContext, TOKEN_ID_KEY + 1, 1);
             return true;
         }
 
         [DisplayName("name")]
-        public static string Name() => "WorldToken"; //name of the token
+        public static string Name() => "MyNFT"; //name of the token
 
         [DisplayName("symbol")]
-        public static string Symbol() => "AWT"; //symbol of the token
+        public static string Symbol() => "MNFT"; //symbol of the token
 
         [DisplayName("totalSupply")]
         public static BigInteger TotalSupply()
@@ -78,18 +119,72 @@ namespace NEP5
             return contract.Get("totalSupply").AsBigInteger();
         }
 
-        //Methods of actual execution
-        private static bool Transfer(byte[] from, byte[] to, BigInteger amount)
+        public static Iterator<string, byte[]> tokens()
         {
-            //Check parameters
-            if (from.Length != 20 || to.Length != 20)
-                throw new InvalidOperationException("The parameters from and to SHOULD be 20-byte addresses.");
-            if (amount <= 0)
-                throw new InvalidOperationException("The parameter amount MUST be greater than 0.");
-            if (!Runtime.CheckWitness(from))
+            return Storage.Find(Storage.CurrentContext, TOKEN_ID_KEY);
+        }
+
+        public static Iterator<string, byte[]> ownerOf(string tokenid)
+        {
+      
+            return Storage.Find(Storage.CurrentContext, tokenid);
+        }
+
+        public static Iterator<string, byte[]> tokensOfOwner(string owner)
+        {
+            return Storage.Find(Storage.CurrentContext, owner);
+        }
+
+        public static string tokenURI(string tokenid)
+        {
+            return "random uri";
+        }
+
+        public static bool transfer(string to, string tokenid)
+        {
+            if (!Runtime.CheckWitness(Owner))
+            {
                 return false;
-            StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
-            var fromAmount = asset.Get(from).AsBigInteger();
+            }
+            StorageMap asset = Storage.CurrentContext.CreateMap("balance" + Owner);
+
+           if(asset.Get(tokenid)==null)
+           {
+                return false;
+           }
+
+            asset.Delete(tokenid);
+
+            StorageMap asset_to = Storage.CurrentContext.CreateMap("balance" + to);
+            asset_to.Put(tokenid, new BigInteger(1));
+
+
+            Storage.Delete(Storage.CurrentContext, Owner + tokenid);
+            Storage.Delete(Storage.CurrentContext, tokenid + Owner);
+
+            Storage.Put(Storage.CurrentContext, to + tokenid, tokenid);
+            Storage.Put(Storage.CurrentContext, tokenid + to, to);
+            Transferred(Owner_address, to, new BigInteger(1));
+            return true;
+        }
+        //Methods of actual execution
+        private static bool transfer(String from, String to, BigInteger amount, string tokenid)
+        {
+  
+            if (from.Length != 34 || to.Length != 34)
+                 throw new InvalidOperationException("The parameters from and to SHOULD be 20-byte addresses.");
+            if (!Runtime.CheckWitness(from.ToScriptHash()))
+            {
+                return false;
+            }
+
+            if (amount <= 0 || amount >= new BigInteger(1))
+                throw new InvalidOperationException("The parameter amount MUST be greater than 0 and SmallerThan 1.");
+ 
+
+            StorageMap asset = Storage.CurrentContext.CreateMap("balance" + from);
+
+            var fromAmount = asset.Get(tokenid).AsBigInteger();
             if (fromAmount < amount)
                 return false;
             if (from == to)
@@ -97,16 +192,28 @@ namespace NEP5
 
             //Reduce payer balances
             if (fromAmount == amount)
-                asset.Delete(from);
+            {
+                asset.Delete(tokenid);
+                Storage.Delete(Storage.CurrentContext, from + tokenid);
+                Storage.Delete(Storage.CurrentContext, tokenid + from);
+            }
             else
-                asset.Put(from, fromAmount - amount);
+            {
+                asset.Put(tokenid, fromAmount - amount);
+            }
 
-            //Increase the payee balance
-            var toAmount = asset.Get(to).AsBigInteger();
-            asset.Put(to, toAmount + amount);
+            StorageMap asset_to = Storage.CurrentContext.CreateMap("balance" + to);
+            BigInteger toAmount = asset_to.Get(to).AsBigInteger();
+            asset_to.Put(tokenid, toAmount + amount);
+
+
+            Storage.Put(Storage.CurrentContext, to + tokenid, tokenid);
+            Storage.Put(Storage.CurrentContext, tokenid + to, to);
 
             Transferred(from, to, amount);
+
             return true;
         }
+
     }
 }
