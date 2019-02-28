@@ -11,3 +11,4 @@ In the picture below, Alice gets 8 GAS's share from her holded NEO, which is rec
     <img src="https://docs.neo.org/developerguide/en/images/blockchain/utxo_en.jpg"/>
 </p>
 
+Let's view the transaction stucture in NEO. AS show in the picture above, the `output` itself has an index attributes because it is located in a list of outputs. The `output` it self consists of `AssetId`,`Amount` and `ScriptHash` which is the receipt address. The `Input` structure is the source of a transaction and it contains a `PreHash` which points to the transaction it comes from and a `Preindex` which points to the corresponding output from previous transaction
