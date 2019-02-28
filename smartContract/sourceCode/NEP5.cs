@@ -172,7 +172,7 @@ namespace NFT
         {
   
             if (from.Length != 34 || to.Length != 34)
-                 throw new InvalidOperationException("The parameters from and to SHOULD be 20-byte addresses.");
+                 throw new InvalidOperationException("The parameters from and to SHOULD be 34-byte addresses.");
             if (!Runtime.CheckWitness(from.ToScriptHash()))
             {
                 return false;
