@@ -99,34 +99,36 @@
 
 - Smart Contract
     - what is smart contract
+
+- Smart Contract
+    - what is smart contract
     - Write your first NEO contact with C#
-    	- Prepare the development environment of your smartcontract
-    	- Learn smart contract by demos
-    		- ITO(Initial Token Offering)
-    			- Introduction to NEP-5 
-    			- Smart contract structure 
-    			- compile, test and deploy your smart contract
-    			- peroperties, constuctor and methods
-    			- Data types
-    			- Storage usage
-    			- Events 
-    			- Find your own tokens
-    		- NFT (Non-Fungible Tokens)
-    			- Transactions and blocks
-    			- Minting Tokens
-    			- Withdraw global asset
-    			- Timestamp in blockchain
-    		- CGAS
-    			- Gloal asset and NEP-5
-    			- UTXO model
-    			- Trigger
-    			- Signature and Verification
-    			- Transaction Invocation
-    			- Strorage map
-    			- NEP5 Asset <-> Global Asset
+    - Prepare the development environment of your smartcontract
+    - Learn smart contract by demos
+        - ITO(Initial Token Offering)
+            - Introduction to NEP-5 
+            - Smart contract structure 
+            - compile, test and deploy your smart contract
+            - properties, constructor and methods
+            - Data types
+            - Storage usage
+            - Events 
+            - Find your own tokens
+        - NFT (Non-Fungible Tokens)
+            - Transactions and blocks
+            - Minting Tokens
+            - Withdraw global asset
+            - Timestamp in blockchain
+        - CGAS
+            - Global asset and NEP-5
+            - UTXO model
+            - Trigger
+            - Signature and Verification
+            - Transaction Invocation
+            - NEP5 Asset <-> Global Asset
     - Write NEO smart contract with Python 
         - what is Neo-python
-        - Prepare the Neo-python developmentprocedure environment 
+        - Prepare the Neo-python development procedure environment 
         - NEO python basics
         - Python smart contract example
             - Domain Name Service
