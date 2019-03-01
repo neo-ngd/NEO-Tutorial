@@ -1,4 +1,4 @@
-- Smart Contract
+- [Smart Contract](what_is_smart_contract.md)
     - what is smart contract
     - Write your first NEO contact with C#
 - Prepare the development environment of your smartcontract

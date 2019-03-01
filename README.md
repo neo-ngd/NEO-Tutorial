@@ -13,7 +13,7 @@
 - Persistence
 - Consensys
 - NVM
-- [Smart Contract](1-introduction)
+- [Smart Contract](9-smartContract)
         
 ## Smart contract development Learning Resources
 - [Neo Smart contract quick start](neo_docs_SmartContract_QuickStart)
