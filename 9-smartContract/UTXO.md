@@ -1,3 +1,7 @@
+---
+title: Document Center
+---
+
 # UTXO
 If you are familiar with blockchain or use some digital coins before, you may hear of the word `UTXO`. The UTXO stands for **Unspent Transaction Output**, which means an output of a blockchain transaction that has not been spent and can be used as an input in a new transaction. 
 
