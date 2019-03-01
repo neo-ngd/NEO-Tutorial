@@ -1,0 +1,15 @@
+- Wallet 
+	- Keys and address
+		- Hash function used in NEO
+		- Generation of Private key
+		- ECDSA algorithm
+		- Base58 check
+		- The scripthash and address of NEO
+	- Wallet file
+		- NEP6 wallet (json based)
+		- DB3 wallet (sqlite)
+	- The usage of NEO-GUI
+	- UTXO model
+	- Account model
+		- The peronsal account
+		- The contract account

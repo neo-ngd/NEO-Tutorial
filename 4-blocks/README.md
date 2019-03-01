@@ -1,0 +1,16 @@
+- Blocks
+	- Block header
+	- Block body
+	- Mekele tree
+	- Process of bocks 
+	- Create the blocks 
+		-  The selection of transactions
+		-  Calculation of the network fee
+		-  The calculaton of next consensus
+	- The broadcast of blocks
+	- Validation of blockscd ..
+		- The legalness of block
+		- The witeness validation
+	- proccess of blocks
+		- UTXO trnsaction process
+		- Contract invocation process
