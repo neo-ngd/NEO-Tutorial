@@ -1,6 +1,6 @@
-- [Smart Contract](what_is_smart_contract.md)
-    - what is smart contract
-    - Write your first NEO contact with C#
+- Smart Contract
+    - [what is smart contract](What_is_smart_contract.md)
+    - [Write your first NEO contact with C#](What_is_smart_contract.md#write-smart-contracts-in-any-language)
 - Prepare the development environment of your smartcontract
 - Learn smart contract by demos
 	- ITO(Initial Token Offering)
