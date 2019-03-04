@@ -502,7 +502,7 @@ Many developers are curious about how to release their own contract assets on NE
 
    The code is as follows:
 
-```
+```csharp
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using Neo.SmartContract.Framework.Services.System;

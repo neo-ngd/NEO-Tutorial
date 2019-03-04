@@ -1,0 +1,7 @@
+- Consensys
+	- Byzantine Fault Tolerance
+	- dBFT 
+		- The content of algorithm
+		- The proccess of message
+	- Validators enrollment 
+	- Votes for validators
