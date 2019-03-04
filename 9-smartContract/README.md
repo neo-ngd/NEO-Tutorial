@@ -24,7 +24,7 @@
 		- [UTXO model](cgas/3_utxo_model.md)
 		- [Trigger](cgas/4_trigger.md)
 		- [Mint and Refund](cgas/5_minttokens_and_refund.md)
-		- [Signature and Verification](cgas/6_minttokens_and_refund.md)
+		- [Signature and Verification](cgas/6_signature_and_verification.md)
 		- [Transaction Invocation](cgas/7_invocation.md)
 - Write NEO smart contract with Python 
 	- what is Neo-python
