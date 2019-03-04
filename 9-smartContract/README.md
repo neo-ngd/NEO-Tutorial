@@ -19,13 +19,13 @@
 		- [UTXO basics](UTXO.md)
 		- [Minting Tokens](Give_an_ITO.md#minttoken)
 	- CGAS
-		- [what is CGAS](1_what_is_cgas.md)
-		- [Global asset and NEP-5](2_global_asset_and_nep5.md)
-		- [UTXO model](3_utxo_model.md)
-		- [Trigger](4_trigger.md)
-		- [Mint and Refund](5_minttokens_and_refund.md)
-		- [Signature and Verification](6_minttokens_and_refund.md)
-		- [Transaction Invocation](7_invocation.md)
+		- [What is CGAS](cgs/1_what_is_cgas.md)
+		- [Global asset and NEP-5](cgs/2_global_asset_and_nep5.md)
+		- [UTXO model](cgs/3_utxo_model.md)
+		- [Trigger](cgs/4_trigger.md)
+		- [Mint and Refund](cgs/5_minttokens_and_refund.md)
+		- [Signature and Verification](cgs/6_minttokens_and_refund.md)
+		- [Transaction Invocation](cgs/7_invocation.md)
 - Write NEO smart contract with Python 
 	- what is Neo-python
 	- Prepare the Neo-python development procedure environment 
