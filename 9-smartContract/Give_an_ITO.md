@@ -47,7 +47,7 @@ The `MintToken` method is the most important method in the ITO contract (which a
 Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
 ```
 
-Next, we have to get the `references` of this transaction. Here, a reference stands for the corresponding output for the inputs of the transaction. After get the references，we’re verifying that the output that is sent to the contract address (this.address) is NEO. After confirm this, we can get the corresponding `sender` address through the `ScriptHash` of this `TransactionOutput` object. We can learn more about `reference`,`inputs` and `outputs` in the [UTXO]().
+Next, we have to get the `references` of this transaction. Here, a reference stands for the corresponding output for the inputs of the transaction. After get the references，we’re verifying that the output that is sent to the contract address (this.address) is NEO. After confirm this, we can get the corresponding `sender` address through the `ScriptHash` of this `TransactionOutput` object. We can learn more about `reference`,`inputs` and `outputs` in the [UTXO](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/UTXO.md).
 
 ```csharp
 TransactionOutput reference = tx.GetReferences()[0];

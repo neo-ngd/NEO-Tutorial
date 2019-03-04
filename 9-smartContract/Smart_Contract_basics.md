@@ -31,7 +31,7 @@ The `NEO` namespace is the API provided by the Neo blockchain, providing a way t
     
 2.  Persistent store. Each application contract deployed on NEO has a storage space that can only be accessed by the contract itself. These methods provided can access the data in the contract.
 
-### 2. Constract property
+## 2. Constract property
 Inside the contract class, the property defined with `static readonly` or `const` is the contract property which can be used as constants and can not be changed. For instance, when we want to define a Owner of that contract or the factor number which will be used in the later asset transfer, we can define these constants in this way:
 
 ```c#
@@ -52,7 +52,7 @@ In addition, developer can define static method  in contract and return a consta
 public  static  string  Name() =>  "name of the token";
 ```
 
-#### 2. Storage property
+## 3. Storage property
 
 When you develope the smart contract, you have to store your application data on the blockchain. When a Smart Contract is created or when a transaction awakens it, the Contract’s code can read and write to its storage space. All data stored in the storage of the smart contract are automatically persisted between invocations of the smart contract. Full nodes in the blockchain store the state of every smart contract on the chain. 
 Persistent storage. NEO has provided data access interface based on key-value pairs. Data records may be read or deleted from or written to the smart contracts using keys. Besides, smart contracts may retrieve and send their storage contexts to other contracts, thereby entrusting other contracts to manage their storage areas.
@@ -75,7 +75,7 @@ Here `CurrentContext` Returns the current store context. After obtaining the sto
 StorageMap contract = Storage.CurrentContext.CreateMap(nameof(contract));
 return contract.Get("totalSupply").AsBigInteger();
 ```
-#### 3 . Data type
+## 4 . Data type
 When using C# to develop smart contracts, you cannot use the full set of C# features due to the difference between NeoVM and Dotnet IL.
 
 Because NeoVM is more compact, we can only compile limited C# / dotnet features into an AVM file.
@@ -104,13 +104,13 @@ The basic types of C# are:
 -   `Boolean`
 -   `Char String`
 
-#### 4. Main method
+## 5. Main method
 
 Theoretically, smart contracts can have any entry points, but we recommend you use the main function as the entry point of smart contracts for easier invocation. In the main function, user can call other function according to the different entry point calling. Usually in the main method, developer has to handle the `trigger`
-##### Trigger
+### Trigger
 A smart contract trigger is a mechanism that triggers the execution of smart contracts. There are four triggers introduced in the NEO smart contract，the most used are `Verification` and  `Application`.
 
-##### Verification trigger
+### Verification trigger
 
 A Verification trigger is used to call the contract as a verification function, which can accept multiple parameters and should return a valid Boolean value, indicating the validity of the transaction or block.
 
@@ -130,7 +130,7 @@ public static bool Main(byte[] signature)
     }  
 }
 ```
-##### Application trigger
+### Application trigger
 An application trigger is used to invoke the contract as a verification function, which can accept multiple parameters, change the blockchain status, and return values of any type.
 
 Unlike the verification trigger which is triggered by a transfer, an application trigger is triggered by a special transaction  `InvocationTransaction`. If the application (Web/App) calls a smart contract, an  `InvocationTransaction`  is constructed, and then signed and broadcast in the prograAn application trigger is used to invoke the contract as a verification function, which can accept multiple parameters, change the blockchain status, and return values of any type.m. After the  `InvocationTransaction`  transaction is confirmed, the smart contract is executed by the consensus node. The common node does not execute the smart contract when forwarding the transaction.
@@ -165,7 +165,7 @@ public static bool FunctionA(params object[] args)
 
 ```
 
-#### 5. CheckWitness 
+## 6. CheckWitness 
 In many, if not all cases, you will probably be wanting to validate whether the address invoking your contract code is really who they say they are.
 
 <p align="center">
@@ -191,7 +191,7 @@ For example, when you  want to delete some of your data in the storage, you must
         }
 ```
 
-#### 6. Events
+## 7. Events
 In  Smart contract, events are a way  to communicate that something happened on the blockchain to your app front-end (or back-end), which can be 'listening' for certain events and take action when they happen. You might use this to update an external database, do analytics, or update a UI. In some specified contract standard,  it defined some events should be posted. For instance, in the NEP-5 Token, the events `transfer` should be fired when user invoke the transfer function.
 ```csharp
 //Should be called when caller transfer nep-5 asset.
