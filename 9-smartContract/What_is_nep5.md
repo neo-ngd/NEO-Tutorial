@@ -159,15 +159,12 @@ Now. Let's define the totalSupply method of the contract. Before that, we should
 
 It is worth noticing that, in tokenized smart contract, the asset is stored in the storage as the key is the address and the value is the balance. Here is tha table which may declare it.
 
-<center>
 
 | Address |   value |
 |--|--|
 | address1 | 1000 |
 | address2 | 200 |
-| address3 | 700 |
 
-</center>
 
 ```csharp
 //Static readonly value of total supply value
