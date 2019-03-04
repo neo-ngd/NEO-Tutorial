@@ -3,7 +3,7 @@
     - [Write your  NEO contact with any languages](What_is_smart_contract.md#write-smart-contracts-in-any-language)
 - [Prepare the development environment of your smart contract](Development_set_up.md)
 - Learn smart contract by demos in C#
-	- [Smart Contract basic](Smart_Contract_basics.md)
+	- Smart Contract basic
 		- [Smart contract structure](Smart_Contract_basics.md#1-contract-structure) 
 		- [Properties](Smart_Contract_basics.md#2-constract-property)
 		- [Storage usage](Smart_Contract_basics.md#2-storage-property)
