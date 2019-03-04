@@ -27,7 +27,7 @@ foreach (var output in outputs)
 }
 ```
 
-The other UTXO used in the CGAS contract is in the refund step. Here we only indicates the knowledge of UTXO in the refund, the detailed principle of refund will be explained in [here](../5_minttokens_and_refund.md). In the refund step, in the verification trigger, it will check the marker UTXO using the `inputs`. In the UTXO model of NEO, the input structure is more like a pointer which points to the output of previous transaction which it comes from. It has two fields, the `PrevHash` which indicates the transaction hash and the `PrevIndex` which indicates the corresponding output's position. 
+The other UTXO used in the CGAS contract is in the refund step. Here we only indicates the knowledge of UTXO in the refund, the detailed principle of refund will be explained in [here](5_minttokens_and_refund.md). In the refund step, in the verification trigger, it will check the marker UTXO using the `inputs`. In the UTXO model of NEO, the input structure is more like a pointer which points to the output of previous transaction which it comes from. It has two fields, the `PrevHash` which indicates the transaction hash and the `PrevIndex` which indicates the corresponding output's position. 
 
 ```csharp
 foreach (var input in inputs)
