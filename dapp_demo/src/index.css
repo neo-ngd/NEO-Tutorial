@@ -1,0 +1,210 @@
+body {
+    font-family: Arial;
+    max-width: 1200px;
+    margin: auto;
+}
+            
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #6d9877;
+}
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #b2e887;
+}
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #a5f1a8;
+}
+/* Style the tab content */
+.tab-content {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: aliceblue;
+  min-height: 800px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  background-color: #c7e2cd;
+}
+
+td, th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.buy-voucher-form {
+    align-self: center;
+    display: flex;
+    padding-top: 30px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30vw;
+}
+
+.voucher-input {
+    display: flex;
+    flex-direction: row;
+}
+
+.voucher-input input {
+    width: 60px;
+}
+
+.buy-voucher-form button {
+    padding: 5px;
+    width: 200px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.login-info-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  line-height: 2;
+}
+
+.login-info-div button {
+  border-radius: 2px;
+  min-width: 100px;
+  min-height: 30px;
+}
+
+.pet-image {
+    width: 200px;
+    height:200px;
+}
+.pets-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.pet-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 2px solid black;
+}
+.pet-header {
+   background-color: antiquewhite;
+   min-height: 22px;
+}
+
+#store .pet-header {
+   background-color: antiquewhite;
+   min-height: 30px;
+   display: flex;
+   justify-content: center;
+   align-items: center
+}
+
+.pet-footer {
+    background-color: bisque;
+    min-height: 22px;
+} 
+
+#store .pet-footer {
+    background-color: bisque;
+    min-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+#store button {
+  min-height: 30px;
+}
+
+.head-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: aliceblue;
+    padding: 0 10px;
+}
+
+.global-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+}
+
+.global-display-content {
+    display: block;
+    width: 160px;
+    margin-left: 20px;
+    padding: 8px 0;
+    background: #c7e2cd;
+    text-align: center;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: end;
+  background-color: white;
+  padding:20px;
+  border-radius: 10px;
+  color: black;
+  min-width: 500px;
+  min-height: 150px;
+}
+
+.loader input {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  border-radius: 1px;
+}
+
+.curtain {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: grey;
+    opacity: 0.5;
+    z-index: 100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

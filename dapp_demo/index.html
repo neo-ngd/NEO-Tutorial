@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Neo Smart Contract</title>
+        <meta name="keywords" content="NEO,Blockchain,智能经济,antshares,小蚁,区块链">
+        <link rel="stylesheet" href="./src/index.css"></link>
+        <script src="https://unpkg.com/@cityofzion/neon-js"></script>
+    </head>
+    <body>
+        <div class="head-container">
+            <div>
+              <h1>Welcome to Neo Pet World!</h1>
+              <div class="login-info-div">
+                <div id="addr_global_display" style="display: none"></div>
+                <button id="login_button">Login</button>
+              </div>
+            </div>
+            <div class="global-display">
+              <div class="global-display-content">
+                <span id="gas_global_display">0</span> NEO
+              </div>
+              <div class="global-display-content">
+                <span id="voucher_global_display">0</span> Voucher
+              </div>
+              <div class="global-display-content" id="network_global_display">Private Net</div>
+            </div>
+        </div>
+        <div class="tab">
+          <button class="tablinks" onclick="openTab(event, 'voucher')" id="defaultOpen">Voucher</button>
+          <button class="tablinks" onclick="openTab(event, 'pets')">My Pets</button>
+          <button class="tablinks" onclick="openTab(event, 'store')">Pet Store</button>
+        </div>
+        
+        <div id="voucher" class="tab-content">
+          <h2>Buy Pet Vouchers with Gas!</h2>
+          <table>
+            <tr>
+              <td>NEO/Voucher</td>
+              <td>10</td>
+            </tr>
+          </table>
+          <div class="buy-voucher-form">
+              <div class="voucher-input">
+                <input oninput="onNeoAmountChange()" id="neo-cost-amount" type="number"/>
+                <label> Neo afford <span id="voucher-affordable-amoount">0</span> Voucher</label>
+              </div>
+              <button onclick="buyVoucher()">Buy</button>
+          </div>
+        </div>
+        
+        <div id="pets" class="tab-content">
+          <h1>Your Pets Are Here!</h1>
+          <div class="pets-container" id="pets-container">
+              <div class="pet-wrapper">
+                <label class="pet-header">Jackkie</label>
+                <img class="pet-image" src="./resources/1.jpg" />
+                <label class="pet-footer">Owned by you since 1990.9</label>
+              </div>
+              <div class="pet-wrapper">
+                <label class="pet-header">Jackkie</label>
+                <img class="pet-image" src="./resources/2.jpg" />
+                <label class="pet-footer">Owned by you since 1990.9</label>
+              </div>
+          </div> 
+        </div>
+        
+        <div id="store" class="tab-content">
+           <h1>Pet Store</h1>
+           <div class="pets-container" id="pets-container-store">
+            <div class="pet-wrapper">
+              <label class="pet-header">Alice</label>
+              <img class="pet-image" src="./resources/1.jpg" />
+              <label class="pet-footer">20 voucher</label>
+              <button onclick="buyCat('Alice', 20)">Buy</button>
+            </div>
+            <div class="pet-wrapper">
+              <label class="pet-header">Bob</label>
+              <img class="pet-image" src="./resources/2.jpg" />
+              <label class="pet-footer">50 voucher</label>
+              <button onclick="buyCat('Bob', 50)">Buy</button>
+            </div>
+        </div> 
+        </div>
+        <div id="login" class="curtain">
+          <div class="loader">
+            <label>Please input your private key.(Blanks Permitted.)</label>
+            <input id="priv_key"></input>
+            <button onclick="submitPrivateKey(event)">Login</button> 
+          </div>
+        </div>
+        
+        <script type="text/javascript" src="src/index.js"></script>
+        <script type="text/javascript" src="src/petsInfo.js"></script>
+        <script type="text/javascript" src="src/bundleDemo.js"></script>
+        <script type="text/javascript" src="src/neon.js"></script>
+    </body>
+</html>
