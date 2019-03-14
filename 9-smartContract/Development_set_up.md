@@ -193,4 +193,7 @@ Now you may invoke the smart contract released just recently.
 4. Click `trial` to test the contract. If no error is spotted, click `invoke`, which may cost several GAS.
 
 
-If invoke successfully, the gas will be reduced in the account balance. **Congratulations!**, you set up your private network and invoke your first smart contract successfully.
+If invoke successfully, the gas will be reduced in the account balance.
+
+## Next Step
+**Congratulations!**, you set up your private network and invoke your first smart contract successfully. Now let's begin to learn [the basic of NEO smart contract and get your first one](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/Smart_Contract_basics.md)
