@@ -199,7 +199,7 @@ public static event transfer(byte[] from, byte[] to, BigInteger amount)
 ```
 
 
-## Learn by demo
+## Your first NEO contract
 
 Here we provide a very simple DNS system which was written in C#. The main function of the DNS is store the domain for users. It contains all the points above except the events. We can investigate this smart contract to learn how to make a basic smart contract. The source code is here:
 
@@ -309,3 +309,5 @@ private static bool Delete(string domain)
      return true;
 }
 ```
+## Next step
+Great! Your just finished your first smart contract. Now let us move on to the [NEP 5 Token](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/What_is_nep5.md)
