@@ -92,3 +92,7 @@ Storage.Put(Storage.CurrentContext, "totalSupply", token + totalSupply);
 Transferred(null, sender, token);
 return true;
 ```
+
+
+## Next Step
+Now you have successfully make your first ITO and famailiar with the most ideas of smart contract, the next one will be more difficult contract [which is CGAS.](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/cgas/1_what_is_cgas.md)
