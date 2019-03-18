@@ -11,7 +11,7 @@
     <body>
         <div class="head-container">
             <div>
-              <h1>Welcome to Neo Pet World!</h1>
+              <h1>Welcome to Neo House!</h1>
               <div class="login-info-div">
                 <div id="addr_global_display" style="display: none"></div>
                 <button id="login_button">Login</button>
@@ -29,12 +29,12 @@
         </div>
         <div class="tab">
           <button class="tablinks" onclick="openTab(event, 'voucher')" id="defaultOpen">Voucher</button>
-          <button class="tablinks" onclick="openTab(event, 'pets')">My Pets</button>
-          <button class="tablinks" onclick="openTab(event, 'store')">Pet Store</button>
+          <button class="tablinks" onclick="openTab(event, 'pets')">In My House</button>
+          <button class="tablinks" onclick="openTab(event, 'store')">Furniture Store</button>
         </div>
         
         <div id="voucher" class="tab-content">
-          <h2>Buy Pet Vouchers with Gas!</h2>
+          <h2>Buy Furniture Voucher with Neo!</h2>
           <table>
             <tr>
               <td>NEO/Voucher</td>
@@ -51,33 +51,33 @@
         </div>
         
         <div id="pets" class="tab-content">
-          <h1>Your Pets Are Here!</h1>
+          <h1>Your Furnitures Are Here!</h1>
           <div class="pets-container" id="pets-container">
               <div class="pet-wrapper">
-                <label class="pet-header">Jackkie</label>
-                <img class="pet-image" src="./resources/1.jpg" />
+                <label class="pet-header">sofa</label>
+                <img class="pet-image" src="./resources/sofa.png" />
                 <label class="pet-footer">Owned by you since 1990.9</label>
               </div>
               <div class="pet-wrapper">
-                <label class="pet-header">Jackkie</label>
-                <img class="pet-image" src="./resources/2.jpg" />
+                <label class="pet-header">light</label>
+                <img class="pet-image" src="./resources/light.png" />
                 <label class="pet-footer">Owned by you since 1990.9</label>
               </div>
           </div> 
         </div>
         
         <div id="store" class="tab-content">
-           <h1>Pet Store</h1>
+           <h1>Furniture Store</h1>
            <div class="pets-container" id="pets-container-store">
             <div class="pet-wrapper">
-              <label class="pet-header">Alice</label>
-              <img class="pet-image" src="./resources/1.jpg" />
+              <label class="pet-header">sofa</label>
+              <img class="pet-image" src="./resources/sofa.png" />
               <label class="pet-footer">20 voucher</label>
               <button onclick="buyCat('Alice', 20)">Buy</button>
             </div>
             <div class="pet-wrapper">
-              <label class="pet-header">Bob</label>
-              <img class="pet-image" src="./resources/2.jpg" />
+              <label class="pet-header">light</label>
+              <img class="pet-image" src="./resources/light.png" />
               <label class="pet-footer">50 voucher</label>
               <button onclick="buyCat('Bob', 50)">Buy</button>
             </div>

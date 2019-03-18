@@ -244,7 +244,7 @@ function renderPetsContainer(pets, inStore) {
         let childNode = document.createElement('div');
         childNode.classList = "pet-wrapper";
         let headerNode = document.createElement('label');
-        headerNode.innerText = pet.name;
+        headerNode.innerText = pet.realName;
         headerNode.classList = "pet-header";
         childNode.appendChild(headerNode);
         let imgNode = document.createElement('img');
