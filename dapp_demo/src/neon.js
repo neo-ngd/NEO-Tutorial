@@ -1,8 +1,9 @@
 // You need to specify below info
-const NEO_SCAN_URL = "http://192.168.99.100:4000/api/main_net";
-const PRIV_RPC_NODE = "http://192.168.99.100:30333";
-const CONTRACT_ADDRESS = 'AQuQ2toa6efNcLMbq6mbth7Qk5KEZ5vifC';
-const CONTRACT_SCRIPTHASH = '839c56d1e989a6b3fcc94f3b0a7ea285aa682564';
+const NEO_SCAN_URL = "http://127.0.0.1:4000/api/main_net";
+const PRIV_RPC_NODE = "http://127.0.0.1:30333";
+const CONTRACT_ADDRESS = 'ALPSdK6Y6BQhSZRMbHCr1xRp4fCq22zx9D';
+                           // ALPSdK6Y6BQhSZRMbHCr1xRp4fCq22zx9D
+const CONTRACT_SCRIPTHASH = '329a977ccc58222cfb72ba7df64bfb68bb98cb7a';
 const AMOUNT_OF_NEO_TO_BUY_ONE_VOUCHER = 0.1;
 
 // elements

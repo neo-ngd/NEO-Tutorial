@@ -1,14 +1,14 @@
-#### Verification 触发器部分代码
+#### The trigger part of Verification
 
-这部分代码在 refund 第一步和 refund 第二步的时候执行，执行成功后交易确认，执行失败后交易不确认。
+This part of the code is executed in the first two steps of refund. If the execution is successful, the transaction is confirmed; otherwise it will not be confirmed.
 
-执行逻辑为：
+The execution logic is:
 
-获取当前交易的所有 inputs 和 outputs，分析 inputs 是否包已被标记为 refund，如果有则认为是用户在执行 refund 第二步的操作，如果没有则认为用户在执行refund 第一步的操作。
+Get all inputs and outputs of the current transaction, and analyze the inputs to determine whether input marked as refund is included. If so, it is considered that the the user is preforming the second step for refund, while if not, the user should be in the first step for refund.
 
-refund 第二步的逻辑很简单，只能标记为 refund 的人才可以把钱取走。
+The logic for the second refund step is simple. Only those marked as refund can take away the token.
 
-refund 第一步的逻辑也不复杂，进行交易后 CGAS 合约里的钱不会变少。
+The logic for the first step also is not complicated, and the amount in the CGAS contract will not be reduced after the transaction.
 
 ```c#
 var tx = ExecutionEngine.ScriptContainer as Transaction;
@@ -16,9 +16,9 @@ var inputs = tx.GetInputs();
 var outputs = tx.GetOutputs();
 ```
 
-这段代码是获取智能合约调用的交易，从而获得交易输入和交易输出，为后续的判断做准备。
+This code section is to get the transaction invoked by the smart contract, so as to get the transaction inputs and outputs, in preparation for subsequent judgment.
 
-那么如何判断 inputs 是否包已被标记为 refund 呢？
+So how to determine whether there exists input marked as refund in the inputs?
 
 ```c#
 foreach (var input in inputs)
@@ -39,15 +39,15 @@ foreach (var input in inputs)
 }
 ```
 
-首先对所有交易输入进行遍历，在 refund 第一步操作的这里约定了用户进行 refund 的时候将第 0 号交易输出进行标记。所以这里对 UTXO 的 prevIndex 进行判断，如果是 0 则有可能是被标记的 UTXO，然后进行下一步判断。接下来是从存储区里读取 UTXO 的 prevHash，如果获取到值，则就是标记为 refund 的 UTXO。
+First, we proceeded to traverse all the transaction inputs. In the first step of refund operation, it is stipulated that the transaction output with index 0 is marked when user preform refund. So here the prevIndex of UTXO is checked. If it is 0, it may be the marked UTXO, and then go the next step. The next step is to read the UTXO prevHash from the store, if the return is not empty, it's the UTXO marked as refund.
 
-问：既然从存储区里读取 prevHash 是最终的判断标准，为什么还要对 prevIndex 进行判断呢？
+Q: Since the prevHash read from the store is the final criterion, what is the judge of prevIndex for?
 
-答：存储区操作会花费较多手续费，所以将判断分为两级，先进行手续费低的判断，再进行手续费高的判断。
+A: the operation of storage area will cost more fees, so we take the two-level judgment. First, the low-fee judgment is performed, and then we conduct the high-fee judgment.
 
-**refund 第二步的代码**
+**The code for the second step of refund**
 
-当从存储区中读取到后，用户就可以将这笔钱取走，但是不能将 CGAS 中其余的钱取走，所以这里对 inputs 和 outputs 的数量进行了限制，在 refund 操作中只允许一个 input 和一个 output。
+The user should be able to withdraw the respectively amount of the token when value can be read from the storage area, but cannot withdraw the rest of the token in CGAS. Therefore, the number of inputs and outputs is limited here; only one input and one output are allowed in the refund operation.
 
 ```c#
 if (inputs.Length != 1 || outputs.Length != 1)
@@ -55,9 +55,9 @@ if (inputs.Length != 1 || outputs.Length != 1)
 return outputs[0].ScriptHash.AsBigInteger() == refundMan.AsBigInteger();
 ```
 
-最后一句的意思就是只允许这个 UTXO 的所有人，也就是将它标记为 refund 的人能把钱取走。但是只允许一个 input 和一个 output 的话有一个潜在的 Bug，就是如果打算支付手续费的话，只能通过减少 outputs 的金额来支付手续费，而无法通过添加 inputs 的方式来支付手续费，也就是说用户无法通过添加一个带 GAS 的 UTXO 来作为附加手续费。
+The last line means that only the owner of the UTXO, who marks it as refund, is allowed to withdraw the token. However, if only one input and one output are allowed, there should be a potential Bug, that is, if you intend to pay the fee, you can only pay it by reducing the amount of outputs, but not by adding inputs. In other words, users cannot add a UTXO with GAS as an additional fee.
 
-如何改进呢？
+How to improve?
 
 ```c#
 var references = tx.GetReferences();
@@ -69,9 +69,10 @@ for (int i = 1; i < references.Length; i++)
 return outputs[0].ScriptHash.AsBigInteger() == refundMan.AsBigInteger();
 ```
 
-可能像上面的代码一样，检测 inputs 中只能有第一笔是从 CGAS 中取走的，其余的 UTXO 不能从 CGAS 取走。如上面的代码，这样就形成一个约定，要取走的 UTXO 只能作为第一个 inputs，如果用户附加的手续费作为第一个 inputs，要取走的 UTXO 作为第二个 inputs 就会失败。
+Just like the above code, only the first UTXO in inputs can be taken from CGAS, and the rest cannot be withdrawn from CGAS. As with the code, it forms a convention that the UTXO to be taken must be used only as the first input. If the user’s additional fee is used as the first input, and the UTXO to be taken as the second input, then it will not perform successfully.
 
-当然也可以进行下面的改进：
+Of course, the following improvement is also feasible:
+
 
 ```c#
 var references = tx.GetReferences();
@@ -86,15 +87,15 @@ if(count > 1)
 return outputs[0].ScriptHash.AsBigInteger() == refundMan.AsBigInteger();
 ```
 
-这样改后就解除了“要取走的 UTXO 只能作为第一个 inputs”这样的限制，但多加了些代码也会使手续费升高。总之需要在手续费和用户体验中找到一个平衡点。
+This removes the restriction that the UTXO to be taken must be used as the first input, but the additional code also cost more fees. It's all about finding a balance between fees and user experience.
 
-只允许一个 input 和一个 output
+Only one input and one output are allowed
 
-**refund 第一步的代码**
+**Code for the first step of refund**
 
-当所有的 inputs 中都没有检测到标记为 refund 的时候，就认为用户在执行 refund 第一步的操作。
+When no refund is detected in all inputs, the user is considered to be performing the first step of refund.
 
-和第二步不同的是，refund 第一步是一个 InvocationTransaction，执行分为两步，第一步是通过 Verification 触发器执行的，允许一笔从 CGAS 地址到 CGAS 地址的转账，要求转账后 CGAS 地址的金额不能少。而且在转账的时候不能使用被标记为 refund 的 UTXO。第二步是通过 Application 触发器执行的，这是在交易确认之后，才执行，这里先讲 Verification 触发器部分。
+Unlike the second step, the first refund step is an InvocationTransaction which is divided into two steps. The first step is performed through Verification trigger, which allows a transfer from CGAS address to CGAS address. It requires that the amount of the CGAS address should not be less after the transfer. Moreover, we could not use UTXO marked as refund when transferring assets. The second step is performed through the Application trigger, which is executed after the transaction is confirmed. The Verification trigger section is included here.
 
 ```c#
 var currentHash = ExecutionEngine.ExecutingScriptHash;
@@ -118,9 +119,9 @@ foreach (var output in outputs)
 return outputAmount == inputAmount;
 ```
 
-代码逻辑也很简单，首先不允许 inputs 中包含非 GAS 资产，然后对来自 CGAS 地址的 inputs 进行求和，再对转到 CGAS 地址的 outputs 进行求和，比较输入总和和输出总和是否相等。
+The code logic should be simple. First, inputs should not include non-GAS assets, then inputs from the CGAS addresses are summed, and outputs transferred to the CGAS addresses are summed as well. Finally, compare whether the sum of inputs and outpus is equal.
 
-这段代码在 CGAS 中是可以附加手续费的，但是到 CNEO 的话，由于限制了不能包含非 NEO 资产，所以无法附加手续费，这是已经的 Bug，但目前影响不大。如何改进呢？
+Additional fees are allowed for the code in CGAS, but when it comes to CNEO, as it cannot contain non-NEO assets, it's not allowed to add fees. This is already a Bug, but it has little impact at present. How to improve?
 
 ```c#
 BigInteger inputAmount = 0;
@@ -139,24 +140,24 @@ foreach (var output in outputs)
 return outputAmount == inputAmount;
 ```
 
-如上面的代码，首先去掉了不允许包含其它资产的限制，然后进行判断：交易输入中的来自合约地址的指定的资产的数量和交易输出中的转到合约地址的指定的资产的数量相等。这样就可以避免合约中指定资产的流失。
+The above code first removes the restriction that does not allow other assets to be included, and then determines whether the amount of specified assets from the contract address in the transaction inputs is equal to the amount of specified assets to the contract address in the transaction outputs. This prevents the loss of the assets specified in the contract.
 
-在判断中不仅要判断资产数量，还要判断资产种类，否则就有可能发生以下的攻击：
+In the judgment, it is necessary to judge not only the amount of assets, but also the type of assets; otherwise the following attacks may occur:
 
 ```
-交易输入                      交易输出
+Transaction inputs                      Transaction outputs
 
 CGAS  100 GAS                CGAS  100 Token1
 User1 100 Token1             User1 100 GAS  
 ```
 
-其中 User1 是用户的地址，Token1 是其它某个不值钱的全局资产。
+Where User1 is the user's address and Token1 is some other worthless global asset.
 
-智能合约的安全性不亚于金融软件的安全性，在编写时需要考虑得很全面，才能避免出现漏洞。
+The security of smart contracts is no less than the security of financial softwares, which needs to be considered very comprehensively when writing to avoid vulnerability.
 
-#### Application 触发器部分代码
+#### The trigger part of Application 
 
-这块就很简单了，就是标准的智能合约的格式，通过 method 的不同来执行不同的方法。
+This part is very simple. It is the standard smart contract format, that is, executing different methods according to the type of the method. 
 
 ```c#
 if (Runtime.Trigger == TriggerType.Application)
@@ -187,9 +188,9 @@ if (Runtime.Trigger == TriggerType.Application)
 }
 ```
 
-需要注意的是，ExecutionEngine.CallingScriptHash 该方法的意思是获取合约调用链的上一级，也就是调用 CGAS 的合约，该方法需要在一开始执行，如果是在 Transfer 方法里面执行，获取的值可能不是调用链上一级的 ScriptHash。
+Remarkably, the ExecutionEngine.CallingScriptHash method means to obtain the upper level of the contract invocation chain, which is the contract invoking CGAS. This method needs to be executed in the first place. If it is executed in the Transfer method, the obtained value may not be the scriptHash of the upper level of the invocation chain.
 
-#### VerificationR 触发器部分代码
+#### The trigger part of VerificationR
 
 ```c#
 if (Runtime.Trigger == TriggerType.VerificationR) //Backward compatibility, refusing to accept other assets
@@ -205,4 +206,4 @@ if (Runtime.Trigger == TriggerType.VerificationR) //Backward compatibility, refu
 }
 ```
 
-这个触发器目前还没有实现，是对 NEP-7 的向后兼容，如果节点支持 NEP-7，它在 CGAS 收到转账的时候会进行验证，返回 false 代表拒绝接收这笔转账，返回 true 代表接收这笔转账。在什么情况下拒绝接受转账呢？就是用户转了一些奇奇怪怪的资产，因为用户如果误转了其它资产到 CGAS 地址，他是无法将其取出的，所以这段代码就是加以限制。但目前主网上还不支持 NEP-7，所以暂时不起作用。
+This trigger has not been implemented yet, which is backward compatible with NEP-7. If the node supports NEP-7, it will verify when the transfer is received by CGAS. Return false if the transfer is refused, true otherwise. What can result in the transfer being refused? In case the user transfers some strange assets, as if the user mistakenly transfers other assets to the CGAS address, he cannot withdraw them, so this code is limited. However, NEP-7 is not currently supported on the main network, so it does not work for the time being.

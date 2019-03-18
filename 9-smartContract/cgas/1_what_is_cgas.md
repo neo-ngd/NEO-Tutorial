@@ -1,65 +1,66 @@
-# 什么是 CGAS
+# What is CGAS
 
-CGAS 是由 NGD（NEO Global Development）发布的符合 NEP-5 规范的合约资产，CGAS 可由 GAS 一比一地对换，并且支持退回操作。该合约的目的是将 GAS 进行全局资产的合约映射，使全局资产 GAS 可以方便地在合约内部流转，支持由合约调用转账。
+CGAS is a NEP-5 compatible contract asset and is issued by NGD (NEO Global Development). CGAS can be exchanged in proportion 1:1 for GAS and can be exchanged back. The purpose of the contract is to map the GAS to the global assets, so that the global asset GAS can be easily circulated inside the contract and support the transfer invoked through smart contract utilization.
 
-为什么要发布 CGAS？ 
+Why issue CGAS? 
 
-因为在 NEO 上面的众多 DApps项目方都有一个需求，要在合约中使用一种流通性强，价格相对稳定的数字资产。但受限于 NEO 智能合约的限制和安全性考虑，无法在智能合约中对全局资产（如 NEO 或 GAS）进行转账。而项目方自己发行一种 NEP-5 代币又无法拥有广泛的流通性，无论是让社区认可其代币还是让其代币在交易所上流通，对项目方来说都是个成本很高的事情，而且所有项目发均发行自己的NEP-5资产也是一种浪费。所以社区强烈建议由 NGD 来发行一种与 NEO 或 GAS 锚定的 NEP-5 资产，以供社区统一使用，所以 CNEO 和 CGAS 就诞生了。
+Because many DApps project parties on NEO have a demand to use a digital asset with strong liquidity and relatively stable price is used in the contract. However, it is not possible to transfer global assets (such as NEO or GAS) in smart contracts by the fact that NEO and GAS tokens can’t be actually exchanged through smart contract operations out of security reasons. Furthermore, if the project side itself issues a NEP-5 token, it may have poor liquidity. It is a high cost for the project side to get the needed recognition of the community, or a listing on an exchange market, and it is also a waste for all projects to issue their own NEP-5 assets. Therefore, NGD is strongly recommended by the community to issue a universal NEO-5 asset anchored with NEO or GAS for the use within the community, hence the birth of CNEO and CGAS.
 
-CGAS 是如何映射全局资产的呢？
 
-在 CGAS 中通过 mintTokens 和 refund 方法进行全局资产的兑换和退回，无需中心化机构的承兑，完全的去中心化。mintTokens 的方式跟众多项目的 Token Sale 的代码类似，在方法内部对全局资产和合约资产进行了 1:1 的兑换。在 refund 方法中，是预先将一个 UTXO 标记为指定的用户可以取回，然后该用户发起转账将该资产转到自己的地址中。更多细节可以参考 GitHub。这个设计理念由 NEL 团队提出并进行了开源的代码实现，对此表示感谢。
+How does CGAS map global assets?
 
-CGAS 中的 C 是什么意思？
+In CGAS, the global assets are exchanged and refunded through methods mintTokens and refund, without the acceptance of a centralized institution, and it’s completely decentralized. mintTokens is similar to the Token Sale for many projects, with the exchange of global assets and contract assets in proportion 1:1 within the method. In refund method, a UTXO is marked to a specified user in advance, and then the user can initiate a transfer transaction to get the asset back to his address. More details can be found in GitHub. This design concept is proposed and implemented in open source by the NEL team, for which we are grateful.
 
-Contract，合约的意思。
+What does C in CGAS mean?
 
-有社区项目已经开发的映射全局资产的合约，为什么 NGD 要开发 CGAS 呢？
+C actually stands for “Contract”.
 
-据了解，社区的映射全局资产的合约是不开源的，无法解决信任问题。NGD 开发的 CGAS 是开源的，去中心化的，而且没有使用限制，任何项目方都可以使用。
+Why should NGD develop CGAS since there are already community contract assets that can map global assets within the network?
 
-## 技术介绍
+The need for CGAS and CNEO becomes obvious consequently with revealing the fact that not all contract assets made by the community can be trusted, or may not even have an open source nature. On the other hand, CGAS developed by NGD is open source and completely decentralized that can be fortunately used for any type of projects without any restrictions. 
 
-NEP-5 规范中的方法：
+## Technology Introduction
 
-| 方法        | 参数                               | 返回值 | 描述                                                         |
+Methods in the NEP-5 specification:
+
+| Method        | Parameters                               | Return | Description                                                         |
 | ----------- | ---------------------------------- | ------ | ------------------------------------------------------------ |
-| balanceOf   | byte[] account                     | int    | 获得某个账户 CGAS 的余额，返回结果为真实值 × 10⁸             |
-| decimals    | ---                                | int    | 获得 CGAS 精度，返回值为常量 `8`                             |
-| name        | ---                                | string | 获得合约名称，返回值为常量 `NEP5 GAS`                        |
-| symbol      | ---                                | string | 获得合约符号，返回值为常量 `CGAS`                            |
-| totalSupply | ---                                | int    | 获得 CGAS 总发行量，返回结果为真实值 × 10⁸。因为 CGAS 与 GAS 为一比一兑换，所以合约地址中 GAS 的数量等于 CGAS 的总发行量 |
-| transfer    | byte[] from, byte[] to, int amount | bool   | 转账方法，将 CGAS 从发送者（from）账户，转到接收者（to）账户，转账金额为 amount；from 与 to 为 Script Hash，amount 为实际转账金额 × 10⁸。该方法同时支持用户调用和合约调用。 |
+| balanceOf   | byte[] account                     | int    | Get the CGAS balance of an account and return the real value * 10⁸             |
+| decimals    | ---                                | int    | Get the CGAS precision, and return the constant value `8`                             |
+| name        | ---                                | string | Get the contract name, and return the constant value `NEP5 GAS`                        |
+| symbol      | ---                                | string | Get the contract symbol, and return the constant value `CGAS`                            |
+| totalSupply | ---                                | int    | Get the total circulation of CGAS, and return the real value * 10⁸. Since CGAS and GAS are exchanged in proportion 1:1, the amount of GAS in the contract address is equal to the total circulation of CGAS |
+| transfer    | byte[] from, byte[] to, int amount | bool   | This method is to transfer CGAS from sender's (from) account to receiver's (to) account  with a transfer amount (amount). from and to is in format of Script Hash and amount is the real transfer amount *10⁸. This method supports both user invocation and contract invocation. |
 
-该合约为了支持 GAS 与 CGAS 互换，除了满足 NEP-5 规范中的方法其它方法：
+To allow the interchange of GAS and CFAS, the contract offers several methods in addition to the methods in the NEP-5 specification:
 
-| 方法               | 参数        | 返回值                                      | 描述                                                         |
+| Method               | Parameters         | Return                                      | Description                                                         |
 | ------------------ | ----------- | ------------------------------------------- | ------------------------------------------------------------ |
-| getRefundTarget    | byte[] txId | byte[]                                      | 获得某个 UTXO 是谁待退回的，参数为 UTXO 中的交易 ID（确定一个 UTXO 由 txId 和 output 索引共同完成，这里 output 索引默认为 0），返回值为这个 UTXO 的退回者，他可以将这个 UTXO 作为交易输入，将 GAS 从 CGAS 地址中取走。 |
-| getTxInfo          | byte[] txId | [TransferInfo](NeoContract/TransferInfo.cs) | 获得某个交易 ID 的详细转账信息，在以下 4 种情况中可记录 TxInfo：mintTokens, Refund, transfer, transferAPP。 |
-| mintTokens         | ---         | bool                                        | CGAS 的铸币方法。用户通过发起 InvocationTransaction，将 GAS 转给 CGAS 合约地址，并且调用 mintTokens 完成 GAS 到 CGAS 的转换工作。合约调用成功后，用户资产中将会增加与兑换的 GAS 数额相等的 CGAS。[注意事项](#note-zh) |
-| refund             | byte[] from | bool                                        | 用户将 CGAS 提取，变成 GAS 总共分两步。第一步，发起一笔 InvocationTransaction 其中包含一笔从 CGAS 地址到 CGAS 地址的 GAS 转账（转账金额为用户想退回的 GAS 的数量），并调用 refund 方法（参数为退回者的 Script Hash）。合约调用成功后，将自动销毁与退回数量相等的 CGAS，并把该交易的第 0 号 output 标记为所属于该用户。第二步，用户构造一个交易将第一步标记过的 UTXO 作为交易输入，交易输出为用户自己的地址，从而将 GAS 从 CGAS 地址中取走。 |
-| supportedStandards | ---         | string                                      | NEP-10 规范，返回合约所支持的 NEP 标准，返回值为常量，数组格式：`{ "NEP-5", "NEP-7", "NEP-10" }` |
+| getRefundTarget    | byte[] txId | byte[]                                      | Get the refunder of a UTXO, parameter is the transaction ID in UTXO (a UTXO is completely determined by the txId and output index, where the output index is 0 by default). Return the refunder of the UTXO, who can take the UTXO as the transaction input and take GAS from the CGAS address. |
+| getTxInfo          | byte[] txId | [TransferInfo](NeoContract/TransferInfo.cs) | Get the detailed transfer information for a transaction ID and TxInfo can be recorded in the following four cases below: mintTokens, Refund, transfer, transferAPP |
+| mintTokens         | ---         | bool                                        | The mint method of CGAS. By initiating InvocationTransaction, users can transfer GAS to the CGAS contract address, and invoke mintTokens to exchange GAS to CGAS. When the contract is successfully invoked, the CGAS in the user's assets will increase to the same amount as the exchanged GAS.  [Note](#note-zh) |
+| refund             | byte[] from | bool                                        | Users exchange CGAS to GAS in two steps. The first step is to initiate an InvocationTransaction, which contains a GAS transferred from the CGAS address to the CGAS address (the transfer amount is the amount of GAS the user want to refund), and invoke the refund method (parameter is the refunder's Script Hash). When the contract invocation is successful, the CGAS equal to the refunded amount will be automatically ruined, and the output with index 0 of the transaction will be marked as belonging to the user. In the second step, the user creates a transaction that takes the UTXO marked in the first step as the transaction input and own address as output, thus taking the GAS from the CGAS address. |
+| supportedStandards | ---         | string                                      | NEP-10 specification, return the NEP standards supported by the contract, return the constant value in array format: `{ "NEP-5", "NEP-7", "NEP-10" }` |
 
-NEP-5 规范中的通知：
+Notice in the NEP-5 specification:
 
-| 通知     | 参数                              | 描述                                                         |
+| Notice     | Parameters                              | Description                                                         |
 | -------- | --------------------------------- | ------------------------------------------------------------ |
-| transfer | byte[] from, byte[] to, int value | 通知中包含转账的 3 个要素，发送者 （from），接收者 （to） ，转账金额 （value）, 转账资产默认为 CGAS |
+| transfer | byte[] from, byte[] to, int value | The three elements of the transfer contained in the notice: sender (from), receiver (to), transfer amount (value), and the transfer asset is CGAS by default |
 
-该合约实现的其它通知：
+Other notices implemented by the contract:
 
-| 通知   | 参数                    | 描述                                                         |
+| Notice   | Parameters                    | Description                                                         |
 | ------ | ----------------------- | ------------------------------------------------------------ |
-| refund | byte[] txid, byte[] who | 通知中包含转账的 2 个要素，待退回的 UTXO（txid），退回者的 Script Hash（who） |
+| refund | byte[] txid, byte[] who | The two elements of the transfer contained in the notice: UTXO (txid) to be refunded, and Script Hash (who) of the refunder. |
 
 <a name="note-zh"></a>
 
-> [注意]
+> [Note]
 >
-> 在 mintTokens 的时候请注意，InvocationTransaction 的 Inputs 和 Output 加起来不应该超过60个，否则在执行时所需的手续费会超过 10 GAS 的免费额度。如果有大量 GAS 的 UTXO 需要换成 CGAS，建议先进行一个普通转账，将 UTXO 合并，然后再进行 mintTokens 操作。
+> In mintTokens, the Inputs and Outputs of InvocationTransaction should not exceed 60. Otherwise, the fee required for execution will exceed the free 10 GAS. If a large number of GAS’s UTXO needs to be exchanged as CGAS, it is recommended to make a normal transfer to merge UTXO first, and then perform mintTokens.
 
-## 版本说明
+## Release Notes
 
 **1.0.3**
 

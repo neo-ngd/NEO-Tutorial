@@ -1,28 +1,28 @@
-# 签名和验证
+# Signature and verification
 
-CGAS 执行的过程大体上可以分两步，第一步是执行交易中的验证脚本，也就是 Verification 触发器，如果验证失败了，交易将不会确认。这步由所有收到该交易的节点执行，执行时间在生成区块之前。
+The process of CGAS execution can be roughly divided into two steps. The first step is to execute the verification scripts in the transaction, namely the Verification trigger. If the verification fails, the transaction will not be confirmed. This step is performed by all nodes that receive the transaction before the block is generated.
 
-第二步是执行智能合约，也就是 Application 触发器。这步由所有同步区块的节点，在同步区块后执行。
+The second step is to execute the smart contract, namely the Application trigger. This step is performed by all nodes that synchronize blocks after synchronization.
 
-第一步相关的脚本叫 Witness，其中包含验证脚本（verification）和调用脚本（invocation）。NeoVM 执行的时候，验证脚本就是智能合约执行的代码，调用脚本包含验证脚本所需的参数，一般是签名。
+The relevant script in the first step is called Witness, which contains validation script and invocation script. When NeoVM is running, the verification script is the code executed by the smart contract, of which the parameters in included in the invocation script, usually the signature.
 
-在 Witness 中可以包含多组调用和验证脚本。具体可参考 [CGAS GitHub](https://github.com/neo-ngd/CGAS-Contract)。
+Multiple sets of invocation and validation scripts can be included in Witness. Refer to [CGAS GitHub](https://github.com/neo-ngd/CGAS-Contract) for details.
 
-下面以 refund 第一步的交易为示例进行分析。
+The following is an example of the transaction for the first step of the refund.
 
-refund 第一步时的交易结构:
+Transaction structure for the first step of the refund:
 
-> [说明]
+> [note]
 >
 > Type: InvocationTransaction
 >
-> Input: 来自 CGAS 合约地址
+> Input: transfer from the contract address of CGAS
 >
-> Output: 转到 CGAS 合约地址 (与 input 相同)
+> Output: transfer to the contract address of CGAS (same as input)
 >
-> Script: 调用 refund 方法，设置参数为退回者的 Script Hash
+> Script: invoke the refund method, setting the parameter to the refunder's Script Hash
 >
-> Scripts: 需要两个 witness: 1、CGAS 合约的 witness; 2、用户的 witness（附加见证人）
+> Scripts: need two witnesses: 1、 witness of CGAS contract ; 2、witness of the user（additional witness）
 
 ```c#
 {
@@ -80,44 +80,44 @@ refund 第一步时的交易结构:
 }
 ```
 
-## CheckWitness() 和附加见证人
+## CheckWitness() and additional witness
 
-注意到这段交易中是有 attributes 的，因为在智能合约代码中有 CheckWitness()，如果验证的是当前的合约的权限，并不需要在交易属性中添加 script，只限于验证的签名不是合约本身，比如 refund 第一步，用户是通过 from 参数传进来的，而 from 的 script hash 不等于 CGAS script hash，这时需要在交易属性中添加 from 的 script hash 作为附加见证人。
+Note that there are attributes in this transaction, since CheckWitness() exists in the smart contract code. For the permission verification of the current contract, it’s not necessary to add a script to the transaction attribute. This is limited to the signature verified not the contract itself. For example, in the first step of the refund, the user is passed in via the parameter from, and its script hash is not equal to the CGAS script hash. In this case, the script hash of from needs to be added as an additional witness to the transaction attributes.
 
-另外一点，verification 部分是可以省略的（如上面的示例中的第一个验证脚本），如果省略的话节点会自动根据链上的 script hash 进行补充。这就需要知道总共有哪些 script hash，并且知道 witness 中的各项的排列顺序。目前 witness 中的各项的排列顺序为：按照 script hash 从小到大排序。
+Also, the verification can be omitted (as the first verification script in the example above), if so, the node will automatically add this part by the script hash on the chain. This requires knowing the full script hashes and the order of the items in witness. Currently items in witness are sorted in ascending order of script hash.
 
-这样，系统知道了总共的 script hash（当前合约的 script hash 加上交易属性中列出来的 script hash）又知道所有调用和验证脚本，以及这些调用和验证脚本和 Script hash 的匹配顺序，就可以执行代码了。
+In this way, since the system knows the full script hashes (script hashes of the current contract plus the script hashes listed in the transaction attributes) and positions all the invocation and validation scripts, as well as the matching order of these invocation and verification scripts to the script hash, then it can execute the code.
 
-## OpCode 脚本
+## OpCode script
 
-讲完了 CheckWitness() 和交易属性，那么来看下第一组调用脚本，上面的示例是 520131，这是什么意思呢。首先将 52 放入调用栈，然后放入 01，再放入 31。
+After finishing talking about the CheckWitness() and transaction attributes, let's take a look at the first set of invocation scripts. The example above is 520131. What does this mean? First put 52 into the invocation stack, then put 01, and then put 31.
 
-取数据的时候按照 [OpCode](https://github.com/neo-project/neo-vm/blob/master/src/neo-vm/OpCode.cs) 中的注释来理解，52 的意思是 Push 2。
+Interpret the code according to the comments in [OpCode](https://github.com/neo-project/neo-vm/blob/master/src/neo-vm/OpCode.cs) when fetching data, so 52 means to Push 2.
 
-16 进制的 01 的意思是后面这是一个数组，长度为 1（0x01 对应 10 进制的 1），之后 1 字节的数据是数据本身，并非指令。
+0x01 means the following is an array with the length 1 (0x01 corresponds to decimal 1), and the next 1 byte is the data, not the instruction.
 
-16 进制的 31 对应 ASCII 码中的字母 ‘1’
+0x31 corresponds to the character ‘1’ in the ASCII code.
 
-所以第一个参数是数字 2，第二个参数是字符串 “1”。
+So the first parameter is the digit 2 and the second parameter is the string "1".
 
-通过这个顺序将两个参数放入调用栈，读取的时候按照栈的顺序，先取出来第一个参数是字符串 “1”，再取出来第二个参数是数字 2。
+Push these two parameters into the invocation stack. Read the data according to the order of the stack, the first popped parameter is the string "1", and then is the digit 2.
 
-**示例1**
+**Example 1**
 
-有了上面的例子，下面来看下第二组的调用脚本：
+With the above example, let's look at the second set of invocation scripts:
 
 ```
 404c53a9ca937470df9dcbbb71cf00e2b4d75761e4667ccfd820e40829887c4444c7911ed509e564b2bac30e41c92c43f7df2dd2a25ea1c8e2bc10aec3d3208251
 ```
 
-首先是 16 进制的 40，对应 10 进制的 64，后面 64 位是个字节数组（其实是签名）。
+0x40 corresponds to decimal 64, the next 64 bits is a byte array (actually a signature).
 
-**示例2**
+**Example 2**
 
-再看一下第二组的验证脚本：
+Take a look at the second set of verification scripts:
 
 ```
 21037ebe29fff57d8c177870e9d9eecb046b27fc290ccbac88a0e3da8bac5daa630dac
 ```
 
-首先是 16 进制的 21，对应 10 进制的 33，后面 33 位是个字节数组（其实是公钥），最后一个 0xac 意思是 CHECKSIG，意思是验证签名，就这么简单。
+0x21 corresponds to decimal 33, the next 33 bits is a byte array (actually a public key), and the last 0xac means CHECKSIG, which means verifying the signature, and that’s it.

@@ -1,30 +1,29 @@
-# 全局资产和 NEP-5 资产
+# Global assets and NEP-5 assets
 
-在 NEO 中支持两种资产，分别是全局资产和 NEP-5 资产。
+Two types of assets are supported in NEO: global assets and NEP-5 assets.
 
-全局资产就是 NEO 底层支持的资产。有统一的模板，在 neo-gui 客户端中填写参数就可以很方便地进行注册、发行和转账。全局资产可以通过绑定数字证书进行发行者的身份认证，比如某个公司用 CA 机构颁发的数字证书就可以在 NEO 上发行实名认证的资产，比如股票、代金券、会员卡等。但代价就是高昂的成本，以 GAS 15元的价格为例，发行全局资产的一年的费用约为 5000 * 15 = 75000 元人民币。
+Global assets are the native assets supported by NEO. With a unified template, registration, issue, and transfer can be easily done by filling in the parameters in the neo-gui client. Global assets’ issuers can be identified by binding digital certificates. For example, a company can issue real-name certified assets such as stocks, vouchers, membership cards, etc. on NEO with a digital certificate issued by the CA authority. However, the cost is high. Taking the price of GAS 15 yuan as an example, the annual cost of issuing global assets is about 5000 * 15 = 75,000 yuan.
 
-简单来讲，全局资产的优点就是简单、安全、支持数字证书，成本高昂。
+In simple terms, the advantages of global assets are simplicity, security and supporting digital certificates, while the cost is high.
 
-NEP 全称 NEO Enhancement Proposals，NEP-5 指的是 NEO 的第 5 号改进提案，名称为 Token Standard（代币标准）。在这个标准中规定了智能合约中的资产规范。NEP-5 资产准确地来说叫符合 NEP-5 标准的合约资产。是在智能合约中，开发者规定的“资产”，在智能合约中注册发行和流转。该资产的发行量、名称、精度、以及所有的用户的余额都存储在该智能合约的存储区中。NEP-5 资产的安全性取决于合约的开发者，他可以开源自己的合约供社区审计，也可以不开源合约。这就意味着使用 NEP-5 资产要相信开发者不会做恶。
+NEP is called NEO Enhancement Proposals, and NEP-5 refers to the No.5 NEO enhancement proposal, named Token Standard, which specifies the asset specifications in smart contracts. NEP-5 assets are technically contract assets that meet the NEP-5 standards. It is the "asset" stipulated by the developer to register issue and transfer in the smart contract. The circulation, name, precision, and balance of all users are stored in the storage area of the smart contract. The security of the NEP-5 asset depends on the contract developer, who can open source the contract for community audit or not. To use NEP-5 assets means trusting developers not to do evil.
 
-简单来讲，NEP-5 资产的优点就是自由度高，支持复杂的智能合约，不支持数字证书，安全性和发行成本比全局资产低。
+In simple terms, NEP-5 assets have the advantages of high degree of freedom, supporting complex smart contracts and lower issuance costs, while they do not support digital certificates, with lower security than global assets.
 
-关于 NEP-5 的介绍可以参考之前的教程，也可以参考 [GitHub](https://github.com/neo-project/proposals/blob/master/nep-5.mediawiki)。
+For an introduction to NEP-5, you can refer to previous tutorials or [GitHub](https://github.com/neo-project/proposals/blob/master/nep-5.mediawiki).
 
-下面对两种资产进行了系统的对比
+Here is a systematic comparison of the two assets
 
-|                          | 全局资产                | NEP-5 资产               |
+|                          | Global assets                | NEP-5 assets               |
 | ------------------------ | ----------------------- | ------------------------ |
-| 开始支持时间             | 原生支持                | 2.0 之后才开始支持       |
-| 预计结束支持时间         | NEO 3.0 之后            |                          |
-| 代表资产                 | NEO、GAS                | CGAS、SDUSD、NNC、PHX 等 |
-| 注册费用                 | 非原生资产 5000GAS / 年 | 500~1000 GAS             |
-| 存储记录模型             | UTXO 模型               | 余额模型                 |
-| 安全性                   | 高                      | 取决于合约开发者         |
-| 功能                     | 简单                    | 复杂                     |
-| 数字证书的身份认证       | 支持                    | 不支持                   |
-| 在智能合约中进行转账操作 | 不能                    | 能                       |
+| Time to start support             | native support                | Since 2.0       |
+| Supposed time to end support          | Since NEO 3.0             |                          |
+| Representative assets                 | NEO、GAS                | CGAS、SDUSD、NNC、PHX, etc.  |
+| Registration fee                 | 5000GAS/year | 500~1000 GAS             |
+| Model to store records             | UTXO                | Balance                 |
+| Security                   | High                      | Depends on contract developers         |
+| Functions                     | Simple                    | Complicated                     |
+| Identification via digital certificates       | Support                    | Not support                   |
+| Transfer through smart contracts | No                    | yes                       |
 |                          |                         |                          |
 |                          |                         |                          |
-

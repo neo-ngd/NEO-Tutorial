@@ -73,9 +73,6 @@ def balanceOf(acc):
     if len(itemValue) != 0:
         return itemValue
     return 0
-
-def sett():
-    Put(ctx, 'AdqAr9LFwqieATxb6KeqyYXRL3XE2eVEXR',TOKEN_INITIAL_SUPPLY)
     
 def exchange_token():
     tx = GetScriptContainer()
@@ -122,9 +119,6 @@ def Main(operation, args):
 
     if operation == "balanceOf":
         return balanceOf(args[0])
-
-    if operation == "sett":
-        return sett()
 
     if operation == "exchange_token":
         return exchange_token()

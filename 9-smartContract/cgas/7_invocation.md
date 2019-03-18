@@ -1,25 +1,25 @@
-# 调用 CGAS
+# Invoke CGAS
 
-在 CGAS 所有的代码中，调用 CGAS 的代码难度是很高的，甚至不亚于 Refund 的部分的代码
+In all of CGAS's code, the code invoking CGAS is of high difficulty, even as much as that of Refund.
 
-首先调用智能合约的过程就是构造一笔 InvocationTransaction 的过程，一笔 InvocationTransaction 的数据结构如下：
+First, the process of invoking a smart contract is to construct an InvocationTransaction. The data structure of an InvocationTransaction is as follows:
 
-| 字节数 | 字段       | 类型      | 描述                           |
+| Byte number | Field       | Type      | Description                           |
 | ------ | ---------- | --------- | ------------------------------ |
-| 1      | Type       | byte      | 交易类型                       |
-| 1      | Version    | byte      | 交易版本号，目前为 0 或 1      |
-| ?      | -          | -         | 特定交易的数据                 |
-| ?*?    | Attributes | tx_attr[] | 该交易所具备的额外特性         |
-| 34*?   | Inputs     | tx_in[]   | 输入                           |
-| 60 * ? | Outputs    | tx_out[]  | 输出                           |
-| ?*?    | Witnesses  | Witness[] | 用于验证该交易的脚本列表       |
-| ?*?    | Script     | byte[]    | 包含该交易中智能合约的调用脚本 |
+| 1      | Type       | byte      | Transaction type                       |
+| 1      | Version    | byte      | Transaction version, now is 0 or 1    |
+| ?      | -          | -         | Specific transaction data                 |
+| ?*?    | Attributes | tx_attr[] | Additional features in the transaction         |
+| 34*?   | Inputs     | tx_in[]   | Inputs                           |
+| 60 * ? | Outputs    | tx_out[]  | outputs                           |
+| ?*?    | Witnesses  | Witness[] | Used to verify the script list of the transaction       |
+| ?*?    | Script     | byte[]    | Invocation scripts of the smart contract in the transaction |
 
-目前调用 CGAS 只能通过 SDK 来自行构造 InvocationTransaction，neo-gui，neo-cli 等客户端无法完美支持 CGAS（只支持 NEP-5 中的方法，不支持 CGAS 的 mintTokens，refund 等方法）。
+Currently, CGAS can only construct InvocationTransaction with the SDK. The clients such as neo-gui and neo-cli cannot support CGAS completely. (Only methods in NEP-5 are supported, and the methods such as mintTokens and refund of CGAS are not supported.)
 
-具体的项目创建、引用 SDK，构造交易可以参考这个项目：[CGAS UnitTests](https://github.com/neo-ngd/CGAS-Contract/blob/master/UnitTests)。
+You can refer to the project [CGAS UnitTests](https://github.com/neo-ngd/CGAS-Contract/blob/master/UnitTests) for specific project creation, SDK reference and transaction construction.
 
-以 MintTokens 为例，下面对构造交易的代码进行讲解。
+Take MintTokens as an example, next let’s analysis the code to construct a transaction.
 
 ```c#
 public static void MintTokens()
@@ -34,7 +34,7 @@ public static void MintTokens()
     var outputs = new List<TransactionOutput>{ new TransactionOutput()
     {
         AssetId = Blockchain.UtilityToken.Hash, //Asset Id, this is GAS
-        ScriptHash = ScriptHash, //CGAS 地址
+        ScriptHash = ScriptHash, //CGAS address
         Value = new Fixed8((long)(1 * (long)Math.Pow(10, 8)))
     }}.ToArray();
 
@@ -65,34 +65,34 @@ public static void MintTokens()
 }
 ```
 
-最开始是构造交易输入和交易输出，交易输入是来自自己的地址，交易输出是 CGAS 的地址。其中交易输入不可复用，每次测试都要使用未花费的交易输入。
+The first is to construct the transaction inputs and outputs. The transaction inputs are from own address, and the output is the address of the CGAS. The transaction inputs are not reusable, and the unspent transaction inputs are used for each test.
 
-交易输入包含以下两个字段：PrevHash，PrevIndex，分别表示所使用的交易输出的交易 ID 和索引。
+The transaction inputs contain the following two fields: PrevHash and PrevIndex, which respectively represent the transaction ID and index of the transaction output used.
 
-这里要清楚一个概念，在 UTXO 模型中，所有的交易输入必定是之前某个交易的交易输出，这样形成了一个完成的链条。一个交易输出可以用一个“复合主键”来表示，就是交易 ID 和交易输出的索引。这就是交易输入的字段，它引用了一个交易输出的“主键”，而并非引用交易输出的完整数据。
+To be clear, in the UTXO model, all transaction inputs must be the transaction outputs of the previous transaction, thus forming a completed chain. A transaction output can be represented by a "composite primary key", that is, the transaction ID and the index of the transaction output. This is the field of the transaction inputs, which refers to the "primary key" of a transaction output, rather than the complete data of the transaction output.
 
-然后开始构造一个 InvocationTransaction，最重要的就是里面的 Script 字段。这里通过 SDK 中的 ScriptBuilder 类进行创建。
+Then start to construct an InvocationTransaction, the most important of which is the Script field. Here it is created by the ScriptBuilder class in the SDK.
 
-交易构造完成后，对交易进行签名，签名的内容会写在交易的 Witness 字段中。
+After the transaction is constructed, the transaction is signed and the signed content is written in the Witness field of the transaction.
 
-最后在本地进行交易验证，交易验证包括：
+Finally, the transaction verification is performed locally, including:
 
-1、验证交易的格式是否正确。
+1. whether the format of the transaction is correct.
 
-2、交易的大小是否超过限制。
+2. Whether the size of the transaction exceeds the limit.
 
-3、在一笔交易中是否使用了两个相同的 UTXO。
+3. Whether two identical UTXOs are used in a transaction.
 
-4、内存池中的交易是否包括该交易所使用的 UTXO。
+4. Whether the transaction in the memory pool includes the UTXO used by the transaction.
 
-5、是否双重花费（区块链中的的交易是否包括该交易所使用的 UTXO）。
+5. Whether there is double spend (whether the transaction in the blockchain includes UTXO used in the transaction).
 
-6、交易中的资产是否过期，转账精度是否符合要求，资产是否存在。
+6. Whether the assets in the transaction are expired, whether the transfer precision meets the requirements, and whether the assets exist.
 
-7、手续费是否合法。
+7. Whether the fees are valid.
 
-8、交易属性是否合法
+8. Whether the transaction attributes are valid.
 
-9、交易的验证脚本是否通过（即执行 Trigger.Verify 部分的代码）。
+9. Whether the verification scripts are executed successfully (that is, executing Trigger.Verify).
 
-建议开发者要构造交易的时候要本地单步调试以便发现问题所在。
+It is recommended that developers should debug locally by steps when constructing a transaction to find problems.
