@@ -1,37 +1,44 @@
 const PETS = [
     {
         name: 'Alice',
-        image: './resources/1.jpg',
+        realName: 'cushion',
+        image: './resources/cushion.png',
         price: 20 
     },
     {
         name: 'Bob',
-        image: './resources/2.jpg',
+        realName: 'chair',
+        image: './resources/chair.png',
         price: 20 
     },
     {
         name: 'Cindy',
-        image: './resources/3.jpg',
+        realName: 'sofa',
+        image: './resources/sofa.png',
         price: 30 
     },
     {
         name: 'Dan',
-        image: './resources/4.jpg',
+        realName: 'cabinet',
+        image: './resources/cabinet.png',
         price: 50 
     },
     {
         name: 'Eason',
-        image: './resources/5.png',
+        realName: 'bed',
+        image: './resources/bed.png',
         price: 80 
     },
     {
         name: 'Felix',
-        image: './resources/6.png',
+        realName: 'desk',
+        image: './resources/desk.png',
         price: 120 
     },
     {
         name: 'Gail',
-        image: './resources/7.jpg',
+        realName: 'light',
+        image: './resources/light.png',
         price: 300 
     },
 ];
