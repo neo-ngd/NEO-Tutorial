@@ -13,8 +13,6 @@ In NEP-5 standard, you have some methods and trigger one event
 
 #### totalSupply
 
-## Introduction to NEP-5
-
 ```csharp
 public static BigInteger totalSupply()
 ```
@@ -303,5 +301,5 @@ After the transaction to be recorded and confirmed, you can open the wallet of t
 
 ## Next Step
 
-In this tutorial, you have learned the standard of NEP-5 and how to implement the NEP-5 standard by define your own token. Now we can extend this step and go to [offer our token and make it publicly available](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/Give_an_ITO.md)
+In this tutorial, you have learned the standard of NEP-5 and how to implement the NEP-5 standard by define your own token. Now we can extend this step and go to [offer our token and make it publicly available](Give_an_ITO.md)
 
