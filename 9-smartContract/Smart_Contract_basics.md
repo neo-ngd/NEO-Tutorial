@@ -179,16 +179,16 @@ Usually this method is used to check whether an specified address is the the con
 For example, when you  want to delete some of your data in the storage, you must be the owner of that data, which means you are caling the smart contract with a address that match the specified address.
 
 ```csharp
-        private static bool Delete(string domain)
-        {
-	        // The owner is the owner which is store before
-            byte[] owner = Storage.Get(Storage.CurrentContext, domain);
-            if (owner == null) return false;
-            //Check if the contract invoker is the data owner 
-            if (!Runtime.CheckWitness(owner)) return false;
-            Storage.Delete(Storage.CurrentContext, domain);
-            return true;
-        }
+private static bool Delete(string domain)
+{
+	// The owner is the owner which is store before
+        byte[] owner = Storage.Get(Storage.CurrentContext, domain);
+        if (owner == null) return false;
+        //Check if the contract invoker is the data owner 
+        if (!Runtime.CheckWitness(owner)) return false;
+        Storage.Delete(Storage.CurrentContext, domain);
+        return true;
+}
 ```
 
 ## 7. Events
@@ -310,4 +310,4 @@ private static bool Delete(string domain)
 }
 ```
 ## Next step
-Great! Your just finished your first smart contract. Now let us move on to the [NEP 5 Token](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/What_is_nep5.md)
+Great! Your just finished your first smart contract. Now let us move on to the [NEP 5 Token](What_is_nep5.md)
