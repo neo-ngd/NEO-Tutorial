@@ -101,7 +101,7 @@ Now let us implement a NEP5-Token!
 
 ## Implementation of NEP-5
 
-First of all, we define a readonly property owner to prepresent the owner of the contract. The is the `Owner` and it is a `20` length byte array.
+First of all, we define a readonly property owner to present the owner of the contract. The is the `Owner` and it is a `20` length byte array.
 ```csharp
 // Here string "xxx" stands for the address you assigned as the onwer of address.
 private static readonly byte[] Owner = "xxxxxxxxxxxxxxxxxxxxx".ToScriptHash(); //Owner Address
@@ -110,8 +110,7 @@ private static readonly byte[] Owner = "xxxxxxxxxxxxxxxxxxxxx".ToScriptHash(); /
 Now we begin with the main method and the  trigger:
 
 ```csharp
-    public static object Main(string method, object[] args)
-        {
+    public static object Main(string method, object[] args){
             if (Runtime.Trigger == TriggerType.Verification)
             {
                 return Runtime.CheckWitness(Owner);
@@ -120,7 +119,6 @@ Now we begin with the main method and the  trigger:
             {
 	            return true;
             }
-        }
 }
 ```
 Here the main method accept two arguments. The first one is string `method`,  which is a nep-5 method the user will call to this smart contract. The second one is an array `args`, which represents a list of arguments used in the nep-5 method.
