@@ -285,11 +285,13 @@ After compile the NEP5.cs and get the avm file, deploy it. And if the contract i
 Now, in the NEO-GUI click `Advanced`->`Option`, add the scriptHash of your contract, you can view the NEP-5 asset you have in the Asset tab。
 
 <p align="center">
-	<img src="imgs/20190222-153941.png">
+	<img src="imgs/20190222-153941.png"/>
 </p>
+
 Let's test another transfer method in the NEP-5 standard. Open the invocation function tab and fill in the argumetns. The string part is the method of smart contract you want to call. Here we put `transfer`. In the array, the arguments are `from`,`to`,`amount`. The `From` address and `To` address are in the format of byte array which can be  changed by the wallet address. For instance, use this [tool link](https://peterlinx.github.io/DataTransformationTools/) which transfer the wallet address to byte array. For the `amount`, do not forget the 10^8 decimal. Here I want to transfer  250000000 my NEP-5 token from my account to other account
+
 <p align="center">
-	<img src="imgs/20190222-155235.png">
+	<img src="imgs/20190222-155235.png"/>
 </p>
 
 After the transaction to be recorded and confirmed, you can open the wallet of the target address and view the updated balance of NEP-5.
