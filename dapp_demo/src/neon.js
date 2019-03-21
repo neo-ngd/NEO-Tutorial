@@ -66,7 +66,7 @@ function initWithPrivKey(privKey) {
             updateGasDisplay(res);
         });
 
-        invokeScriptReadOnly('balanceof', checkVoucherBalanceCallback);
+        invokeScriptReadOnly('balanceOf', checkVoucherBalanceCallback);
         invokeScriptReadOnly('checkCat', checkCatCallback);
     } catch(e){
         console.log(e);
