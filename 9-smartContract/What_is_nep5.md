@@ -13,8 +13,6 @@ In NEP-5 standard, you have some methods and trigger one event
 
 #### totalSupply
 
-## Introduction to NEP-5
-
 ```csharp
 public static BigInteger totalSupply()
 ```
@@ -103,7 +101,7 @@ Now let us implement a NEP5-Token!
 
 ## Implementation of NEP-5
 
-First of all, we define a readonly property owner to prepresent the owner of the contract. The is the `Owner` and it is a `20` length byte array.
+First of all, we define a readonly property owner to present the owner of the contract. The is the `Owner` and it is a `20` length byte array.
 ```csharp
 // Here string "xxx" stands for the address you assigned as the onwer of address.
 private static readonly byte[] Owner = "xxxxxxxxxxxxxxxxxxxxx".ToScriptHash(); //Owner Address
@@ -112,8 +110,7 @@ private static readonly byte[] Owner = "xxxxxxxxxxxxxxxxxxxxx".ToScriptHash(); /
 Now we begin with the main method and the  trigger:
 
 ```csharp
-    public static object Main(string method, object[] args)
-        {
+    public static object Main(string method, object[] args){
             if (Runtime.Trigger == TriggerType.Verification)
             {
                 return Runtime.CheckWitness(Owner);
@@ -122,7 +119,6 @@ Now we begin with the main method and the  trigger:
             {
 	            return true;
             }
-        }
 }
 ```
 Here the main method accept two arguments. The first one is string `method`,  which is a nep-5 method the user will call to this smart contract. The second one is an array `args`, which represents a list of arguments used in the nep-5 method.
@@ -289,11 +285,13 @@ After compile the NEP5.cs and get the avm file, deploy it. And if the contract i
 Now, in the NEO-GUI click `Advanced`->`Option`, add the scriptHash of your contract, you can view the NEP-5 asset you have in the Asset tab。
 
 <p align="center">
-	<img src="imgs/20190222-153941.png">
+	<img src="imgs/20190222-153941.png"/>
 </p>
+
 Let's test another transfer method in the NEP-5 standard. Open the invocation function tab and fill in the argumetns. The string part is the method of smart contract you want to call. Here we put `transfer`. In the array, the arguments are `from`,`to`,`amount`. The `From` address and `To` address are in the format of byte array which can be  changed by the wallet address. For instance, use this [tool link](https://peterlinx.github.io/DataTransformationTools/) which transfer the wallet address to byte array. For the `amount`, do not forget the 10^8 decimal. Here I want to transfer  250000000 my NEP-5 token from my account to other account
+
 <p align="center">
-	<img src="imgs/20190222-155235.png">
+	<img src="imgs/20190222-155235.png"/>
 </p>
 
 After the transaction to be recorded and confirmed, you can open the wallet of the target address and view the updated balance of NEP-5.
@@ -303,5 +301,5 @@ After the transaction to be recorded and confirmed, you can open the wallet of t
 
 ## Next Step
 
-In this tutorial, you have learned the standard of NEP-5 and how to implement the NEP-5 standard by define your own token. Now we can extend this step and go to [offer our token and make it publicly available](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/Give_an_ITO.md)
+In this tutorial, you have learned the standard of NEP-5 and how to implement the NEP-5 standard by define your own token. Now we can extend this step and go to [offer our token and make it publicly available](Give_an_ITO.md)
 

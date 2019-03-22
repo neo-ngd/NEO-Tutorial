@@ -80,4 +80,4 @@ In this smart contrat tutorial, developers can understand the theory behind the 
 
 ## Next Step
 
-Now, let's begin to learn the smart contract development. The first thing to do is [Set up your Development](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/Development_set_up.md)
+Now, let's begin to learn the smart contract development. The first thing to do is [Set up your Development](Development_set_up.md)
