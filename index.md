@@ -1,3 +1,10 @@
+---
+layout: post
+lang: en
+lang-ref: NEO-Tutorial
+---
+
+
 <div align="center">  
 <h1>NEO-Tutorial</h1>
 <img src="neo-rebranding.png" alt="NEO-Tutorial" height="150">
