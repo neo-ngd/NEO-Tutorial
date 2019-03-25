@@ -1,9 +1,3 @@
----
-layout: post
-lang: en
-lang-ref: welcome-to-my-blog
----
-
 - Smart Contract
     - [What is smart contract](What_is_smart_contract.md)
     - [Write your  NEO contact with any languages](What_is_smart_contract.md#write-smart-contracts-in-any-language)
