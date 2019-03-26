@@ -1,3 +1,10 @@
+---
+layout: post
+lang: en
+lang-ref: what-is-smart-contract
+---
+
+
 # What is smart contract
 
 ## The popularity of smart contract
@@ -69,6 +76,7 @@ public class HelloWorld : SmartContract
 ```
 
 Here is a Hello world  smart contract using Python:
+
 ```python
 def Main():
     print("Hello World")
