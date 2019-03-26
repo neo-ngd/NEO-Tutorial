@@ -4,7 +4,7 @@ lang: en
 lang-ref: Development_compile
 ---
 
-#Compile and Deploy the Smart Contract
+# Compile and Deploy the Smart Contract
 
 ## Compiling contract file
 

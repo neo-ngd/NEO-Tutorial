@@ -4,7 +4,7 @@ lang: en
 lang-ref: Development_privateChain
 ---
 
-#Private Network
+# Private Network
 
 NEO blockchain has lauched several years and everyday, a number of users are makeing trascaction and using Dapps on the mainNet. When you develop a smart contract, you have to deploy it to the blockchain and test it on with invocation. Deploying the smart contract pr Dapp on the mainNet is spending the real Gas which is not a economic option for our develoers. When developer want to test there smart contract or Dapp, the best choice is to use TestNet or PrivateNet.
 
