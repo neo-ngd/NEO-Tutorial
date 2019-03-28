@@ -1,4 +1,24 @@
+---
+layout: post
+lang: en
+lang-ref: Give_an_ITO
+---
+
 # Give an ITO (Initial Token Offering)
+
+
+> 
+> **Objective**:  Learn the general idea of NEP5
+> 
+> **Main points**:
+> 
+> 1. What is ITO (Initial Token Offering)
+> 
+> 2. Implementation of MintToken function
+> 
+> 
+
+## What is ITO (Initial Token Offering)
 
 We already know what is a `NEP-5` token how to [implement](https://github.com/neo-ngd/NEO-Tutorial/blob/steven/smartContract/What_is_nep5.md) your NEP-5 token. The NEP-5 token is used as an asset which can used to transfer between users. However, only issue such a `NEP-5` token is not profitable for issuer because you have to link this asset to outside world manually. In NEO, there is a way for your to trade between `NEP-5` token  and global asset such as NEO.
 
@@ -42,7 +62,11 @@ private static ulong CurrentSwapRate()
 
 ## MintToken
 
-The `MintToken` method is the most important method in the ITO contract (which also has more things to learn).  Firstly, in the `MintToken` method, we have to fetch the `Transaction` object first, which is the script container for this smart contract. 
+The `MintToken` method is the most important method in the ITO contract (which also has more things to learn). Think of the idea that project is published and offer its tokens as a share of that project. What customer can to is donate NEO on the hand to that project and get it's `NEP-5token` as a share of that project. This process we call it `MintToken`
+
+
+
+Now let us implement the `MintToken` function. Firstly, in the `MintToken` method, we have to fetch the `Transaction` object first, which is the script container for this smart contract. 
 ```csharp
 Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
 ```

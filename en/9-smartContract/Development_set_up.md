@@ -4,7 +4,21 @@ lang: en
 lang-ref: Development_set_up
 ---
 
+ 
 # C# Smart contract development environment
+
+> 
+> **Objective**: Meet the development requirements
+> 
+> **Main points**:
+> 
+> 1. System requirement
+> 
+> 2. Visual Studio Setup
+> 
+> 3. Neo-Compiler
+> 
+
 
 For NEO C# develpers, it is very fortune for them  because  NEO blockchain is build based on the C# and theferefore, from compiler to toolbox, the C# development environment has been widely supported and it is very easy for those .NET developers begin to learn NEO Smart contract develoment. It is also easy for users who did not get touch with C# to begin his smart contract and Dapp.
 

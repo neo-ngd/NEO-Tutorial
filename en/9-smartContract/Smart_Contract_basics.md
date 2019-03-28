@@ -1,4 +1,24 @@
+---
+layout: post
+lang: en
+lang-ref: Smart_Contract_basics
+---
+
 # NEO Smart contract 101
+
+> 
+> **Objective**: Learn smart contract basic elements
+> 
+> **Main points**:
+> 
+> 1. The Strucutre of Smart contract
+> 
+> 2. The Storage usage in Smart contract
+> 
+> 3. Triggers and CheckWitness
+> 
+> 4. Small contract Demos
+>  
 
 <p align="center">
   <img width="60%" src="./imgs/newbie.jpg">

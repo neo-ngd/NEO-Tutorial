@@ -6,6 +6,17 @@ lang-ref: Development_privateChain
 
 # Private Network
 
+> 
+> **Objective**: Setup the private chain on the local computer
+> 
+> **Main points**:
+> 
+> 1. Simple way to set up a private chain 
+> 
+> 2. How to use NEO-GUI
+> 
+
+
 NEO blockchain has lauched several years and everyday, a number of users are makeing trascaction and using Dapps on the mainNet. When you develop a smart contract, you have to deploy it to the blockchain and test it on with invocation. Deploying the smart contract pr Dapp on the mainNet is spending the real Gas which is not a economic option for our develoers. When developer want to test there smart contract or Dapp, the best choice is to use TestNet or PrivateNet.
 
 The TestNet is an environment where the user can develop, commission and test programs. Testing programs on the testnet incurs the network fee of testnet GAS (not real GAS!!). Testnet NEO and GAS can be applied free of charge, on the official website.

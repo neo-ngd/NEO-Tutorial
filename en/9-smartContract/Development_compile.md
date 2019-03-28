@@ -6,6 +6,19 @@ lang-ref: Development_compile
 
 # Compile and Deploy the Smart Contract
 
+> 
+> **Objective**:  Know the process of compile, deploy and invoke the smart contract
+> 
+> **Main points**:
+> 
+> 1. Compile the smart contract to AVM
+> 
+> 2. Deploy the smart contract use the GUI
+> 
+> 3. Invoke the smart contract and get the result
+> 
+
+
 ## Compiling contract file
 
 Let's go back to the visual studio and start to compile this simple project.
