@@ -113,7 +113,7 @@ The basic types of C# are:
 
 ## Your first NEO contract
 
-After analysing the basic hellp world contract, let us move to your first real-world smart contract. Here we provide a very simple DNS system which was written in C#. The main function of the DNS is store the domain for users. It contains all the points above except the events. We can investigate this smart contract to learn how to make a basic smart contract. The source code is here:
+After analysing the basic hello world contract, let us move to your first real-world smart contract. Here we provide a very simple DNS system which was written in C#. The main function of the DNS is store the domain for users. It contains all the points above except the events. We can investigate this smart contract to learn how to make a basic smart contract. The source code is here:
 
 ```csharp
 using Neo.SmartContract.Framework; 
@@ -162,11 +162,11 @@ namespace Neo.SmartContract
 }
 ```
 
-Let's learn it step by step.
+Let's slice it and learn it step by step.
 
 ##  Main method
 
-Theoretically, smart contracts can have any entry points, but we recommend you use the main function as the entry point of smart contracts for easier invocation. In the main function, user can call other function according to the different entry point calling. Usually in the main method, developer has to handle the `trigger`
+Theoretically, smart contracts can have any entry points, but we recommend you use the main function as the entry point of smart contracts for easier invocation. In the main function, user can call other function according to the different entry point calling. Usually in the main method, developer has to handle the `trigger`.
 ### Trigger
 A smart contract trigger is a mechanism that triggers the execution of smart contracts. There are four triggers introduced in the NEO smart contract，the most used are `Verification` and  `Application`.
 
@@ -193,7 +193,7 @@ public static bool Main(byte[] signature)
 ### Application trigger
 An application trigger is used to invoke the contract as a verification function, which can accept multiple parameters, change the blockchain status, and return values of any type.
 
-Unlike the verification trigger which is triggered by a transfer, an application trigger is triggered by a special transaction  `InvocationTransaction`. If the application (Web/App) calls a smart contract, an  `InvocationTransaction`  is constructed, and then signed and broadcast in the prograAn application trigger is used to invoke the contract as a verification function, which can accept multiple parameters, change the blockchain status, and return values of any type.m. After the  `InvocationTransaction`  transaction is confirmed, the smart contract is executed by the consensus node. The common node does not execute the smart contract when forwarding the transaction.
+Unlike the verification trigger which is triggered by a transfer, an application trigger is triggered by a special transaction  `InvocationTransaction`. If the application (Web/App) calls a smart contract, an  `InvocationTransaction`  is constructed, and then signed and broadcast in the prograAn application trigger is used to invoke the contract as a verification function, which can accept multiple parameters, change the blockchain status, and return values of any type. After the  `InvocationTransaction`  transaction is confirmed, the smart contract is executed by the consensus node. The common node does not execute the smart contract when forwarding the transaction.
 
 Since the application contract is executed after  `InvocationTransaction`  is confirmed, the transaction is recorded in the blockchain no matter the execution of the application contract is successful or not.
 
@@ -234,7 +234,7 @@ public static object Main(string operation, params object[] args){
 	if (Runtime.Trigger == TriggerType.Application){
 		switch (operation){
 		case "query":
-			return Query((string)args[0]);
+				 return Query((string)args[0]);
 		case "register":
 		        return Register((string)args[0], (byte[])args[1]);
 		case "delete":
@@ -245,7 +245,11 @@ public static object Main(string operation, params object[] args){
 	} 
 }
 ```
-Inside the main function, we first use the Trigger to judge whether user invoke smart contract with `invocationTransaction`, which means user calls the smart contract application. In side of the judgement statement, the function will redirect other function depends on the operation type.
+Inside the main function, we first use the Trigger to judge whether user invoke smart contract with `invocationTransaction`, which means user calls the smart contract application. Here because it is a normal smart contract without asset transfer, therefore, the only trigger need to be considered is the Application Trigger. In side of the judgement statement, the function will redirect other function depends on the operation type. 
+
+```csharp
+if (Runtime.Trigger == TriggerType.Application)
+```
 
 Now we can see what happend in each detailed function. The first one is the Query function, which query the owner of the domain address. Here we use the `Storage.Get`method, and the first argument is context, and here we pass the CurrentContext. The second parameter is the key of the storing key-value pair. Here we use the domain.
 
@@ -284,7 +288,7 @@ private static bool Register(string domain, byte[] owner){
 ```
 
 
-Similar to the Register method, the Delete function check the owner first and if it exists and it is the same as the one who invoke the contract, delete the pair using the `Storage.Delete`method.  This method is leaving as a question in the end of this part
+Similar to the Register method, the Delete function check the owner first and if it exists and it is the same as the one who invoke the contract, delete the pair using the `Storage.Delete`method.  This method is leaving as a question in the end of this part.
 
 ##  Events
 In Smart contract, events are a way  to communicate that something happened on the blockchain to your app front-end (or back-end), which can be 'listening' for certain events and take action when they happen. You might use this to update an external database, do analytics, or update a UI. In some specified contract standard,  it defined some events should be posted. It is not cover in this page, but is very useful for the other smart contracts. For instance, in the NEP-5 Token, the events `transfer` should be fired when user invoke the transfer function. 
@@ -293,6 +297,8 @@ In Smart contract, events are a way  to communicate that something happened on t
 //Should be called when caller transfer nep-5 asset.
 public static event transfer(byte[] from, byte[] to, BigInteger amount)
 ```
+## Assignment
+In the above `DNS` smart contract, there is a delete method. The general idea is  check the owner first and if it exists and it is the same as the one who invoke the contract, delete the pair using the `Storage.Delete`method. Please finish this function.
 
 ## Next step
 Great! Your just finished your first smart contract. Now let us move on to the [NEP 5 Token](What_is_nep5.md)
