@@ -4,6 +4,7 @@
 		- Generation of Private key
 		- ECDSA algorithm
 		- Base58 check
+		- Mnemonic words
 		- The scripthash and address of NEO
 	- Wallet file
 		- NEP6 wallet (json based)
