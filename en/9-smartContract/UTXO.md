@@ -1,7 +1,29 @@
+---
+layout: post
+lang: en
+lang-ref: UTXO
+---
+
 # UTXO
+
+> 
+> **Objective**:  Understand the idea of UTXO
+> 
+> **Main points**:
+> 
+> 1. The concept of UTXO
+> 2. The Stucture of UTXO in NEO
+> 
+> 
+
+## The conept of UTXO
+
 If you are familiar with blockchain or use some digital coins before, you may hear of the word `UTXO`. The UTXO stands for **Unspent Transaction Output**, which means an output of a blockchain transaction that has not been spent and can be used as an input in a new transaction. 
 
 When you use some digital coin wallets, you may see there is an account balance number. Actually, if it is a UTXO based blockchain, there is the concept of `account balance`. Actualy the stored number is aggregated by the wallet application it selt and the source it use is the UTXO. The concept of the UTXO is very similar to the wallet in the real life. Let's think you open your wallet, you see 100 dollars. You do not know where the 100 dollar come from. It might come from your customer as the payment for your website designing last week, and that is a UTXO which from you customer to you and the amount is 100 dollars. Then, you want  to spent 10 dollar from your wallet to buy a magzine. After spent 10 dollars you get 90 dollar as change. Then the UTXO you have is 90 dollars. The 10 dollars you spent to the magzine shop becomes a UTXO to him until he spent it to his next transaction.
+
+
+## UTXO in NEO 
 
 The NEO blockchain supports native assets, the two most important ones being NEO and GAS. Native assets are Unspent Transaction Output (UTXO) based and are understood natively by the blockchain. Contrast this with tokens like the one we’ve built so far which live entirely in custom smart contracts. Unlike the account balance model, the UTXO model does not directly record account assets, but calculates user assets through unspent output. Each UTXO asset (such as a global asset) is an input-output association model, `input` specifies the source of funds, and `output` indicates the asset destination. 
 

@@ -67,6 +67,7 @@ The `MintToken` method is the most important method in the ITO contract (which a
 
 
 Now let us implement the `MintToken` function. Firstly, in the `MintToken` method, we have to fetch the `Transaction` object first, which is the script container for this smart contract. 
+
 ```csharp
 Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
 ```
@@ -97,7 +98,9 @@ foreach (TransactionOutput output in outputs){
     }
 }
 ```
+
 if the swap_rate is equal to 0, it means the ITO has been finished or the ITO amount has exceed the total supply of token. That will lead to the failure of the crowdfunding and trigger the `Refund` event.
+
 ```csharp
 // crowdfunding failure
 if (swap_rate == 0){
@@ -105,7 +108,9 @@ if (swap_rate == 0){
     return false;
 }
 ```
+
 After successfully handle statements all above, the mint process can be finished. First get the token which exchanged by the global asset. After that, update the balance and the totoalSupply respectively. Finally, fire the Transferred event and returne true.
+
 ```csharp           
 // crowdfunding success
 ulong token = value * swap_rate / 100000000;
