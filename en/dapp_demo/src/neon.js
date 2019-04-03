@@ -1,9 +1,8 @@
 // You need to specify below info
 const NEO_SCAN_URL = "http://127.0.0.1:4000/api/main_net";
 const PRIV_RPC_NODE = "http://127.0.0.1:30333";
-const CONTRACT_ADDRESS = 'ALPSdK6Y6BQhSZRMbHCr1xRp4fCq22zx9D';
-                           // ALPSdK6Y6BQhSZRMbHCr1xRp4fCq22zx9D
-const CONTRACT_SCRIPTHASH = '329a977ccc58222cfb72ba7df64bfb68bb98cb7a';
+const CONTRACT_ADDRESS = 'AL5vwEjBtMLFPNNaSVy5m1eWFQBSDne1Pr';
+const CONTRACT_SCRIPTHASH = 'c07247b629e3f0c7d63e1176a4f4b6bf52bc4a2f';
 const AMOUNT_OF_NEO_TO_BUY_ONE_VOUCHER = 0.1;
 
 // elements
@@ -94,7 +93,7 @@ function checkVoucherBalanceCallback(res) {
 }
 
 function checkCatCallback(res) {
-    const pets = reformCheckCatResult(res.result.stack[0].value);
+    const pets = reformCheckCatResult2(res.result.stack[0].value);
     console.log(pets);
     ownedPets = pets;
     renderPetsContainer(pets, false);
@@ -207,6 +206,13 @@ function reformCheckCatResult(responseString) {
         pets.push(hexToString(result.substring(4, 4 + length * 2)));
         result = result.slice(4 + length * 2);
     }
+    return pets;
+}
+
+function reformCheckCatResult2(responseString) {
+    let pets = [];
+    let result = hexToString(responseString);
+    pets = result.slice("neo");
     return pets;
 }
 
