@@ -31,15 +31,17 @@ Let's have a look at our basic hello world contract.
 ```C#
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
+using System;
 
-namespace SmartContractDemo
+namespace Helloworld
 {
     public class Contract1 : SmartContract
     {
-        public static bool Main(string operation, object[] args)
+        private const string test_str = "Hello World";
+        public static String Main(string operation, object[] args)
         {
-    
-            return true;
+            Storage.Put("Hello", "World");
+            return test_str;
         }
     }
 }
