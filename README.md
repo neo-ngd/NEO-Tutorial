@@ -11,7 +11,7 @@
 - Blocks
 - Network 
 - Persistence
-- Consensys
+- Consensus
 - NVM
 - [Smart Contract](en/9-smartContract)
         
