@@ -54,9 +54,11 @@ Select  `.NET Core cross-platform` development option during installation
  
 #### Install NeoContractPlugin
 Open Visual Studio 2017 and click `tool` -> `extensions and Updates`，click `online`on the left column, search NEO and install NeoContractPlugin (the process must be completed online).
+
  <p align="center">
   <img width="80%" src="./imgs/plugin.jpg" />
  </p>
+ 
 #### Configure neo-compiler
 
 1. Download [neo-compiler](https://github.com/neo-project/neo-compiler) project to your localhost.
