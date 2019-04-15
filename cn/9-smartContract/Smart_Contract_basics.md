@@ -1,3 +1,10 @@
+---
+layout: post
+lang: cn
+lang-ref: Smart_Contract_basics
+---
+
+
 # NEO智能合约101
 
 <p align="center">
@@ -8,22 +15,27 @@
 
 我们来看一下这个基础的hello world合约
 
+
 ```C#
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
+using System;
 
-namespace SmartContractDemo
+namespace Helloworld
 {
     public class Contract1 : SmartContract
     {
-        public static bool Main(string operation, object[] args)
+        private const string test_str = "Hello World";
+        public static String Main(string operation, object[] args)
         {
-    
-            return true;
+            Storage.Put("Hello", "World");
+            return test_str;
         }
     }
 }
 ```
+
+
 ##  合约结构
 
 每个智能合约都继承了NEO框架中的 `SmartContract` 基类，并实现了一些基本的方法。
@@ -31,7 +43,7 @@ namespace SmartContractDemo
 命名空间 `NEO` 是NEO区块链所提供的API，它提供了访问区块链数据和操作持久存储的方法。这些API分为两类:
 
 1.  区块链分类账本。合约可以通过interops层访问整个区块链上的所有数据，包括完整的区块和交易数据，以及它们的所有字段。
-    
+
 2.  持久化存储。部署在NEO上的每个应用程序合约都有一个只能由合约自身访问的存储空间。所提供的这些方法可以用来访问合约中的数据。
 
 ##  合约属性
@@ -66,7 +78,7 @@ NEO提供了基于键值对的数据访问接口。可以使用键从智能合�
 ```csharp
 // 键是 totalSupply ，值是100000000
 Storage.Put(Storage.CurrentContext, "totalSupply", 100000000);
-``` 
+```
 
 这里 `CurrentContext` 返回当前存储上下文。获取存储上下文之后，对象可以作为参数传给其他合约(作为一种授权方式)，从而允许其他合约在当前合约的持久存储区上执行读/写操作。
 
@@ -116,7 +128,7 @@ C#的基本类型是:
 分析完之前那个基本的hello world合约后，我们来分析一下这个具有真实意义的智能合约。这里我们提供了一个非常简单的DNS系统，它是用C#编写的。DNS的主要功能是为用户存储域名。除了事件外，它包含了上面所说的所有概念。我们可以研究一下这个合约，学习如何开发一个基本的智能合约。源代码在这里:
 
 ```csharp
-using Neo.SmartContract.Framework; 
+using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 namespace Neo.SmartContract
 {
@@ -135,15 +147,15 @@ namespace Neo.SmartContract
 		                default:
 		                    return false;
 		            }
-	        } 
+	        }
         }
-		
+
         private static byte[] Query(string domain)
         {
             return Storage.Get(Storage.CurrentContext, domain);
         }
 
-		
+
         private static bool Register(string domain, byte[] owner)
         {
 	        // 检查合约的调用者是否是合约的所属者
@@ -245,7 +257,7 @@ public static object Main(string operation, params object[] args){
 		default:
 		        return false;
 		}
-	} 
+	}
 }
 ```
 
@@ -265,14 +277,14 @@ private static byte[] Query(string domain){
 
 
 
-## CheckWitness 
+## CheckWitness
 
 在许多情况下(如果不是所有情况)，你可能希望对调用合约代码的地址进行验证。
 
 <p align="center">
   <img width="60%"  src="./imgs/check.jpg" />
  </p>
- 
+
 `Runtime.CheckWitness` 方法接受一个参数，该参数表示你想要验证的调用合约代码的地址。更准确地来说，它验证调用合约的交易/区块是否已验证了所需的脚本散列。
 
 通常，这个方法用于检查指定的地址是否是合约调用者，然后可以使用该地址进行存储更改或一些其他操作。
@@ -281,10 +293,10 @@ private static byte[] Query(string domain){
 
 ```csharp
 private static bool Register(string domain, byte[] owner){
-     if (!Runtime.CheckWitness(owner)) 
+     if (!Runtime.CheckWitness(owner))
      	return false;
      byte[] value = Storage.Get(Storage.CurrentContext, domain);
-     if (value != null) 
+     if (value != null)
      	return false;
      Storage.Put(Storage.CurrentContext, domain, owner);
      return true;

@@ -1,3 +1,8 @@
+---
+layout: post
+lang: cn
+lang-ref: Development_compile
+---
 
 # 智能合约的编译和部署
 
@@ -19,7 +24,7 @@
  <p align="center">
   <img src="imgs/20190219-140640.png" />
  </p>
- 
+
  > [!!!!**注意**]
 >
 > 由于neon默认使用nep-8编译.dll文件，这会与nep-5发生冲突，因此我们需要使用nep-5兼容的方法执行.avm。
@@ -33,11 +38,11 @@
 > 新的`SmartContractDemo.avm`文件和 `SmartContractDemo.abi.json` 文件将覆盖相应的旧文件。
 
 ## 部署合约
- 
+
   <p align="center">
   <img src="imgs/20190219-140958.png" />
  </p>
- 
+
  我们可以使用NEO-GUI来部署新生成的合约文件。
 
 1. 打开0.json钱包文件，单击 `高级` -> `部署合约`。
@@ -58,7 +63,7 @@
 
 4. 所有参数都设置完成后，单击 `部署` -> `测试` -> `调用`。
 
- 
+
 #### 调用合约
 
 现在你可以调用最近发布的智能合约了。

@@ -1,14 +1,20 @@
+---
+layout: post
+lang: cn
+lang-ref: What_is_nep5
+---
+
 # NEP-5合约
 
-> 
+>
 > **目的**:  学习NEP5的基本概念
-> 
+>
 > **要点:**:
-> 
+>
 > 1. 什么是NEP (NEO加强提案)
-> 
+>
 > 2. NEP5的细节
-> 
+>
 
 ## 什么是NEP?
 NEP代表NEO增强提案。NEP是一种设计文档，用于向NEO社区提供信息，或者描述NEO/流程/环境的新特性。NEP应该提供该特性的简明的技术规范和基本原理。NEP作者负责在社区内建立共识并记录不同意见。在这个 [github存储库]( https://github.com/neo-project/proposals) 中已经有超过10个NEPS。
@@ -114,4 +120,3 @@ public static event transfer(byte[] from, byte[] to, BigInteger amount)
 
 ## 下一步骤
 现在让我们实现一个NEP-5通证!
-

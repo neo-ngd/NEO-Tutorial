@@ -1,15 +1,21 @@
+---
+layout: post
+lang: cn
+lang-ref: Implementation_of_NEP5
+---
+
 # 实现NEP-5
 
 
-> 
+>
 > **目的**:  了解NEP-5的基本概念
-> 
+>
 > **要点**:
-> 
+>
 > 1. 根据NEP-5标准来实现每个要点
-> 
+>
 > 2. 在NEO-Gui上使用NEP-5通证
-> 
+>
 
 首先，我们定义一个只读属性Owner来表示合约的所有者。如下所示，`Owner` 是一个字节数组，长度为 `20` 。
 
@@ -152,7 +158,7 @@ public static object Main(string method, object[] args)
 	  }
 	 return false;
 }
-``` 
+```
 
 现在，剩下的唯一方法就是转账函数。转账函数首先要做的是检查参数，并检查合约调用者是否是合约的所有者。如果满足所有要求，就从存储区中获取 `from` 地址所对应账户中的余额，并检查该余额是否能够满足转账的数量要求。如果 `NEP-5` 通证的数量足够，则计算并更新 `from` 账户和 `to` 账户中的余额。
 
@@ -224,4 +230,3 @@ private static bool Transfer(byte[] from, byte[] to, BigInteger amount, byte[] c
 ## 下一步骤
 
 在本教程中，你已经了解了NEP-5的标准，以及如何通过定义自己的通证来实现NEP-5标准。现在我们可以扩展这一步骤来[发起我们的通证，并公开发布](Give_an_ITO.md)。
-

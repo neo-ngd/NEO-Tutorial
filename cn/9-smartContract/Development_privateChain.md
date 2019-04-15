@@ -1,3 +1,9 @@
+---
+layout: post
+lang: cn
+lang-ref: Development_privateChain
+---
+
 # 私有网络
 
 NEO区块链已经上线多年，每天都有大量的用户在主网上进行交易和使用dApps。当开发智能合约时，你必须将合约部署到区块链上并通过调用对其进行测试。在主网上部署智能合约或者dApp需要花费真正的Gas，这对于我们这些开发人员来说并不是一个经济的选择。当开发人员想要在那里测试智能合约或者dApp时，最好的方式是使用测试网络 (TestNet) 或私有网络（PrivateNet）。
@@ -31,11 +37,11 @@ enter node4 folder，double click 1Run.cmd
 ```
 
  现在私有链就可以运行起来了。所有的NEO和GAS创世区块都放在钱包文件 `1.json`中。
- 
+
 打开NEO-GUI，点击 `钱包` -> `打开钱包库`，打开位于*文件夹* `node1`下的 `1.json` 文件，输入密码 **11111111**。
- 
+
  区块高度大约是30。请打开Neo-GUI查看账户余额。
- 
+
  <p align="center">
   <img src="./imgs/20190219-112142.png" />
  </p>
@@ -50,9 +56,9 @@ enter node4 folder，double click 1Run.cmd
 2. 钱包创建成功后，右键单击标准账户中的地址，选择 `查看私钥` 来查看账户信息（地址，公钥，私钥）。
 3. 复制地址进行下一步操作。
 4. 再次打开钱包文件 `1.json` 并单击 `交易` ，然后单击 `+` 号。现在让我们添加一个新的交易。
-	
+
 	*资产* 类型是 `NEO` ，金额是要转账的NEO数量，`payto` 是上一个步骤中复制的地址。
-	
+
 	 <p align="center">
 	  <img src="./imgs/20190219-113025.png" />
 	 </p>

@@ -8,15 +8,15 @@ lang-ref: Implementation_of_NEP5
 # Implementation of NEP-5
 
 
-> 
+>
 > **Objective**:  Learn the general idea of NEP5
-> 
+>
 > **Main points**:
-> 
+>
 > 1. Implementation of each point according to the NEP-5 standard
-> 
+>
 > 2. Use your NEP-5 Token on the NEO-Gui
-> 
+>
 
 First of all, we define a readonly property owner to present the owner of the contract. The is the `Owner` and it is a `20` length byte array.
 
@@ -71,7 +71,7 @@ public static event Action<byte[], byte[], BigInteger> Transferred;
 
 Now. Let's define the totalSupply method of the contract. Before that, we should first define a `deploy` method. The deploy method is not specified in the `NEP-5` standard, but should be the first function that called by smart contract owner and called only once. The purpose of deploy function is to set the `totalSupply` value of your `NEP-5` token, and move all the token into the Owner's account balance.   
 
-It is worth noticing that, in tokenized smart contract, the asset is stored in the storage as the key is the address and the value is the balance. Here is tha table which may declare it.
+It is worth noticing that, in tokenized smart contract, the asset is stored in the storage as the key is the address and the value is the balance. Here is the table which may declare it.
 
 
 
@@ -117,7 +117,7 @@ public static BigInteger TotalSupply()
 }
 ```
 
-Let's set another mothod `balanceOf`, which get the account `NEP-5` balance of a specified address
+Let's set another method `balanceOf`, which get the account `NEP-5` balance of a specified address
 
 
 ```csharp
@@ -132,7 +132,7 @@ public static BigInteger BalanceOf(byte[] account)
 }
 ```
 
-Now, we have defiend almost all the method required in the `NEP-5` standard except the transfer method, let us fill the main method first.
+Now, we have defined almost all the method required in the `NEP-5` standard except the transfer method, let us fill the main method first.
 
 ```csharp
 public static object Main(string method, object[] args)
@@ -159,7 +159,7 @@ public static object Main(string method, object[] args)
 	  }
 	 return false;
 }
-``` 
+```
 
 Now, the only method left is  the transfer method. What the transfer function has to do is first checking the arguments and check if the contract invoker is the owner. If it meets all requirements, get the `from` address's balance from the storage, and check if it has enough asset to deal with the transfer. If it has enough amount `NEP-5` token,  do the calculation and update the new account balance for the `from` account and `to` account.
 
@@ -211,7 +211,7 @@ Now, in the NEO-GUI click `Advanced`->`Option`, add the scriptHash of your contr
 	<img src="imgs/20190222-153941.png"/>
 </p>
 
-Let's test another transfer method in the NEP-5 standard. Open the invocation function tab and fill in the argumetns. The string part is the method of smart contract you want to call. Here we put `transfer`. In the array, the arguments are `from`,`to`,`amount`. The `From` address and `To` address are in the format of byte array which can be  changed by the wallet address. For instance, use this [tool link](https://peterlinx.github.io/DataTransformationTools/) which transfer the wallet address to byte array. For the `amount`, do not forget the 10^8 decimal. Here I want to transfer  250000000 my NEP-5 token from my account to other account
+Let's test another transfer method in the NEP-5 standard. Open the invocation function tab and fill in the arguments. The string part is the method of smart contract you want to call. Here we put `transfer`. In the array, the arguments are `from`,`to`,`amount`. The `From` address and `To` address are in the format of byte array which can be  changed by the wallet address. For instance, use this [tool link](https://peterlinx.github.io/DataTransformationTools/) which transfer the wallet address to byte array. For the `amount`, do not forget the 10^8 decimal. Here I want to transfer  250000000 my NEP-5 token from my account to other account
 
 <p align="center">
 	<img src="imgs/20190222-155235.png"/>
@@ -224,10 +224,8 @@ After the transaction to be recorded and confirmed, you can open the wallet of t
 
 ## Assignment
 
-Define a new NEP5-token by youself.
+Define a new NEP5-token by yourself.
 
 ## Next Step
 
 In this tutorial, you have learned the standard of NEP-5 and how to implement the NEP-5 standard by define your own token. Now we can extend this step and go to [offer our token and make it publicly available](Give_an_ITO.md)
-
-
