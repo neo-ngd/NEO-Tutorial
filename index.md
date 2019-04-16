@@ -14,14 +14,14 @@ lang-ref: NEO-Tutorial
 ## Table of Tutorials
 - Introduction to NEO
 - Wallet
-- Transactions 
+- Transactions
 - Blocks
-- Network 
+- Network
 - Persistence
-- Consensys
+- Consensus
 - NVM
 - [Smart Contract](en/9-smartContract)
-        
+
 ## Smart contract development Learning Resources
 - [Neo Smart contract quick start](neo_docs_SmartContract_QuickStart)
 - [Neo-python tutorial](neo_docs_neopython_tutorial)

@@ -7,16 +7,16 @@ lang-ref: Give_an_ITO
 # Give an ITO (Initial Token Offering)
 
 
-> 
+>
 > **Objective**:  Learn the general idea of NEP5
-> 
+>
 > **Main points**:
-> 
+>
 > 1. What is ITO (Initial Token Offering)
-> 
+>
 > 2. Implementation of MintToken function
-> 
-> 
+>
+>
 
 ## What is ITO (Initial Token Offering)
 
@@ -27,7 +27,7 @@ ITO stands for Initial Token Offering. With this process, you can digitize or to
 The ITO standard in NEO is based on the NEP-5 which we implemented before. In addition to those methods and properties already defined in the NEP-5, in the ITO, there are several new emthods and property should add in.
 
 ## Timestamp
-It is worth noting that every ITO has limited amount of time and number of tokens. Therefore, in the ITO contract, we should define the start time of ITO and the finish time of ITO. Besides this period, the ITO can not be invoked successfully. 
+It is worth noting that every ITO has limited amount of time and number of tokens. Therefore, in the ITO contract, we should define the start time of ITO and the finish time of ITO. Besides this period, the ITO can not be invoked successfully.
 ```csharp
 //start time of ito. Which is Monday, August 14, 2017 4:00:00 PM
 private const int ico_start_time = 1502726400;
@@ -66,7 +66,7 @@ The `MintToken` method is the most important method in the ITO contract (which a
 
 
 
-Now let us implement the `MintToken` function. Firstly, in the `MintToken` method, we have to fetch the `Transaction` object first, which is the script container for this smart contract. 
+Now let us implement the `MintToken` function. Firstly, in the `MintToken` method, we have to fetch the `Transaction` object first, which is the script container for this smart contract.
 
 ```csharp
 Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
@@ -124,4 +124,4 @@ return true;
 
 
 ## Next Step
-Now you have successfully make your first ITO and famailiar with the most ideas of smart contract, the next one will be more difficult contract [which is CGAS.](https://github.com/neo-ngd/NEO-Tutorial/blob/master/9-smartContract/cgas/1_what_is_cgas.md)
+Now you have successfully make your first ITO and famailiar with the most ideas of smart contract, the next one will be more difficult contract [which is CGAS.](cgas/1_what_is_cgas.md)

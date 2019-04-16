@@ -7,7 +7,7 @@
 <div class="lang-options">
     <div style="top: 1rem;text-align: right;width: 90%;position: absolute;">
     {% for post in posts %}
-    <span><a  style="color: white;font-size: larger;margin-right: 1rem;" title="{{ site.data.translations['viewIn'][page.lang] }} {{ site.data.languages[post.lang].label }}" class="{{post.lang}}" href="{{ post.url }}">{{ site.data.languages[post.lang].label }}</a></span>
+    <span><a  style="color: white;font-size: larger;margin-right: 1rem;" title="{{ site.data.translations['viewIn'][page.lang] }} {{ site.data.languages[post.lang].label }}" class="{{post.lang}}" href="/NEO-Tutorial{{ post.url }}">{{ site.data.languages[post.lang].label }}</a></span>
     {% endfor %}
     </div>
 </div>
