@@ -1,6 +1,6 @@
 - Introduction to blocks & blockchain
 
- 	When Alice wants to send a transaction to Bob, she will sign her transaction and broadcast it to the nodes in the network. The consensus nodes will select transactions that they will finalise, and include them into a block. A block is a batch of transactions that get confirmed at the same time. Apart from all transactions that a certain block validates, there are some other fields present in each block which will be discussed below (link Structure of a block).
+ 	When Alice wants to send a transaction to Bob, she will sign her transaction and broadcast it to the nodes in the network. The consensus nodes will select transactions that they will finalise, and include them into a block. A block is a batch of transactions that get confirmed and stored at the same time. Apart from all transactions that a certain block entails, there are some other fields present in each block which will be discussed below (link Structure of a block).
 
 	One of these fields in each block (bn) is a reference to the previous block that was just confirmed before this block (bn-1). In more detail, is is the hash of the header of the previous block. It is up to the nodes to calculate the hash to validate the parent. In its turn, this previous block(bn-1) has the same behaviour, linking to the block before it(bn-2). This chain goes all the way back to the first block ever created, called the Genesis (b0) block. This is where the term 'blockchain' comes from, as it is, in fact, a chain of blocks.
 
