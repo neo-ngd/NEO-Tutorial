@@ -9,28 +9,33 @@
         <script src="https://unpkg.com/@cityofzion/neon-js"></script>
     </head>
     <body>
+      <div class="body-content">
         <div class="head-container">
             <div>
-              <h1>Welcome to Neo House!</h1>
               <div class="login-info-div">
-                <div id="addr_global_display" style="display: none"></div>
-                <button id="login_button">Login</button>
+                <div id="login_button" class="login-button">
+                  Login
+                </div>
               </div>
+              <img class="brand-name" src="./resources/neo-house/NEOHOUSE.png">
             </div>
             <div class="global-display">
               <div class="global-display-content">
-                <span id="gas_global_display">0</span> NEO
+                <img />
+                <div class="asset-amount" id="gas_global_display">0</div>
+                <img class="asset-icon" src="resources/neo-house/NEO.png">
               </div>
               <div class="global-display-content">
-                <span id="voucher_global_display">0</span> Voucher
+                <img onclick="buyDiamondPopup(event)" class="asset-icon" src="resources/neo-house/+.png" />
+                <div class="asset-amount" id="voucher_global_display">0</div>
+                <img class="asset-icon" src="resources/neo-house/diamond.png" />
               </div>
-              <div class="global-display-content" id="network_global_display">Private Net</div>
             </div>
         </div>
         <div class="tab">
-          <button class="tablinks" onclick="openTab(event, 'voucher')" id="defaultOpen">Voucher</button>
-          <button class="tablinks" onclick="openTab(event, 'pets')">In My House</button>
-          <button class="tablinks" onclick="openTab(event, 'store')">Furniture Store</button>
+          <!-- <button class="tablinks" onclick="openTab(event, 'voucher')" >Voucher</button> -->
+          <div class="tablinks" onclick="openTab(event, 'store')" id="defaultOpen">SHOP</div>
+          <div class="tablinks" onclick="openTab(event, 'pets')">Home</div>
         </div>
         
         <div id="voucher" class="tab-content">
@@ -51,49 +56,73 @@
         </div>
         
         <div id="pets" class="tab-content">
-          <h1>Your Furnitures Are Here!</h1>
           <div class="pets-container" id="pets-container">
-              <div class="pet-wrapper">
-                <label class="pet-header">sofa</label>
-                <img class="pet-image" src="./resources/sofa.png" />
-                <label class="pet-footer">Owned by you since 1990.9</label>
-              </div>
-              <div class="pet-wrapper">
-                <label class="pet-header">light</label>
-                <img class="pet-image" src="./resources/light.png" />
-                <label class="pet-footer">Owned by you since 1990.9</label>
-              </div>
+            <div class="pet-wrapper">
+              <img class="pet-image" src="./resources/neo-house/1-1.png" />
+            </div>
+            <div class="pet-wrapper">
+              <img class="pet-image" src="./resources/neo-house/2-1.png" />
+          </div>
           </div> 
         </div>
         
         <div id="store" class="tab-content">
-           <h1>Furniture Store</h1>
            <div class="pets-container" id="pets-container-store">
             <div class="pet-wrapper">
-              <label class="pet-header">sofa</label>
-              <img class="pet-image" src="./resources/sofa.png" />
-              <label class="pet-footer">20 voucher</label>
-              <button onclick="buyCat('Alice', 20)">Buy</button>
+              <img class="pet-image" src="./resources/neo-house/1-1.png" />
+              <img onclick="buyCat('Alice', 20)" class="buy-item-img" src="./resources/neo-house/buy.png">
             </div>
             <div class="pet-wrapper">
-              <label class="pet-header">light</label>
-              <img class="pet-image" src="./resources/light.png" />
-              <label class="pet-footer">50 voucher</label>
-              <button onclick="buyCat('Bob', 50)">Buy</button>
+                <img class="pet-image" src="./resources/neo-house/2-1.png" />
+                <img onclick="buyCat('Bob', 20)" class="buy-item-img" src="./resources/neo-house/buy.png">
             </div>
+            <div class="pet-wrapper">
+                <img class="pet-image" src="./resources/neo-house/3-1.png" />
+                <img onclick="buyCat('Cindy', 20)" class="buy-item-img" src="./resources/neo-house/buy.png">
+              </div>
+              <div class="pet-wrapper">
+                  <img class="pet-image" src="./resources/neo-house/4-1.png" />
+                  <img onclick="buyCat('Dan', 20)" class="buy-item-img" src="./resources/neo-house/buy.png">
+              </div>
         </div> 
         </div>
         <div id="login" class="curtain">
-          <div class="loader">
-            <label>Please input your private key.(Blanks Permitted.)</label>
+          <div class="loader login-loader">
+            <img class="cancel-button" src="resources/neo-house/LOGININ/cancel.png" onclick="dismissLogin(event)"/>
+            <label>Please input your private key.(Blanks Permitted)</label>
             <input id="priv_key"></input>
-            <button onclick="submitPrivateKey(event)">Login</button> 
+            <img class="popup-login-button" src="resources/neo-house/login.png" onclick="submitPrivateKey(event)"/> 
           </div>
         </div>
+        <div id="buy-diamond" class="curtain">
+            <div class="loader buy-diamond-loader">
+              <img class="cancel-button" src="resources/neo-house/LOGININ/cancel.png" onclick="dismissLogin(event)"/>
+              <label style="font-size: 40px">Buy Diamonds with Neo</label>
+              <div class="wrapper">
+                  <img id="diamonds_minus" style="height: 20px; width:50px; line-height: 108px; cursor: pointer" src="resources/neo-house/buy_diamonds/minus.png" />
+                  <input id="diamond_to_buy" value="0" type="number" max="10000" min="0"/>
+                  <img id="diamonds_plus" style="width: 50px;height: auto; cursor: pointer" src="resources/neo-house/buy_diamonds/plus.png" />
+                  <div style="position: absolute; right: 0; height:30px; bottom: -30px; color: green; font-size: 25px" > = <span id="neo_to_cost">0</span> Neo</div>
+              </div>
+              <img style="cursor: pointer;" id="buy_diamonds_button" src="resources/neo-house/buy_diamonds/Buy Button.png" />
+            </div>
+        </div>
+        <div id="confirm-buy-item" class="curtain">
+            <div class="loader confirm-buy-item-loader">
+              <img class="cancel-button" src="resources/neo-house/LOGININ/cancel.png" onclick="dismissLogin(event)"/>
+              <label>Are you sure you want to buy this item?</label>
+              <div class="wrapper">
+                <img id="confirm_buy" src="resources/neo-house/popup/Button Yes.png" />
+                <img id="cancel_buy" src="resources/neo-house/popup/Button No.png" />
+              </div>
+            </div>
+        </div>
+
         
         <script type="text/javascript" src="src/index.js"></script>
         <script type="text/javascript" src="src/petsInfo.js"></script>
         <script type="text/javascript" src="src/bundleDemo.js"></script>
         <script type="text/javascript" src="src/neon.js"></script>
+       </div>
     </body>
 </html>

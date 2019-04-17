@@ -1,14 +1,17 @@
 // You need to specify below info
-const NEO_SCAN_URL = "http://127.0.0.1:4000/api/main_net";
-const PRIV_RPC_NODE = "http://127.0.0.1:30333";
-const CONTRACT_ADDRESS = 'AL5vwEjBtMLFPNNaSVy5m1eWFQBSDne1Pr';
-const CONTRACT_SCRIPTHASH = 'c07247b629e3f0c7d63e1176a4f4b6bf52bc4a2f';
+const NEO_SCAN_URL = "https://neoscan-testnet.io/api/main_net";
+const PRIV_RPC_NODE = "http://192.168.99.100:30333";
+const CONTRACT_ADDRESS = 'AdYrj6yhqL8EWPKmK5hgcJydthchFTpGsf';
+const CONTRACT_SCRIPTHASH = 'b6730fd741b632401f89020409c6c0415d97dcee';
 const AMOUNT_OF_NEO_TO_BUY_ONE_VOUCHER = 0.1;
+
+const testNetNeoScan = new Neon.api.neoscan.instance("TestNet");
 
 // elements
 const privateKeyInputEle = document.getElementById('priv_key');
-const neoScanUrlEle = document.getElementById('neo_scan_url');
 const loginEle = document.getElementById('login');
+const buyDiamondEle = document.getElementById('buy-diamond');
+const confirmBuyItemEle = document.getElementById('confirm-buy-item');
 const loginButtonEle = document.getElementById('login_button');
 const neoCostAmountInputEle = document.getElementById('neo-cost-amount');
 const voucherAffordableAmountEle = document.getElementById('voucher-affordable-amoount');
@@ -16,7 +19,12 @@ const petsContainerEle = document.getElementById('pets-container');
 const petsContainerStoreEle = document.getElementById('pets-container-store');
 const globalGasDisplayEle = document.getElementById('gas_global_display');
 const globalVoucherDisplayEle = document.getElementById('voucher_global_display');
-const globalAddressDisplayEle  = document.getElementById('addr_global_display');
+
+const diamondsToBuyInputEle = document.getElementById('diamond_to_buy');
+const diamondsMinusEle = document.getElementById('diamonds_minus');
+const diamondsPlusEle = document.getElementById('diamonds_plus');
+const neoToCostEle = document.getElementById('neo_to_cost');
+const buyDiamondButtonEle = document.getElementById('buy_diamonds_button');
 
 let loginAccount;
 checkStoredPrivKey();
@@ -37,16 +45,14 @@ function submitPrivateKey(event) {
         return;
     }
     window.sessionStorage.setItem('private_key', privateKeyInputEle.value);
-    loginEle.style.display = "none";  
     initWithPrivKey(privateKeyInputEle.value);
+    dismissLogin(); 
 }
 
 // init account when get private key from session or user input.
 function initWithPrivKey(privKey) {
     try {
         loginAccount = new Neon.wallet.Account(privKey);   
-        globalAddressDisplayEle.innerText = `Your Address: ${loginAccount.address}`;
-        globalAddressDisplayEle.style.display = "block";
         loginButtonEle.innerText = "Logout";
 
         // add private net config
@@ -60,7 +66,7 @@ function initWithPrivKey(privKey) {
 
         // get balance
         var privateNetNeoscan = new Neon.api.neoscan.instance("PrivateNet");
-        privateNetNeoscan.getBalance(loginAccount.address).then(res => {
+        testNetNeoScan.getBalance(loginAccount.address).then(res => {
             console.log(res);
             updateGasDisplay(res);
         });
@@ -76,6 +82,13 @@ function onNeoAmountChange() {
     voucherAffordableAmountEle.innerText = 10 * neoCostAmountInputEle.value;
 }
 
+function dismissLogin(event) {
+    privateKeyInputEle.value = "";
+    document.querySelectorAll('.curtain').forEach(ele => {
+        ele.style.display = "none";
+    });
+}
+
 loginButtonEle.onclick = function(event) {
     if (this.innerText == "Login") {
         loginEle.style.display = "flex";
@@ -84,6 +97,10 @@ loginButtonEle.onclick = function(event) {
         loginAccount = null;
         location.href = location.href;
     }
+}
+
+function buyDiamondPopup(event) {
+    buyDiamondEle.style.display = "flex";
 }
 
 function checkVoucherBalanceCallback(res) {
@@ -126,41 +143,22 @@ function updateVoucherDisplay(voucherAmount) {
     globalVoucherDisplayEle.innerText = voucherAmount;
 }
 
-function buyVoucher() {
-    const neoAmount = neoCostAmountInputEle.value;
-    if (neoAmount === undefined || neoAmount === '') {
-        return ;
-    }
-
-    const apiProvider = new Neon.api.neoscan.instance('PrivateNet');
-    
-    const intent = Neon.api.makeIntent({NEO:neoAmount}, CONTRACT_ADDRESS);
-    const props = {
-        scriptHash: CONTRACT_SCRIPTHASH,
-        operation: "exchange_token",
-        args: []
-    };
-    const script = Neon.default.create.script(props);
-    const config = {
-        api: apiProvider,
-        url: PRIV_RPC_NODE,
-        account: loginAccount,
-        intents: intent,
-        script: script
-    };
-
-    Neon.default.doInvoke(config).then(config => {
-        console.log(config.response);
-        if (config.response.result == true) {
-            globalGasDisplayEle.innerText = Number(globalGasDisplayEle.innerText) - neoAmount;
-            globalVoucherDisplayEle.innerText = Number(globalVoucherDisplayEle.innerText) + neoAmount*10;
-        }
-    }).catch(config => {
-        console.log(config);
-    });
+function buyCat(petName, price) {
+    confirmBuyItemEle.style.display = 'flex';
+    NAME_OF_PET_TO_BUY = petName;
+    PRICE_OF_PET_TO_BUY = price;
 }
 
-function buyCat(petName, price) {
+document.getElementById('confirm_buy').onclick = function(event) {
+    _buyCat(NAME_OF_PET_TO_BUY, PRICE_OF_PET_TO_BUY);
+    confirmBuyItemEle.style.display = 'none';
+}
+
+document.getElementById('cancel_buy').onclick = function(event) {
+    confirmBuyItemEle.style.display = 'none';
+}
+
+function _buyCat(petName, price) {
     const apiProvider = new Neon.api.neoscan.instance('PrivateNet');
     const param_address = Neon.sc.ContractParam.byteArray(
           loginAccount.address,
@@ -176,8 +174,8 @@ function buyCat(petName, price) {
     };
     const script = Neon.default.create.script(props);
     const config = {
-        api: apiProvider,
-        url: PRIV_RPC_NODE,
+        api: testNetNeoScan,
+        // url: PRIV_RPC_NODE,
         account: loginAccount,
         script: script
     };
@@ -246,26 +244,26 @@ function renderPetsContainer(pets, inStore) {
 
     petContainer.innerHTML = "";
 
+    // <div class="pet-wrapper">
+    //           <img class="pet-image" src="./resources/neo-house/1-1.png" />
+    //           <div onclick="buyCat('Alice', 20)">
+    //             <img class="buy-item-img" src="./resources/neo-house/buy.png">
+    //           </div>
+    //         </div>
+
     petsToBeShown.forEach(pet => {
         let childNode = document.createElement('div');
         childNode.classList = "pet-wrapper";
-        let headerNode = document.createElement('label');
-        headerNode.innerText = pet.realName;
-        headerNode.classList = "pet-header";
-        childNode.appendChild(headerNode);
         let imgNode = document.createElement('img');
         imgNode.classList = "pet-image";
-        imgNode.setAttribute('src', pet.image);
+        imgNode.setAttribute('src', inStore? pet.image : pet.homeIcon);
         childNode.appendChild(imgNode);
-        let footerNode = document.createElement('label');
-        footerNode.classList = "pet-footer";
-        footerNode.innerText = inStore? pet.price: "I love you, master!";
-        childNode.appendChild(footerNode);
         if (inStore) {
-            let buttonNode = document.createElement('button');
-            buttonNode.setAttribute('onclick', `buyCat("${pet.name}", ${pet.price})`);
-            buttonNode.innerText = "Buy";
-            childNode.appendChild(buttonNode);
+            let buyNode = document.createElement('img');
+            buyNode.classList = "buy-item-img";
+            buyNode.setAttribute('onclick', `buyCat("${pet.name}", ${pet.price})`);
+            buyNode.setAttribute('src', "./resources/neo-house/buy.png");
+            childNode.appendChild(buyNode);
         }
         
         petContainer.appendChild(childNode);
@@ -282,5 +280,72 @@ function invokeScriptReadOnly(method, callback) {
         CONTRACT_SCRIPTHASH,
         methodParam,
         Neon.sc.ContractParam.array(addressParam)
-    ).execute(PRIV_RPC_NODE).then(res => callback(res));
+    ).execute("http://seed6.ngd.network:20332").then(res => callback(res));
+}
+
+
+diamondsToBuyInputEle.onchange = function(event) {
+    if (this.value < 0) {
+        this.value = 0;
+        return;
+    }
+    const result = parseInt(this.value / 10) * 10;
+    if (this.value != result) {
+        this.value = result + 10;
+    }
+    neoToCostEle.innerText = this.value / 10;
+};
+
+diamondsMinusEle.onclick = function(event) {
+    if (diamondsToBuyInputEle.value <= 0) {
+        return;
+    }
+    diamondsToBuyInputEle.value = diamondsToBuyInputEle.value - 10;
+    neoToCostEle.innerText = diamondsToBuyInputEle.value / 10;
+};
+
+diamondsPlusEle.onclick = function(event) {
+    diamondsToBuyInputEle.value = parseInt(diamondsToBuyInputEle.value) + 10;
+    neoToCostEle.innerText = diamondsToBuyInputEle.value / 10;
+};
+
+buyDiamondButtonEle.onclick = function(event) {
+    if (diamondsToBuyInputEle.value <= 0) {
+        return;
+    }
+
+    const neoAmount = parseInt(neoToCostEle.innerText);
+    if (neoAmount === undefined || neoAmount === '') {
+        return ;
+    }
+
+    const apiProvider = new Neon.api.neoscan.instance('PrivateNet');
+    
+    const intent = Neon.api.makeIntent({NEO:neoAmount}, CONTRACT_ADDRESS);
+    const props = {
+        scriptHash: CONTRACT_SCRIPTHASH,
+        operation: "exchange_token",
+        args: []
+    };
+    const script = Neon.default.create.script(props);
+    const config = {
+        api: testNetNeoScan,
+        // url: PRIV_RPC_NODE,
+        account: loginAccount,
+        intents: intent,
+        script: script
+    };
+
+    Neon.default.doInvoke(config).then(config => {
+        console.log(config.response);
+        if (config.response.result == true) {
+            globalGasDisplayEle.innerText = Number(globalGasDisplayEle.innerText) - neoAmount;
+            globalVoucherDisplayEle.innerText = Number(globalVoucherDisplayEle.innerText) + neoAmount*10;
+            buyDiamondEle.style.display = 'none';
+            diamondsToBuyInputEle.value = 0;
+            neoToCostEle.innerText = '0';
+        }
+    }).catch(config => {
+        console.log(config);
+    });
 }

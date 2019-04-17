@@ -1,42 +1,91 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
     font-family: Arial;
     max-width: 1200px;
     margin: auto;
+    background: url(../resources/neo-house/BG.jpg) no-repeat center;
+    background-size: 100% 100%;
+    font-family: "mFont";
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+	-webkit-appearance: none !important;
+	margin: 0;
+}
+
+
+@font-face {
+  font-family: mFont;
+  src: url('../resources/Chalkboard-Bold.ttf');
+}
+
+.body-content {
+  background: url(../resources/neo-house/模板背景.png) no-repeat;
+  background-size: 100% 100%;
+  padding-bottom: 50px;
+}
+
+.brand-name {
+  width: auto;
+  height: auto;
+  max-width: 600px;
+  margin-left: -5%;
 }
             
 /* Style the tab */
 .tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #6d9877;
+  width: calc(90% + 40px);
+  margin: auto;
+  display: flex;
+  font-size: 40px;
 }
 /* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
+.tab .tablinks {
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  font-size: 17px;
+  width: 220px;
+  height: 35px;
+  margin-bottom: -5px;
+  background-color: #a73c14;
+  border-radius: 30px 30px 0 0;
+  text-align: center;
+  line-height: 40px;
 }
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #b2e887;
-}
+
 /* Create an active/current tablink class */
-.tab button.active {
-  background-color: #a5f1a8;
+.tab .tablinks.active {
+  border: none;
+  border-width: 0;
+  background-color: #be5722;
+  border-left-width: 20px;
+  border-style: solid;
+  border-color: #a73c14;
+  color: white;
 }
+
+.tab .tablinks+.tablinks {
+  margin-left: 40px;
+}
+
 /* Style the tab content */
 .tab-content {
   display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-  background-color: aliceblue;
-  min-height: 800px;
+  background: #be5722;
+  width: 90%;
+  margin: auto;
+  border-width: 5px 20px 20px 20px;
+  border-color: #a73c14;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-top-right-radius: 100px;
+  border-style: solid;
+  min-height: 500px;
 }
 table {
   font-family: arial, sans-serif;
@@ -79,11 +128,7 @@ tr:nth-child(even) {
 }
 
 .login-info-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-bottom: 10px;
-  line-height: 2;
+  padding-top: 5%;
 }
 
 .login-info-div button {
@@ -93,9 +138,18 @@ tr:nth-child(even) {
 }
 
 .pet-image {
-    width: 300px;
-    height:200px;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
 }
+
+.buy-item-img {
+  height: 40px;
+  width: 100px;
+  margin-top: -10px;
+}
+
 .pets-container {
     display: flex;
     flex-direction: row;
@@ -105,8 +159,10 @@ tr:nth-child(even) {
 .pet-wrapper {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    border: 2px solid black;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 250px;
 }
 .pet-header {
    background-color: antiquewhite;
@@ -140,47 +196,146 @@ tr:nth-child(even) {
 
 .head-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    background-color: aliceblue;
-    padding: 0 10px;
+    margin-bottom: 30px;
 }
 
 .global-display {
+    width: 50%;
+    height: 40px;
+    align-self: flex-end;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     text-align: center;
     align-items: center;
+    margin-top: -5%;
 }
 
 .global-display-content {
-    display: block;
-    width: 160px;
-    margin-left: 20px;
-    padding: 8px 0;
-    background: #c7e2cd;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    max-height: 100%;
+    width: 180px;
+    background: url(../resources/neo-house/数量框背景.png) no-repeat center;
+    background-size: 80%;
+    line-height: 30px;
+}
+
+.asset-icon {
+  width: auto;
+  height: 40px;
+}
+
+.asset-amount {
+  line-height: 40px;
+  color: white;
+}
+
+.login-button {
+  background: url(../resources/neo-house/LOGININ/log_back.png) no-repeat center;
+  background-size: 100% 100%;
+  width: 150px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 30px;
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
 }
 
 .loader {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-around;
-  align-items: end;
-  background-color: white;
-  padding:20px;
-  border-radius: 10px;
-  color: black;
-  min-width: 500px;
-  min-height: 150px;
+  align-items: center;
+  background: url(../resources/neo-house/popup_bg.png) no-repeat center;
 }
 
-.loader input {
-  margin-top: 20px;
-  margin-bottom: 20px;
+.login-loader {
+  padding: 5%;
+  color: #4e2623;
+  min-width: 400px;
+  min-height: 220px;
+  background-size: 100% 100%;
+}
+
+.login-loader input {
+  margin: 0;
   width: 100%;
-  border-radius: 1px;
+  border: none;
+  background: none;
+  border-bottom: solid #4e2623;
+  font-size: 20px;
+  outline:none;
+}
+
+.loader .popup-login-button {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+}
+
+.loader .cancel-button {
+  position: absolute;
+  right: 24px;
+  top: 40px;
+}
+
+.buy-diamond-loader {
+  padding: 5%;
+  color: #4e2623;
+  min-width: 650px;
+  min-height: 755px;
+  background: url(../resources/neo-house/buy_diamonds/BG.png) no-repeat center;
+  background-size: 100% 100%;
+}
+
+.buy-diamond-loader label {
+  margin-top: 20%;
+}
+
+.buy-diamond-loader .wrapper {
+  position: relative;
+  display: flex;
+  background: url(../resources/neo-house/buy_diamonds/input_back.png) no-repeat center;
+  background-size: 100%;
+  justify-content: space-around;
+  align-items: center;
+  width: 380px;
+  height: 108px;
+}
+
+.buy-diamond-loader input {
+  text-align: center;
+  background: none;
+  border: none;
+  min-width: 50px;
+  outline: none;
+  font-size: 50px;
+  color: white;
+}
+
+.confirm-buy-item-loader {
+  padding: 5%;
+  color: #4e2623;
+  min-width: 400px;
+  min-height: 320px;
+  background-size: 100% 100%;
+  font-size: 30px;
+}
+
+.confirm-buy-item-loader .wrapper{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.confirm-buy-item-loader img {
+  cursor: pointer;
 }
 
 .curtain {
@@ -189,9 +344,8 @@ tr:nth-child(even) {
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: grey;
-    opacity: 0.5;
-    z-index: 100000;
+    background-color:rgba(0,0,0,.5);
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
