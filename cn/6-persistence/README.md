@@ -1,0 +1,4 @@
+- Persistence
+    -  Level DB
+    -  The table structure in the Level DB
+    -  wallet index

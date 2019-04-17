@@ -1,0 +1,8 @@
+- Network 
+	- The Peer of peer network architecture
+	- The node in the network
+	- The AKKA protocal
+	- The proccess of network process
+		- Node start up
+		- Node Handshake
+		- Message broadcast

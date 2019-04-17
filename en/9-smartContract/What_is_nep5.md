@@ -6,18 +6,18 @@ lang-ref: What_is_nep5
 
 #  NEP-5 contract
 
-> 
+>
 > **Objective**:  Learn the general idea of NEP5
-> 
+>
 > **Main points**:
-> 
+>
 > 1. What is NEP (NEO Enhancement Proposals)
-> 
+>
 > 2. The detail of NEP5
-> 
+>
 
 ## What is NEP?
-NEP stands for NEO Enhancement Proposal. An NEP is a design document providing information to the NEO community, or describing a new feature for NEO or its processes or environment. The NEP should provide a concise technical specification of the feature and a rationale for the feature. The NEP author is responsible for building consensus within the community and documenting dissenting opinions. There is alread more then 10 NEPS in this [github repository](https://github.com/neo-project/proposals)
+NEP stands for NEO Enhancement Proposal. An NEP is a design document providing information to the NEO community, or describing a new feature for NEO or its processes or environment. The NEP should provide a concise technical specification of the feature and a rationale for the feature. The NEP author is responsible for building consensus within the community and documenting dissenting opinions. There is already more then 10 NEPS in this [github repository](https://github.com/neo-project/proposals)
 
 For NEO implementers, NEPs are a convenient way to track the progress of their implementation. Ideally each implementation maintainer would list the NEPs that they have implemented. This will give end users a convenient way to know the current status of a given implementation or library.
 
@@ -117,6 +117,4 @@ A token contract which creates new tokens MUST trigger a <code>transfer</code> e
 A token contract which burns tokens MUST trigger a <code>transfer</code> event with the <code>to</code> address set to <code>null</code> when tokens are burned.
 
 ## Next Step
-Now let us implement a NEP5-Token!
-
-
+Now let us [implement a NEP5-Token!](Implementation_of_NEP5.md)
