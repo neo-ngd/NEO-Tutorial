@@ -121,3 +121,8 @@ Take a look at the second set of verification scripts:
 ```
 
 0x21 corresponds to decimal 33, the next 33 bits is a byte array (actually a public key), and the last 0xac means CHECKSIG, which means verifying the signature, and that’s it.
+## Next Step
+Now let us know how to [invoke this CGAS contracy](7_invocation.md)
+
+## Previous Step
+To learn the function of mint token and refund, click [here](6_signature_and_verification.md)

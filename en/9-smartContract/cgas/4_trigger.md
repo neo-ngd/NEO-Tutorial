@@ -155,9 +155,9 @@ Where User1 is the user's address and Token1 is some other worthless global asse
 
 The security of smart contracts is no less than the security of financial softwares, which needs to be considered very comprehensively when writing to avoid vulnerability.
 
-#### The trigger part of Application 
+#### The trigger part of Application
 
-This part is very simple. It is the standard smart contract format, that is, executing different methods according to the type of the method. 
+This part is very simple. It is the standard smart contract format, that is, executing different methods according to the type of the method.
 
 ```c#
 if (Runtime.Trigger == TriggerType.Application)
@@ -207,3 +207,9 @@ if (Runtime.Trigger == TriggerType.VerificationR) //Backward compatibility, refu
 ```
 
 This trigger has not been implemented yet, which is backward compatible with NEP-7. If the node supports NEP-7, it will verify when the transfer is received by CGAS. Return false if the transfer is refused, true otherwise. What can result in the transfer being refused? In case the user transfers some strange assets, as if the user mistakenly transfers other assets to the CGAS address, he cannot withdraw them, so this code is limited. However, NEP-7 is not currently supported on the main network, so it does not work for the time being.
+
+## Next Step
+Now let us move to function of [mint token and refund](5_minttokens_and_refun.md).
+
+## Previous Step
+If you want to know how is UTXO model working in the CGAS, click [here](3_utxo_model.md).

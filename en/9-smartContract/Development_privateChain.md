@@ -76,3 +76,6 @@ The *asset* type is `NEO`, the amount is your preferred amount to transfer, and 
 
  ## Next Step
  **Great!**, After set up the private Chain, next step is to [Set up the development tools.](Development_set_up.md)
+
+ ## Previous Step
+ If you are not clear with the idea of smart contract, click [here](What_is_smart_contract.md)

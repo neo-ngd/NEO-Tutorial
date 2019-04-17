@@ -1,4 +1,4 @@
-#### Part of the code for MintTokens 
+#### Part of the code for MintTokens
 
 ```c#
 var tx = ExecutionEngine.ScriptContainer as Transaction;
@@ -49,7 +49,7 @@ Once getting the total amount of GAS transferred by the user to the CGAS contrac
 
 ```c#
 StorageMap contract = Storage.CurrentContext.CreateMap(nameof(contract));
-var totalSupply = contract.Get("totalSupply").AsBigInteger(); 
+var totalSupply = contract.Get("totalSupply").AsBigInteger();
 totalSupply += value;
 contract.Put("totalSupply", totalSupply);
 ```
@@ -70,7 +70,7 @@ Transferred(null, sender, value);
 
 There are three parameters in Transferred method, namely sender, receiver, and transferred amount. In MintTokens, the sender is null, and in the first step of the refund, the receiver is null.
 
-Additional fees are allowed for users in MintTokens. The code only checks the GAS part of the transaction outputs transferred to the CGAS contract. The GAS included in the user’s transaction inputs and the changed GAS is not counted. 
+Additional fees are allowed for users in MintTokens. The code only checks the GAS part of the transaction outputs transferred to the CGAS contract. The GAS included in the user’s transaction inputs and the changed GAS is not counted.
 
 #### Part of the code for Refund
 
@@ -107,7 +107,7 @@ Next, we are going to mark the transaction output with index 0 as refund, so fir
 
 ```c#
 StorageMap refund = Storage.CurrentContext.CreateMap(nameof(refund));
-if (refund.Get(tx.Hash).Length > 0) return false; 
+if (refund.Get(tx.Hash).Length > 0) return false;
 ……
 refund.Put(tx.Hash, from);
 ```
@@ -122,14 +122,14 @@ The final step is to verify the signature, which is a common means for permissio
 
 ```c#
 StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
-var fromAmount = asset.Get(from).AsBigInteger(); 
+var fromAmount = asset.Get(from).AsBigInteger();
 var preRefundValue = preRefund.Value;
 if (fromAmount < preRefundValue)
     return false;
 else if (fromAmount == preRefundValue)
-    asset.Delete(from); 
+    asset.Delete(from);
 else
-    asset.Put(from, fromAmount - preRefundValue); 
+    asset.Put(from, fromAmount - preRefundValue);
 ```
 
 Once the verification of the identity, it’s ready to operate the user’s assets. It is about to reduce the user's assets. In order to avoid negative numbers, we first compare the refund amount with the user’s balance, and then modify the user assets.
@@ -138,7 +138,7 @@ If the user's assets are reduced, then the total amount of CGAS will also be red
 
 ```c#
 StorageMap contract = Storage.CurrentContext.CreateMap(nameof(contract));
-var totalSupply = contract.Get("totalSupply").AsBigInteger(); 
+var totalSupply = contract.Get("totalSupply").AsBigInteger();
 totalSupply -= preRefundValue;
 contract.Put("totalSupply", totalSupply);
 ```
@@ -150,3 +150,9 @@ Refunded(tx.Hash, from);
 ```
 
 Finally, the transaction ID is recorded to facilitate query and trigger Transferred event for the convenience of blockchain explorer and client processing. Then record the refunder of the UTXO to prepare for the second step of the refund.
+
+## Next Step
+Now let us move to the [signature and verification](6_signature_and_verification.md)
+
+## Previous Step
+To learn the function of trigger, click [here](4_trigger.md)

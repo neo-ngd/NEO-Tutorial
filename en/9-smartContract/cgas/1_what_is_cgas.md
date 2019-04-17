@@ -2,7 +2,7 @@
 
 CGAS is a NEP-5 compatible contract asset and is issued by NGD (NEO Global Development). CGAS can be exchanged in proportion 1:1 for GAS and can be exchanged back. The purpose of the contract is to map the GAS to the global assets, so that the global asset GAS can be easily circulated inside the contract and support the transfer invoked through smart contract utilization.
 
-Why issue CGAS? 
+Why issue CGAS?
 
 Because many DApps project parties on NEO have a demand to use a digital asset with strong liquidity and relatively stable price is used in the contract. However, it is not possible to transfer global assets (such as NEO or GAS) in smart contracts by the fact that NEO and GAS tokens can’t be actually exchanged through smart contract operations out of security reasons. Furthermore, if the project side itself issues a NEP-5 token, it may have poor liquidity. It is a high cost for the project side to get the needed recognition of the community, or a listing on an exchange market, and it is also a waste for all projects to issue their own NEP-5 assets. Therefore, NGD is strongly recommended by the community to issue a universal NEO-5 asset anchored with NEO or GAS for the use within the community, hence the birth of CNEO and CGAS.
 
@@ -17,7 +17,7 @@ C actually stands for “Contract”.
 
 Why should NGD develop CGAS since there are already community contract assets that can map global assets within the network?
 
-The need for CGAS and CNEO becomes obvious consequently with revealing the fact that not all contract assets made by the community can be trusted, or may not even have an open source nature. On the other hand, CGAS developed by NGD is open source and completely decentralized that can be fortunately used for any type of projects without any restrictions. 
+The need for CGAS and CNEO becomes obvious consequently with revealing the fact that not all contract assets made by the community can be trusted, or may not even have an open source nature. On the other hand, CGAS developed by NGD is open source and completely decentralized that can be fortunately used for any type of projects without any restrictions.
 
 ## Technology Introduction
 
@@ -85,3 +85,9 @@ Script Hash: [0x9121e89e8a0849857262d67c8408601b5e8e0524](https://neotracker.io/
 CGAS Contract Address: AK4LdT5ZXR9DQZjfk5X6Xy79mE8ad8jKAW
 
 Known Issues: `transferAPP` method naming not canonical
+
+## Next Step
+Now we are going to learn [global asset and nep5](2_global_asset_and_nep5.md)
+
+## Previous Step
+If you want to learn NEP5, click [here](What_is_nep5.md).

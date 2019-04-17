@@ -96,3 +96,7 @@ Finally, the transaction verification is performed locally, including:
 9. Whether the verification scripts are executed successfully (that is, executing Trigger.Verify).
 
 It is recommended that developers should debug locally by steps when constructing a transaction to find problems.
+
+
+## Previous Step
+To learn the function of mint tokens and refund, click [here](6_signature_and_verification.md)

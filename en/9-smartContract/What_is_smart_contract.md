@@ -88,4 +88,4 @@ In this smart contract tutorial, developers can understand the theory behind the
 
 ## Next Step
 
-Now, let's begin to learn the smart contract development. The first thing to do is [Set up your Development](Development_set_up.md)
+Now, let's begin to learn the smart contract development. The first thing to do is [Set up your Private Chain](Development_privateChain.md)
