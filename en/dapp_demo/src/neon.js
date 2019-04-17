@@ -1,13 +1,14 @@
 // You need to specify below info
-const NEO_SCAN_URL = "http://192.168.99.100:4000/api/main_net";
+const NEO_SCAN_URL = "https://neoscan-testnet.io/api/main_net";
 const PRIV_RPC_NODE = "http://192.168.99.100:30333";
 const CONTRACT_ADDRESS = 'AdYrj6yhqL8EWPKmK5hgcJydthchFTpGsf';
 const CONTRACT_SCRIPTHASH = 'b6730fd741b632401f89020409c6c0415d97dcee';
 const AMOUNT_OF_NEO_TO_BUY_ONE_VOUCHER = 0.1;
 
+const testNetNeoScan = new Neon.api.neoscan.instance("TestNet");
+
 // elements
 const privateKeyInputEle = document.getElementById('priv_key');
-const neoScanUrlEle = document.getElementById('neo_scan_url');
 const loginEle = document.getElementById('login');
 const buyDiamondEle = document.getElementById('buy-diamond');
 const confirmBuyItemEle = document.getElementById('confirm-buy-item');
@@ -65,7 +66,7 @@ function initWithPrivKey(privKey) {
 
         // get balance
         var privateNetNeoscan = new Neon.api.neoscan.instance("PrivateNet");
-        privateNetNeoscan.getBalance(loginAccount.address).then(res => {
+        testNetNeoScan.getBalance(loginAccount.address).then(res => {
             console.log(res);
             updateGasDisplay(res);
         });
@@ -173,8 +174,8 @@ function _buyCat(petName, price) {
     };
     const script = Neon.default.create.script(props);
     const config = {
-        api: apiProvider,
-        url: PRIV_RPC_NODE,
+        api: testNetNeoScan,
+        // url: PRIV_RPC_NODE,
         account: loginAccount,
         script: script
     };
@@ -279,7 +280,7 @@ function invokeScriptReadOnly(method, callback) {
         CONTRACT_SCRIPTHASH,
         methodParam,
         Neon.sc.ContractParam.array(addressParam)
-    ).execute(PRIV_RPC_NODE).then(res => callback(res));
+    ).execute("http://seed6.ngd.network:20332").then(res => callback(res));
 }
 
 
@@ -328,8 +329,8 @@ buyDiamondButtonEle.onclick = function(event) {
     };
     const script = Neon.default.create.script(props);
     const config = {
-        api: apiProvider,
-        url: PRIV_RPC_NODE,
+        api: testNetNeoScan,
+        // url: PRIV_RPC_NODE,
         account: loginAccount,
         intents: intent,
         script: script
