@@ -9,6 +9,12 @@
     {% for post in posts %}
     <span><a  style="color: white;font-size: larger;margin-right: 1rem;" title="{{ site.data.translations['viewIn'][page.lang] }} {{ site.data.languages[post.lang].label }}" class="{{post.lang}}" href="/NEO-Tutorial{{ post.url }}">{{ site.data.languages[post.lang].label }}</a></span>
     {% endfor %}
+      <span style="font-size: 1em; color: white;">
+          <a style=" font-size: 1em; color: white;" href="{{ site.github.repository_url }}/edit/master/{{ page.path }}">
+              <i  class="fab fa-github"></i>
+              &nbsp;Edit this page
+          </a>
+      </span>
     </div>
 </div>
 {% endif %}
