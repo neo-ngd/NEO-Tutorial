@@ -2,7 +2,7 @@
 
 ## Introduction to Merkle tree
 
-![Merkle tree](https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Hash_tree.svg/1200px-Hash_tree.svg.png)
+![Merkle tree](merkle-tree.png)
 
 A Merkle tree is a tree in which leaves of the tree are hash 2 by 2. Then the process is recursively applied to those hashes, until only 1 hash value is left, the Root of the tree. It is mostly visualized using an upside-down tree, with the Root at the top, branches coming down, and the leaves at the bottom. Using a Merkle tree, it is efficient to verify if a specific data point is part of the full tree. For more information on Merkle trees in general, visit [Wikipedia](https://en.wikipedia.org/wiki/Merkle_tree).
 
