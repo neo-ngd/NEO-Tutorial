@@ -2,7 +2,6 @@
 
 
 <div align="center">  
-<h1>NEO-Tutorial</h1>
 <img src="dapp.png" alt="NEO-Tutorial" height="500">
 <p>Dapp Demo : NEO house</p>
 </div>
@@ -177,3 +176,5 @@ Neon.default.doInvoke(config).then(res => {
 });
 
 ```
+
+## Deploy
