@@ -178,3 +178,13 @@ Neon.default.doInvoke(config).then(res => {
 ```
 
 ## Deploy
+
+In order to run this Dapp, we use [neo-local](https://github.com/CityOfZion/neo-local) which enables user to fire up a personal NEO blockchain which you can use to run tests, execute commands, and inspect state while controlling how the chain operates. In neo-local, it fires up a private chain with four nodes and also run a neo-python for user. We can use neo-gui to deploy the contract or neo-python to deploy the contract, which leads to same outcome.
+
+In neo-local, it will fire up a blockchain explorer `neo-scan` whose default url is `localhost:4000`. We can view all the blocks and transactions on it. In the javascript, we have to setup the neo-scan url:
+
+```js
+const NEO_SCAN_URL = "https://localhost:4000/api/main_net";
+```
+
+After deploy the smart contract on the neo-local, get the scripHash of your smart contract, and put it into corresponding place in the javascript file of your dapp. Then you just open the html file and get everything work!
