@@ -92,6 +92,7 @@ namespace NEP5
             StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
             return asset.Get(account).AsBigInteger();
         }
+        
         [DisplayName("decimals")]
         public static byte Decimals() => 8;
 
