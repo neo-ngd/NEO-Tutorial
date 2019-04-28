@@ -79,8 +79,12 @@ Below is a shortened version of the result from the above request, leaving out r
 "confirmations": 117,
 "nextblockhash": "0x77875e7a3d255c3fc82070c51c7999487fb927dfec6a158b5d1dcd4031ee1c5c"
 ```
+## Visual representation
+The block can be inspected in a more user-friendly way by using a block explorer. Neoscan.io is one such explorer, and the block above can be found at [this URL](https://neoscan.io/block/AD83D993CA2D9783CA86A000B39920C20508C8CCAE7B7DB11806646A4832BC50). It is shown below.
 
+![Visual representation of a block](block-info.png)
 
+# Block contents
 ## Block header
 - ***hash***: The hash of the header of the block. Currently the following fields are used when calculating the hash, used to uniquely identify the block:
 	* version
