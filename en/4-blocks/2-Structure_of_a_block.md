@@ -80,7 +80,7 @@ Below is a shortened version of the result from the above request, leaving out r
 "nextblockhash": "0x77875e7a3d255c3fc82070c51c7999487fb927dfec6a158b5d1dcd4031ee1c5c"
 ```
 ## Visual representation
-The block can be inspected in a more user-friendly way by using a block explorer. Neoscan.io is one such explorer, and the block above can be found at [this URL](https://neoscan.io/block/AD83D993CA2D9783CA86A000B39920C20508C8CCAE7B7DB11806646A4832BC50). It is shown below.
+The block can be inspected in a more user-friendly way by using a block explorer. Neoscan.io is one such explorer, and the block above can be found at [this URL](https://neoscan.io/block/AD83D993CA2D9783CA86A000B39920C20508C8CCAE7B7DB11806646A4832BC50). It's information and transactions are shown below. The Invocation Script and Verification Script are not included in this image and are discussed in detail in [Block Validation & Processing](4-Block_validation_processing.md).
 
 ![Visual representation of a block](block-info.png)
 
@@ -115,7 +115,7 @@ The block can be inspected in a more user-friendly way by using a block explorer
 
 - ***nextconsensus***: During consensus on the current block, the algorithm ensures a new consensus node is chosen, which is stored in this field.
 
-- ***script***: Script used to validate the block.
+- ***script***: Script used to validate the block. Discussed in detail in [Block Validation & Processing](4-Block_validation_processing.md).
 
 ## Block body
 
