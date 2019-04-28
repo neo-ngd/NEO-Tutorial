@@ -5,7 +5,7 @@
 This workshop assumes intermediate knowledge of the command line.
 
 This portion involves installing and setting up the environment.
-This is part 1 of the workshop. [Part 2](https://github.com/HandsomeJeff/neo-python-workshop/blob/master/part2_neopy.md) is for command line operations and smart contract development. This portion involves interacting with the neo-python command line.
+This is part 1 of the workshop. [Part 2](https://github.com/loubohan/NEO-Tutorial/blob/master/neo_docs_neopython_tutorial/part2_neopy.md) is for command line operations and smart contract development. This portion involves interacting with the neo-python command line.
 
 ___
 <!--
