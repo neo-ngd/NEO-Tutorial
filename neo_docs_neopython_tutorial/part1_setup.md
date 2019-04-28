@@ -8,14 +8,16 @@ This portion involves installing and setting up the environment.
 This is part 1 of the workshop. [Part 2](https://github.com/HandsomeJeff/neo-python-workshop/blob/master/part2_neopy.md) is for command line operations and smart contract development. This portion involves interacting with the neo-python command line.
 
 ___
-
+<!--
 ### Workshop Details
 **When**: Sunday, 1 Jul 2018. 1:30 PM - 5:30 PM.</br>
 **Where**: 太库北京孵化器</br>
 **Who**: NEO
 
-### Questions
+Questions
 Please raise your hand any time during the workshop or email your questions to [me](mailto:yefan0072001@gmail.com) later.
+
+-->
 
 ### Errors
 For errors, typos or suggestions, please do not hesitate to [post an issue](https://github.com/HandsomeJeff/NEO-smart-contract-workshop). Pull requests are very welcome! Thanks!
