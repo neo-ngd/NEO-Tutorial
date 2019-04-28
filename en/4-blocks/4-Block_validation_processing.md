@@ -1,3 +1,6 @@
+- Validation of blocks
+	- The legalness of block
+	- The witness validation
 - proccess of blocks
 	- UTXO transaction process
 	- Contract invocation process

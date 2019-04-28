@@ -1,3 +1,0 @@
-- Validation of blocks
-	- The legalness of block
-	- The witness validation

@@ -137,6 +137,6 @@ Below are the type of transactions that can occur in a block:
 
 ## Additional fields
 
-- ***confirmations***: The amount of blocks that were built on top of this block. Each time a new block is confirmed on top of the chain that contains this block, the latter block gets an extra confirmation.
+- ***confirmations***: The amount of blocks that were built on top of this block. Each time a new block is confirmed on top of the chain that contains this block, the latter block gets an extra confirmation. This field is not present in the block itself but calculated by the node serving the RPC request for completeness.
 
 - ***nextblockhash***: The hash of the next block, resulting in a linked-list of blocks. This field is not present in the block itself but calculated by the node serving the RPC request for completeness.
