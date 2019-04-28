@@ -19,6 +19,9 @@ Every unit of an UTXO that is not explicitly sent to an address, is interpreted 
 
 As a normal user however, you do not need to worry about these details. Most advanced wallet software will give you the option to specify the transaction fee, and generate the transaction in such a way that the change will be sent back into your account.
 
+As an example, you can look at [this specific transaction](https://neoscan.io/transaction/80b963d68c0f3d65c0e906057f7517a17ef7dcc1b29e2a79205e4aa235131f95). The source address had an UTXO containing 119.99999987 GAS and wanted to send 60 GAS to another address. To do so, it specified the recipient together with the 60 GAS, and it spent the remaining GAS to itself again (59.99999986 GAS). However, 60 + 59.99999986 equals to 119.99999986 GAS. This differs with 0.00000001 GAS, which was the implied transaction fee. By not specifying the address for the 0.00000001 that was left from the UTXO, it was handled as transaction fee for the consensus node.
+![Transaction example with fee](txn-with-fee.png)
+
 ## Other fees
 A transaction fee is used to gain priority on the network. There are however fees with specific puroses.
 - ***Smart Contract Creation*** The current free to deploy a new contract on the Mainnet is 500 GAS. For structured development, it is advised to start development on a local testnet (link docker). Once the Smart Contract is stable, you can apply for Testnet funds here (link), for final validations. Once you are certain your Smart Contract is implemented correctly, only then should you deploy it onto the Mainnet, as it is irrevokable - meaning you will not get your 500 GAS back even when you destroy the contract.
