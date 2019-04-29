@@ -407,6 +407,9 @@ At this point, we have gone through some basic operations on the neo-python comm
 Here are additional workshops to go through also:
 https://github.com/neo-project/docs/tree/master/en-us/workshop
 
+The City of Zion offical Neo Python documentation is also a great resource:
+https://github.com/CityOfZion/neo-python
+
 Thanks for joining us, and feel free to [contact me](mailto:yefan0072001@gmail.com) if you have any further queries.
 
 ## Acknowledgements
