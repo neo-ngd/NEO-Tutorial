@@ -137,7 +137,7 @@ tr:nth-child(even) {
   min-height: 30px;
 }
 
-.pet-image {
+.item-image {
   width: auto;
   height: auto;
   max-width: 100%;
@@ -150,13 +150,13 @@ tr:nth-child(even) {
   margin-top: -10px;
 }
 
-.pets-container {
+.items-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
 }
-.pet-wrapper {
+.item-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -164,12 +164,12 @@ tr:nth-child(even) {
     width: 200px;
     height: 250px;
 }
-.pet-header {
+.item-header {
    background-color: antiquewhite;
    min-height: 22px;
 }
 
-#store .pet-header {
+#store .item-header {
    background-color: antiquewhite;
    min-height: 30px;
    display: flex;
@@ -177,12 +177,12 @@ tr:nth-child(even) {
    align-items: center
 }
 
-.pet-footer {
+.item-footer {
     background-color: bisque;
     min-height: 22px;
 } 
 
-#store .pet-footer {
+#store .item-footer {
     background-color: bisque;
     min-height: 30px;
     display: flex;
