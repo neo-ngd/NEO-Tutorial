@@ -42,7 +42,7 @@ namespace NEP5
                 if (method == "totalSupply") return TotalSupply();
 
                 if (method == "buyItem") return buyItem((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
-                 
+
                 if(method == "checkItem") return checkItem( (byte[]) args[0]);
 
                 if (method == "exchange_token") return exchange_token();
@@ -82,7 +82,7 @@ namespace NEP5
         public static object checkItem(byte[] from)
         {
             StorageMap item = Storage.CurrentContext.CreateMap(nameof(item));
-            String my_item= item.Get(from + "ITEM").AsString();
+            String my_item= item.Get(from).AsString();
             return my_item;
         }
 
@@ -140,15 +140,15 @@ namespace NEP5
             asset.Put(Owner, toAmount + amount);
 
             StorageMap item = Storage.CurrentContext.CreateMap(nameof(item));
-            byte[] my_item = item.Get(from + "ITEM");
+            byte[] my_item = item.Get(from);
             if (my_item.Length == 0)
             {
-                item.Put(from + "ITEM", to);
+                item.Put(from, to);
             }
             else
             {
-                item.Put(from + "ITEM", my_item.Concat(slider).Concat(to));
-               
+                item.Put(from, my_item.Concat(slider).Concat(to));
+
             }
             Transferred(from, Owner, amount);
             return true;

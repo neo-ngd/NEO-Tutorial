@@ -46,13 +46,13 @@ function submitPrivateKey(event) {
     }
     window.sessionStorage.setItem('private_key', privateKeyInputEle.value);
     initWithPrivKey(privateKeyInputEle.value);
-    dismissLogin(); 
+    dismissLogin();
 }
 
 // init account when get private key from session or user input.
 function initWithPrivKey(privKey) {
     try {
-        loginAccount = new Neon.wallet.Account(privKey);   
+        loginAccount = new Neon.wallet.Account(privKey);
         loginButtonEle.innerText = "Logout";
 
         // add private net config
@@ -66,7 +66,7 @@ function initWithPrivKey(privKey) {
 
         // get balance
         var privateNetNeoscan = new Neon.api.neoscan.instance("PrivateNet");
-        testNetNeoScan.getBalance(loginAccount.address).then(res => {
+        privateNetNeoscan.getBalance(loginAccount.address).then(res => {
             console.log(res);
             updateGasDisplay(res);
         });
@@ -166,7 +166,7 @@ function _buyCat(petName, price) {
         );
     const param_petName = Neon.default.create.contractParam("String", petName);
     const param_price = Neon.default.create.contractParam("Integer", price*1e8);
-    
+
     const props = {
         scriptHash: CONTRACT_SCRIPTHASH,
         operation: "buyCat",
@@ -265,7 +265,7 @@ function renderPetsContainer(pets, inStore) {
             buyNode.setAttribute('src', "./resources/neo-house/buy.png");
             childNode.appendChild(buyNode);
         }
-        
+
         petContainer.appendChild(childNode);
     });
 }
@@ -320,7 +320,7 @@ buyDiamondButtonEle.onclick = function(event) {
     }
 
     const apiProvider = new Neon.api.neoscan.instance('PrivateNet');
-    
+
     const intent = Neon.api.makeIntent({NEO:neoAmount}, CONTRACT_ADDRESS);
     const props = {
         scriptHash: CONTRACT_SCRIPTHASH,
