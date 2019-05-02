@@ -2,8 +2,7 @@
 # Persistence
 
 ## Serialization Model
-The serialization is used in the Persistence layer to represent the types in NEO platform.  
-The native types in NEO platform are Integer, Decimal and String. UInt160 and UInt256 are also used.
+The native types in NEO platform are Integer, Decimal and String, UInt160 and UInt256.
 This model is used for both the persistence and the network layer.
 
 
@@ -58,7 +57,7 @@ public static void WriteVarInt(this BinaryWriter writer, long value)
 ```
 
 #### Byte order
-All integer types of NEO are little endian except for IP address and port number.
+All variable length integer of NEO are little endian except for IP address and port number.
 
 ### String serialization
 Strings are encoded using variable length strings, consisting of variable length integer followed by the string encoded in UTF8.
@@ -68,7 +67,7 @@ Strings are encoded using variable length strings, consisting of variable length
 |?|length|integer|The length of a string in bytes|
 |length|string|uint8[length]|string itself|
 
-You can find [here](http://www.unicode.org/versions/Unicode9.0.0/ch03.pdf#page=54)  additional information on how UTF-8 is serialised.
+You can find [here](http://www.unicode.org/versions/Unicode9.0.0/ch03.pdf#page=54)  additional information on how UTF-8 is serialized.
 
 The string "NEO" is stored using 4 bytes:
 ![var_string](persistence_var_string.png)
@@ -110,7 +109,7 @@ public static void WriteFixedString(this BinaryWriter writer, string value, int 
 
 ### UInt160 and UInt256 serialization
 Both UInt160 and UInt256 are stored as fixed size byte arrays, using 20 and 32 bytes respectively.
-These types are used mostly for hashes. NEO uses RIPMED160 for script-hashes and SHA256 for transaction and block hashes.  
+NEO uses RIPMED160 for script-hashes and SHA256 for transaction and block hashes.  
 Note that in NEO we use hash functions twice. The first hash is always SHA256.
 
 A very common use for UInt160 are contract hashes:
@@ -131,7 +130,7 @@ public static byte[] CreateSignatureRedeemScript(ECPoint publicKey)
 }
 ```
 
-The resulting contract is a byte array. This byte array is converted to script-hash using the hash functions described earlier (RIPMED160 specifically):
+The resulting contract is a byte array. This byte array is converted to script-hash using the hash functions described earlier (RIPMED160):
 
 ``` CSharp
 // https://github.com/neo-project/neo/blob/41caff115c28d6c7665b2a7ac72967e7ce82e921/neo/SmartContract/Helper.cs#L82
@@ -147,9 +146,10 @@ public byte[] Hash160(byte[] message)
 }
 ```
 
+#### Address
+UInt160 is used for contract hashes and the resulting hash is used to build the address.  
+The address is the script-hash of the contract, encoded in Bas58 prefixed with the contract version, currently `0x23`.
 
-UInt160 is used for contract hashes, and these resulting hashes are used to build an address.  
-The address is the script-hash of the contract encoded in Bas58 prefixed with the contract version, currently `0x23`.
 ![address](persistence_address.png)
 
 #### Address conversion in code
@@ -401,7 +401,7 @@ In this transaction, one CoinReference (in `vin` array) is transformed into mult
 
 ```
 
-The TransactionOutput of index 1 is now referenced in another transaction, using the transaction hash and index. In these examples, the previous transaction hash is `0x630c74684cc6dad330397c63e8c7aa6403c043cc1f241638cff87e3b97a40716` and the index is `1`.
+The TransactionOutput of index 1 is now referenced in another transaction, using the transaction hash and index. In this example, the previous transaction hash is `0x630c74684cc6dad330397c63e8c7aa6403c043cc1f241638cff87e3b97a40716` and the index is `1`.
 
 ```json
 {
@@ -504,45 +504,3 @@ Attach network fees
 #### NEP-5 asset transfer
 #### Multiple transfers in a single transaction
 #### Multi-signature verification
-
-### Blockchain Data Structure
-The current implementation of NEO in C# uses LevelDB, a fast key-value database, to persist blockchain information. This DB is used for both system data, like blocks and transactions, but also for smart contract data.  
-The data is divided using *prefixes*.
-We can see here the prefixes used in our C# version:
-
-
-| Prefix     | Data     |
-| :------------- | :------------- |
-| 0x01      | Block headers       |
-| 0x02      | Transactions       |
-| 0x40      | Accounts       |
-| 0x44      | Coins       |
-| 0x45      | Spent coins       |
-| 0x48      | Validators       |
-| 0x4c      | Assets       |
-| 0x50      | Contracts       |
-| 0x70      | Smart Contract Storage       |
-| 0x80      | Pending header hash list       |
-| 0x90      | Validators       |
-| 0xc0      | Current block       |
-| 0xc1      | Current header       |
-| 0xf0      | System version       |
-| 0xf4      | Consensus state       |
-
-*Prefixes 0xf1 to 0xff are reserved for external use.*
-
-#### Block Collections
-
-#### Header Collections
-
-#### Coins Collections
-
-### Wallet Data Structure
-
-#### Unspent Coins
-
-### Level DB Example
-
-#### Blockchain Structure
-
-#### Additional Wallet Strucuture
