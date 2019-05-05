@@ -50,8 +50,7 @@ namespace Helloworld
 
 在合约类中，使用 `static readonly` 或 `const` 定义的合约属性是常量属性且值不能更改。例如，如果想要定义合约的所属者或在以后的资产转账中使用的因数时，我们可以这样定义这些常量:
 
-```
-c#
+```c#
 // 代表该合约的所属者，表示为固定的地址。通常是合约的创建者
 public static readonly byte[] Owner = "ATrzHaicmhRj15C3Vv6e6gLfLqhSD2PtTr".ToScriptHash();
 
