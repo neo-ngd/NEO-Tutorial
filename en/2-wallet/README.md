@@ -17,37 +17,47 @@
 
 
 # Understanding Wallets
-When a user typically begins with NEO or other blockchains they are given a user "wallet". This is different from modern centralized applications where user is given a user account which is hosted on some centralized server. Although your wallet is used to access your NEO, GAS, and other tokens, the name is actually a bit of a misnomer. A wallet at its core is a cryptographic public/private key pair which is used to sign and authenticate transactions that occur on the NEO network. 
+When a user begins interacting with NEO or other blockchains they must create a unique user "wallet" locally on their machine in order to make transactions on the network. This is different from modern centralized applications where user must create a user account which is stored on centralized server and managed exclusively by the service provider. Although your wallet is used to access your NEO, GAS, and other tokens, the name "wallet" is actually a misnomer. At its core, a wallet is a cryptographic public/private key pair which is used to sign and authenticate database transactions that occur on the NEO network. 
 
-Let's consider how a user would perform a write operation on a traditional centralized database vs how a user would perform a write operation to the NEO blockchain.
+Let's consider how a user would perform a write operation on a traditional centralized database, and compare it to how a user would perform a write operation to the NEO blockchain. This should help clear up the misconception that your coins are stored on a wallet, as opposed to them being stored in the blockckchain.
 
 ## Centralized Database
-The user would first create an account using some sort of credentials like email/password. These credentials are stored on the services database. When the user logs in to the service they receive some form of session token in their local environment which allows them to perform write operations on the services database.
+In a client/server architecture, a user would first create an account using identity credentials like an email/password combination. These credentials are then stored on the services database. When the user logs in to the service they receive a session token in their local environment which allows them to perform write operations on the services database.
+
+So if this centralized application was a banking service, the "coins" would be stored on the banks servers, and you would be able to perform transfers by providing valid credentials to the bank.
+
 
 ### Advantages:
 -> If user loses their credential information, it can be recovered by service
--> This is a standardized flow that user is used to
+-> Email/Password is a standardized UX paradigm that almost all internet users are used to
 
 ### Disadvantages
 -> Storing all user credentials in a centralized error makes this attractive for hacking
 -> A seperate set of credentials needs to be generated for every single service
 
+But most importantly, and a phrase often spread in the cryptocurrency community.
+
+"Not your keys, not your coins"
+
+The nature of the traditional client server architecture means that the end user has very little control of whatever data is being stored in the server's database. Although this is particularly relevant for financial applications, it applies more broadly to general user data.
+
 
 ## NEO Blockchain
-A user would generate a public/private key pair. These key pairs are only stored locally on the user device, in a dedicated hardware module, or somewhere else in the client. These key pairs NEVER touch a remote server. When a user wishes to perform a write an operation on the NEO blockchain (database), they generate a transaction locally with their intended operation, for example sending 1 NEO to a friend. They then sign this transaction with their cryptographic signature, which is generated via their wallet or public key pair.
+Let's contrast this to how a user would perform write operations on the NEO blockchain. A user would first generate a public/private key pair. These key pairs are stored locally on the user device, in a dedicated hardware module, or somewhere else in the client. These key pairs NEVER touch a remote server. When a user wishes to perform a write an operation on the NEO blockchain (database), they generate a transaction locally with their intended operation. For example, this operation could be sending 1 NEO to a friend. They then sign this transaction with their cryptographic signature, which is generated via their public key pair.
 
-This transaction is then verified, and distributed amongst the network which finalizes the write operation
+This transaction is then verified, and distributed amongst the network which finalizes the write operation. We can see that no other entity can perform write operations to the remote database on the users behalf without explicit authorization because the cryptographic signature can ONLY be generated by the user.
 
 ### Advantages
 -> No central point of attack for a hacker. This removes a lot of responsibility from the service provider
--> User credentials can be shared, amongst various service providers
+-> User public identities can be shared, amongst various service providers
+-> Your Keys, Your Coins
 
 ### Disadvantages
 -> No recovery mechanism if user lose their credentials
 -> New UX pattern for users who are not used to this kind of system
 
 
-So in summary we can summarize a wallet as a public/private key pair which used to perform write operations on a distributed database (blockchain). It has advantages and disadvatnages compared to typical client/server authentication architecture, but we believe that the security and user control that this system provides, allows for an overall more robust system. 
+So in summary we an accureately describe a wallet as a public/private key pair which is used to perform write operations on a distributed database (blockchain). It has advantages and advantages compared to typical client/server authentication architecture, but we believe that the security and user control that this system provides, allows for an overall more robust internet. 
 
 We'll now go into some of the specifics about NEO key architecture.
 
