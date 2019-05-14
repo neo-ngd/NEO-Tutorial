@@ -187,6 +187,8 @@ Remember that private key is a 256-bit number? Basically, public key is the resu
 
 *X = x * P*, where *X* is the public key.
 
+To do the opposite (figure out *x* from *X* and *P*) we have to keep adding *P* to itself until we get *X*, which on average make us do *2^128* point additions to figure out *x*, which is computationally infeasible.
+
 ## NEO Address
 Similar to the wif format the NEO address allows for a simpler, more human readable format for the public key.
 
