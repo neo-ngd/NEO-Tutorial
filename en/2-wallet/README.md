@@ -189,6 +189,35 @@ Remember that private key is a 256-bit number? Basically, public key is the resu
 
 To do the opposite (figure out *x* from *X* and *P*) we have to keep adding *P* to itself until we get *X*, which on average make us do *2^128* point additions to figure out *x*, which is computationally infeasible.
 
+## ECDSA signing
+### Signature calculation
+To calculate signature for arbitrary data we do the following:  
+1. Calculate *z = sha256(data)* which is interpreted as 256-bit integer
+2. Choose random integer *k* between *1* and *n - 1*, where *n* is *115792089210356248762697446949407573529996955224135760342422259061068512044369* for secp256r1
+3. Calculate point *P(x, y) = k * G*, where *G* is base point (48439561293906451759052585252797914202762949526041747995844080717082404635286,
+36134250956749795798585127919587881956611106672985015071877198253568414405109) for secp256r1
+4. Calculate *r = x mod n*. If *r = 0*, then try again from the start.
+5. Calculate *s = k^−1 * (z + r * d) mod n*, where *d* is our private key. If *s = 0*, then try again from the start.
+
+*k^-1* is actually a modular multiplicative inverse of *k*, which is a number such that *(k^-1 * k) mod n = 1*
+
+Pair *(r, s)* is the signature. Usually they're concatenated together to a single hexstring.  
+
+### Signature verification
+Signature verification is based on the ability to calculate point *P* from above w/o actually knowing *k* or *d*.
+
+1. Calculate *u = s^−1 * z mod n*
+2. Calculate *v = s^−1 * r mod n*
+3. Calculate point *P(x, y) = u * G + v * Q*, where *Q* is our public key
+4. Verify that *r = x mod n*, otherwise signature is invalid
+
+### Security
+It's very important to use cryptographycally secure random *k* every time, otherwise having two signatures *s* and *s'*, generated with the same *k* we can easily find out *k*:  
+*k = (z - z') / (s - s') mod n*, where *z* and *z'* are hashes of signed data  
+
+If we know *k* then we can easily find out private key:  
+*d = (s * k - z) / r mod n*
+
 ## NEO Address
 Similar to the wif format the NEO address allows for a simpler, more human readable format for the public key.
 
