@@ -224,7 +224,7 @@ Usually script used is simple public key + check signature opcode, meaning outpu
 
 To calculate NEO address from transaction script:  
 1. Calculate sha256 hash of transaction script
-2. Calculate ripemd160 hash of the previous output (this is known as script hash)
+2. Calculate ripemd160 hash of the previous output (this is known as the script hash)
 3. Use base58 check to encode previous output with the version 0x17 (meaning result will start with A)
 
 And here's an example code to generate NEO address from public key:
@@ -257,6 +257,8 @@ func (pub *PublicKey) ToNeoAddress() (address string) {
 	return address
 }
 ```
+
+Script hash is typically what is used in smart contracts as the public identifier as opposed to the address. Since the use of byte arrays is common, it makes a lot more sense as the base58 encoded versions is meant to be read by humans, not computers!
 
 ## Mnemonic Words
 The use of Mnemonic words is not common in the NEO ecosystem, this section should be omitted as there is no proposed NEP for the use of mnemonic phrases for seed derivation
