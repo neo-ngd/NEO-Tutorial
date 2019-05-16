@@ -219,8 +219,15 @@ If we know *k* then we can easily find out private key:
 *d = (s * k - z) / r mod n*
 
 ## NEO Address
-Similar to the wif format the NEO address allows for a simpler, more human readable format for the public key.
+NEO address is generated from transaction script, which defines who can spend a transaction output.  
+Usually script used is simple public key + check signature opcode, meaning output could be spent only by the owner of the private key for the specified public key.
 
+To calculate NEO address from transaction script:  
+1. Calculate sha256 hash of transaction script
+2. Calculate ripemd160 hash of the previous output
+3. Use base58 check to encode previous output with the version 0x17 (meaning result will start with A)
+
+And here's an example code to generate NEO address from public key:
 ```
 // ToNeoAddress converts a NEO public key to a NEO address string.
 func (pub *PublicKey) ToNeoAddress() (address string) {
@@ -250,8 +257,6 @@ func (pub *PublicKey) ToNeoAddress() (address string) {
 	return address
 }
 ```
-
-The unencoded base58 version of the address is know as the ScriptHash. This hex string is typically what is used in smart contracts as the public identifier as opposed to the address. Since the use of byte arrays is common, it makes a lot more sense as the base58 encoded versions is meant to be read by humans, not computers!
 
 ## Mnemonic Words
 The use of Mnemonic words is not common in the NEO ecosystem, this section should be omitted as there is no proposed NEP for the use of mnemonic phrases for seed derivation
