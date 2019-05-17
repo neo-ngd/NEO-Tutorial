@@ -145,10 +145,11 @@ A maximum of 16 attributes can be added to each transaction.
 ### Outputs
 An output `vout` is an amount of an asset transferred to an address as a result of the transaction. Each transaction can have up to `65536` outputs. It depends on the type of the transaction how the outputs are validated.
 
-| Type                        | Description                                                                                   |
-|-----------------------------|-----------------------------------------------------------------------------------------------|
-| `IssueTransaction`          | Requires the transaction to be signed by the asset administrative contract                    |
-| `ClaimTransaction`          | Requires one or more unclaimed outputs to be referenced in the transaction `claims` attribute |
+| Type                        | Description                                                                                     |
+|-----------------------------|-------------------------------------------------------------------------------------------------|
+| `IssueTransaction`          | Requires the transaction to be signed by the asset administrative contract                      |
+| `ClaimTransaction`          | Requires one or more unclaimed outputs to be referenced in the transaction `claims` attribute   |
+| `MinerTransaction`          | Requires `inputs` to be empty and the amount in `outputs` to match all system fees in the block |                                                                 
 
 All other transactions require one or more unspent outputs to be referenced in the transaction `inputs` attribute.
 
