@@ -125,8 +125,8 @@ The body of a block contains all the transactions that are embodied in that bloc
 ### Transaction types
 Below are the type of transactions that can occur in a block:
 * **MinerTransaction**: The first transaction in each block must be MinerTransaction. It is used to reward all transaction fees of the current block to the validator.
-* **IssueTransaction**: Used to issue an asset. Asset managers can create the assets that have been registered in NEO's block chain through IssueTransaction, and sent them to any address.
-* **ClaimTransaction**: Transaction invoked to claim NeoGas thas was not yet claimed for holding NEO.
+* **IssueTransaction**: Used to issue an asset. Asset managers can create the assets that have been registered in NEO's block chain through IssueTransaction, and send them to any address.
+* **ClaimTransaction**: Transaction invoked to claim NeoGas that was not yet claimed for holding NEO.
 * **EnrollmentTransaction**: The transaction represents an enrollment form, which indicates that the sponsor of the transaction would like to sign up as a validator
 * **ContractTransaction**: This is a very common kind of transaction as it allows one wallet to send NEO to another. The inputs and outputs transaction fields will usually be important for this transaction (for example, to govern how much NEO will be sent, and to what address).
 * **InvocationTransaction**: Transaction type used to invoke a Smart Contract.
