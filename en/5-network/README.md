@@ -308,6 +308,7 @@ After sending ping, we can expect a pong message.
 ---
 **Exercise 4**:
 Merge your encoder/decoder code with the main function from the template and run it on the mainnet. What can you see?
+
 ---
 
 After successfully sending a NEO ping and receive a pong back, we can send `getaddr` and receive further nodes in the NEO networks. For that you can use the connection you have already established. Finding other peers is crucial for P2P and distributed systems, as peers may go offline at any time, and having other nodes to connect to is vital.
@@ -318,6 +319,7 @@ After sending the ping message, send a `getaddr` message. Analyze the output.
 
 Hint:
 The output contains a list of IP addresses (16 bytes IPv6/4, 2 bytes port) that are encoded big-endian. The data also contains a service flag (set to 1) and a timestamp.
+
 ---
 
 You now have successfully implement a NEO client that can initiate a connection to other NEO nodes, send a ping, receive a pong, and get a list of further peers.
