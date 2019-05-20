@@ -4,7 +4,7 @@
 
 This tutorial targets developer/students that want to write their own NEO P2P client in order to participate in such a distributed system. This tutorial will not go into details of distributed systems and the reader should be familiar with the basics of distributed systems, about networking protocols, and the Golang programming language.
 
-The NEO networking consists of two kind of protocols: a protocol to communicate with local clients and wallets, and an external protocol to communicate with other NEO nodes. To connect to a local node, [JSON-RPC](https://www.jsonrpc.org/) is used. This JSON-RPC can also be exposed to other external nodes. However, in this tutorial, we will focus on the the other protocol, the [NEO protocol](https://docs.neo.org/en-us/network/network-protocol.html). In this tutorial, we will learn how to communicate with other NEO nodes.
+The NEO networking consists of two kind of protocols: a protocol to communicate with local clients and wallets, and an external protocol to communicate with other NEO nodes. To connect to a local node, [JSON-RPC](https://www.jsonrpc.org/) is used. This JSON-RPC can also be exposed to other external nodes. However, in this tutorial, we will focus on the other protocol, the [NEO protocol](https://docs.neo.org/en-us/network/network-protocol.html). In this tutorial, we will learn how to communicate with other NEO nodes.
 
 ```
                           +--------------+
@@ -51,7 +51,7 @@ The NEO protocol defines a header and a payload. Every message needs to be sent 
 ```
 Communication with other NEO nodes is via TCP or via [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). The advantage of using WebSockets is that you could connect to a NEO node with a web browser. In this tutorial we will use TCP.
 
-The header contains a 4 byte magic, which stands for "Ant" (little-endian), the name that was used before the NEO rebranding. The testnet uses slightly different magic bytes, so that messages can be distinguished between mainnet and testnet.
+The header contains a 4 bytes magic, which stands for "Ant" (little-endian), the name that was used before the NEO rebranding. The testnet uses slightly different magic bytes, so that messages can be distinguished between mainnet and testnet.
 
 ---
 **Exercise 1**:
@@ -88,7 +88,7 @@ binary.LittleEndian.PutUint32(b[0:], 0x00746E41)
 While most CPUs use little-endian encoding, network protocol, such as TCP or UDP use big-endian. More information on endianness can be found in [https://en.wikipedia.org/wiki/Endianness](https://en.wikipedia.org/wiki/Endianness). For this tutorial we will use little-endian, as most data is encoded in little-endian in NEO, and we won't touch the exceptions.
 
 ### Checksum
-The checksum field in the header is the checksum calculated over the payload. Although TCP also has a checksum over its payload, the TCP checksum is only 16 bits. The payload checksum in NEO is the frist 4 bytes (32 bits) of the double SHA256 hash of the payload. In Golang, the checksum can be calculated as follows:
+The checksum field in the header is the checksum calculated over the payload. Although TCP also has a checksum over its payload, the TCP checksum is only 16 bits. The payload checksum in NEO is the first 4 bytes (32 bits) of the double SHA256 hash of the payload. In Golang, the checksum can be calculated as follows:
 
 ```
  tmp := sha256.Sum256(payload)
@@ -171,12 +171,12 @@ For the NEO ping we will only use the version and ping command with a payload. T
 * Port (uint16) - the port we are listening to, can be 0 if your node does not handle incoming connections
 * Nonce (uint32) - random number
 * UserAgent max 1024 bytes - use 1 byte as length in this tutorial, then the string. Don't go over 253 bytes (0xfd)
-* BlockHeight (uint32) - the blockheight, your blockheight can be 0
+* BlockHeight (uint32) - the block height, your block height can be 0
 * Relay (uint8) - if your node is a relay, set to false (0)
 
 ## Command "ping"
 
-* BlockHeight (uint32) - the block height, your blockheight can be 0
+* BlockHeight (uint32) - the block height, your block height can be 0
 * Timestamp (uint32) - time in seconds since 01.01.1970
 * Nonce (uint32) - random number
 
