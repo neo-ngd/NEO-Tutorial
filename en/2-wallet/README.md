@@ -201,7 +201,7 @@ Assume private key, public key and base point as *k*, *K* and *G*, respectively.
 3. Send message *M* and signature {*r * G*, *s*} to receiver.
 
 ### Verification procedure
-1. Receiver receives message *M* and signature {*r * G(x,y)*, *s*}.
+1. Receiver receives message *M* and signature {*r * G(x, y)*, *s*}.
 2. Compute hash *h* according to received message.
 3. Compute *h * G / s + x * K / s* with sender public key *K* and compare with *r * G*. Verification succeeds if both are the same.
 
@@ -210,7 +210,7 @@ Deduction is as follows
 
 ## NEO Address
 NEO address is generated from address script, which defines who can spend a transaction output.  
-Usually script used is of the form:
+Usually script used is of the form:  
 *PUSHBYTES21* opcode (*0x21*) + compressed public key (33 bytes) + *CHECKSIG* opcode (*0xAC*), meaning output could be spent only by the owner of the private key for the specified public key.
 
 To calculate NEO address from transaction script:  
