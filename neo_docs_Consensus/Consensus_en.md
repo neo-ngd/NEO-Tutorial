@@ -1,12 +1,15 @@
 # Introduction
 
-Multi-Agent Systems (MAS) are the core of Internet-of-Things (IoT), in which autonomous devices are able to interact with each other following their specific desired.
+Multi-Agent Systems (MAS) are the core of Internet-of-Things (IoT), in which autonomous devices are able to interact with each other following their specific goals.
 Blockchain consensus operates in the same manner, autonomous nodes should reach an agreement throughout a negotiation protocol.
+While there could be a global metric to be optimized, there are, surely, selfish node trying to maximize their interests.
 Three pillars of MAS protocols for reaching agreements are: voting, auction and coordination.
 
 We believe that Blockchain protocols are able to safely perform distributed rational decision making during its consensus.
+In particular, this may happen if the right incentives are given.
+Incentives are not just directly monetary (though rewards) but also involve prestige and the maintenance of projects that nodes are interested in.
 
-In particular, NEO protocol, so-called Delegated Byzantine Fault Tolerance (dBFT), has its design rooting the works of Practical Byzantine Fault Tolerance, from Miguel Castro and Barbara Liskov around 1999.
+NEO protocol, so-called Delegated Byzantine Fault Tolerance (dBFT), has its design rooting the works of Practical Byzantine Fault Tolerance, from Miguel Castro and Barbara Liskov around 1999.
 
 This tutorial will introduce the basic steps for understanding the importance of designing and developing such mechanism for our Ecosystem.
 
