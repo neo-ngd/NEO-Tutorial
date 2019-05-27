@@ -53,7 +53,14 @@ Coordination not in the sense of a centralized coordinator, but in the sense tha
 
 ## pBFT
 
+A brief summary of the pBFT folows of states can be seen in the ![Neo Specification](https://github.com/NeoResearch/yellowpaper/blob/master/sections/graphviz-images/graphviz-pbft.jpg?raw=true).
+
+pBFT was designed for....
+
 ## dBFT
+
+The current dBFT 2.0 flow of states can be seen ![here](https://github.com/NeoResearch/yellowpaper/blob/master/sections/graphviz-images/graphviz-dbft-v2-recover.jpg?raw=true)
+
 
 ### A 4-node consensus
 
