@@ -20,7 +20,8 @@ After reading this tutorial it is expected that you will learn:
 - Distinguish Proof-of-Work and consensus based on coordination;
 - Learn more about cryptography and multi-sig accounts;
 - Learn about Byzantine Fault Tolerant systems;
-- Understand the beauty of **one block finality**;
+- Comprehend the design of a fully distributed network, in which Consensus operates using digital signatures;
+- Understand the beauty of **one block finality**.
 
 
 ## The roots of proof-of-works
@@ -70,7 +71,7 @@ pBFT was designed for....
 
 ## dBFT
 
-Part of the content of this tutorial has been extracted from the [dBFT formal specification](https://github.com/NeoResearch/yellowpaper/blob/master/sections/08_dBFT.md).
+**Disclaimer:** *Part of the content of this tutorial has been extracted from the [dBFT formal specification](https://github.com/NeoResearch/yellowpaper/blob/master/sections/08_dBFT.md).*
 
 While the previous aforementioned livess was proved for the pBFT, the scenario in which dBFT works is a real-word large-scale public blockchain with state machine replication.
 The nature of the information shared is different and information could not be leaked.
@@ -79,6 +80,33 @@ For this purpose, a refined and precisely designed recover mechanism is part of 
 
 The current dBFT 2.0 flow of states can be seen ![here](https://github.com/NeoResearch/yellowpaper/blob/master/sections/graphviz-images/graphviz-dbft-v2-recover.jpg?raw=true)
 
+### One-block finality
+
+One block finality offers significant advantages for real-world applications - For example, end users, merchants, and exchanges can be confident that their transactions were definitively processed and that there is no chance for them to be reverted.
+While the NEO Ecosystem has been designed for hosting Decentralized Applications (DApps), it is noteworthy that persisting SC transactions (which involves State Machine Replication (SMR) and is the core functionality of several DApps) poses a unique set of challenges.
+Keep block-finality has been a trick task since CN can not expose and reveal information of any duplicated block.
+In this sense, block signatures should be only provided when the majority of CN are already in an agreement.
+
+This problem has been called as the **indefatigable miners problem** (defined here):
+
+1. The speaker is a Geological Engineering and he is searching for a place to dig for Kryptonite;
+1. He proposes a geographic location (coordinates to dig);
+1. The majority (`M` guys) agrees with the coordinates (with their partial signatures);
+1. Time for digging: they will now dig until they really find Kryptonite (no other place will be accepted to be dig until Kryptonite is found). Kryptonite is an infinite divisible crystal, thus, as soon as one finds he will share the kryptonite so that everyone will have a piece for finishing their contract 3.;
+1. If one of them dies, when it resurrects it will see its previous signed agreement (3.) and it will automatically start to dig again. The other minority will suffer the same, they will be fulfilled with hidden messages saying that they should also dig.
+
+### Blocking changing views and giving the network extra time
+
+For preserving liveness, and additional property needed to be ensured:
+
+- Nodes should be blocked to commit their signatures if they do not believe in the current network topology (asked `change_view`).
+
+However, in practice, summed up with the Commit phase locking, the dBFT had lost liveness in some case in which nodes were just with network problems.
+A workaround for this problem was to introduce a counting mechanism for checking committed nodes (easy to check) and failed nodes (those that you have not been in touch in the last blocks).
+This mechanism ensured an extra layer of protection before asking for changing view.
+
+Along with this, another strategy that has been designed was to avoid `change_views` when nodes are seeing progress on the network.
+In this sense, each time that nodes shared signed information between them, extra timeout are added to their internal timers, summarizing that nodes are reaching agreements and communicating between them.
 
 ### A 4-node consensus
 
@@ -134,6 +162,5 @@ It is noteworthy that nodes can have special features and summarize any informat
 
 ## Practical exercise (hands-on)
 
-We suggest that those interesting in initializing and testing such consensus and easily following its logs to be to [NeoCompiler-Eco Github](https://github.com/NeoResearch/neocompiler-eco) and follow the guidelines for setting up the system locally.
-
-Follow the README and the steps described there to initialize your Consensus Nodes according to your desired specification.
+We suggest that those interested in initializing and testing such consensus, and easily following its logs, to take some time to check [NeoCompiler-Eco Github](https://github.com/NeoResearch/neocompiler-eco), following its guidelines for setting up a local blockchain system.
+Follow the [README](https://github.com/NeoResearch/neocompiler-eco/blob/master/README.md) and the steps described there to initialize your Consensus Nodes according to your desired specification.
