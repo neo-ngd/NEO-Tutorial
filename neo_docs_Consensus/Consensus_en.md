@@ -53,11 +53,26 @@ Coordination not in the sense of a centralized coordinator, but in the sense tha
 
 ## pBFT
 
+It has been argued that implement a consensus fully based on asynchronous system is not possible, in the work of  *M. Fischer, N. Lynch, and M. Paterson*, "Impossibility of
+Distributed Consensus With One Faulty Process", in the Journal of the ACM, in 1985.
+
+In this sense, we must rely on a basic notion of synchrony for providing liveness.
+
+possible [9].
+ We guarantee liveness, i.e., clients
+
 A brief summary of the pBFT folows of states can be seen in the ![Neo Specification](https://github.com/NeoResearch/yellowpaper/blob/master/sections/graphviz-images/graphviz-pbft.jpg?raw=true).
 
 pBFT was designed for....
 
 ## dBFT
+
+Part of the content of this tutorial has been extracted from the [dBFT formal specification](https://github.com/NeoResearch/yellowpaper/blob/master/sections/08_dBFT.md).
+
+While the previous aforementioned livess was proved for the pBFT, the scenario in which dBFT works is a real-word large-scale public blockchain with state machine replication.
+The nature of the information shared is different and information could not be leaked.
+For this purpose, a refined and precisely designed recover mechanism is part of the dBFT mechanism.
+
 
 The current dBFT 2.0 flow of states can be seen ![here](https://github.com/NeoResearch/yellowpaper/blob/master/sections/graphviz-images/graphviz-dbft-v2-recover.jpg?raw=true)
 
@@ -92,3 +107,15 @@ We suggest readers to access [NeoCompiler-Eco](https://neocompiler.io/#!/ecolab/
 ![scripthash to address base58](./scripthash_address.png)
 
 ### A simple single-node consensus
+
+Let's take the first node (N1) previous described and create a multi-signatures acount with 1 owners and one signers by just switing `53` and `54` to `4f`.
+
+`512102b3622bf4017bdfe317c58aed5f4c753f206b7db896046fa7d774bbc4bf7f8dc251ae`
+
+The latter would result in the following Address: `AbU69m8WUZJSWanfr1Cy66cpEcsmMcX7BR`
+
+### Practical test
+
+We suggest that those interesting in initializing and testing such consensus and easily following its logs to be to [NeoCompiler-Eco Github](https://github.com/NeoResearch/neocompiler-eco) and follow the guidelines for setting up the system locally.
+
+Follow the README and the steps described there to initialize your Consensus Nodes according to your desired specification.
