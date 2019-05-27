@@ -160,6 +160,28 @@ Nodes with special feature can be designed for just monitoring the CN P2P messag
 In this figure, this Watch-Only node also has the feature of RPC.
 It is noteworthy that nodes can have special features and summarize any information desired by those that manage that client, as already emphasized in the [Tutorial](./linkToPluginsTodo).
 
+### dBFT scenarios
+
+For exemplifying some of possible consensus scenarios, let's consider the following characters:
+
+![dBFT consensus nodes characters](./cn_characters.jpeg)
+
+- **N1:** Erik Zhang, the Jedi Master;
+- **N2:** Da Hongfei, the hearth of the Smart Economy;
+- **N3:** Peter Lin, the truth in the hearth;
+- **N4:** NEO Ecosystem, the sum of all projects and interests of users, exchanges and developers;
+- **N5:** City of Zion, the combination and partnership between different parts of the world;
+- **N6:** NeoResearch Buterfly, the ability to recover and transform;
+- **N7:** Master Yoda, learning from past.
+
+By using these 7 consensus nodes and their virtues, we are going give some examples that may enlight the mind of the readers about how dBFT may work:
+
+#### Case 1 (normal operation)
+
+#### Case 2 (faulty primary)
+
+#### Case 3 (xxxx)
+
 ## Practical exercise (hands-on)
 
 We suggest that those interested in initializing and testing such consensus, and easily following its logs, to take some time to check [NeoCompiler-Eco Github](https://github.com/NeoResearch/neocompiler-eco), following its guidelines for setting up a local blockchain system.
