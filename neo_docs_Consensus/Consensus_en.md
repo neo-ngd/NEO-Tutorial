@@ -171,12 +171,24 @@ For exemplifying some of possible consensus scenarios, let's consider the follow
 - **N3:** Peter Lin, the truth in the hearth;
 - **N4:** NEO Ecosystem, the sum of all projects and interests of users, exchanges and developers;
 - **N5:** City of Zion, the combination and partnership between different parts of the world;
-- **N6:** NeoResearch Buterfly, the ability to recover and transform;
+- **N6:** NeoResearch Buterfly, the ability to explore, recover and transform;
 - **N7:** Master Yoda, learning from past.
 
 By using these 7 consensus nodes and their virtues, we are going give some examples that may enlight the mind of the readers about how dBFT may work:
 
+#### The genesis block
+
+Genesis block is created with 3 transactions, in which native assets NEO and GAS are magically created by the teachings of its ancestors, and transferred to the account of the current validators (a multi-signature account composed of those 7 characters);
+
 #### Case 1 (normal operation)
+
+- We are at Height `1` and view `0`, the primary will be `N1`(considering a didactic formula);
+- Erik Zhang picks the first set of transactions signed by the multi-sig accounts and proposes a block `b_1_0`;
+- `2f+1`nodes needs to agree with the proposal. Nodes N2, N3, N4 and N5 are the first ones to reply their wish to proceed with this block. With, N1, they are 5 (exactly 2f +1);
+- N1, ..., N5 will probably be the ones that will firstly enter in the commit phase.
+- Those that are in the commit phase will automatically send their signature for the current Block proposal `b_1_0`;
+- As soon as a node sees `2f+1` signatures it can broadcast a valid block to the network. Even a **watch-only node** could be the first one to perform this task (which highlights how this MAS enviroment may work).
+
 
 #### Case 2 (faulty primary)
 
