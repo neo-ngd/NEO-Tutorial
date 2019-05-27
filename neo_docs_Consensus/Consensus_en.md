@@ -189,10 +189,36 @@ Genesis block is created with 3 transactions, in which native assets NEO and GAS
 - Those that are in the commit phase will automatically send their signature for the current Block proposal `b_1_0`;
 - As soon as a node sees `2f+1` signatures it can broadcast a valid block to the network. Even a **watch-only node** could be the first one to perform this task (which highlights how this MAS enviroment may work).
 
-
 #### Case 2 (faulty primary)
 
-#### Case 3 (xxxx)
+- We are at Height `2` and view `0`, the primary will be `N2`;
+- Da Hongfei took a brief nap and was not able to communicate with the other characters during some couple of seconds;
+- `2f+1` nodes agreed that they should `change_view`. No progress on the network has happen and they should timeout exactly with `blocktime` shifted 1 bit. In the case of 15s it would be after 30s.
+- Primary will change to N3.
+- N3 will propose a block only if it has participated in the `view_change`, otherwise, it would still be waiting for `N2` proposal.
+- Considering that N3 got the `2f+1` `change_view` messages, it would now proposes a block `b_2_1`;
+- The same normal flow of case 1 would happen from here.
+
+#### Case 3 (Faulty after commit)
+
+- We are at Height `3` and view `0`, the primary will be `N3`;
+- N3 proposes a block `b_3_0`
+- the majority agrees, from `N3`, ..., `N7`;
+- However, after entering in the commit phase, `N4` dies before broadcasting its signature for `b_3_0`;
+- `N3`, `N5`, `N6` and `N7` are just `2F` and are still need one more signature for `b_3_0`. The possibilities are: 1) `N4` will recover from its faulty; 2) `N1` and `N2` would see the messages they lost; 3) `N1` and `N2` will ask for `change_view` but will not have the majority `M` and the other nodes will reply to them with a `Recovery` message, in which they would automatically receive all known messages. As soon as any of these 3 nodes receive such message they will contribute to the current block `b_3_0`.
+
+It should be noticed that 3 faulty nodes are `f+1` which is expected to stop the progress of the network.
+On the other hand, it should be noticed that no real byzantine behavior was really detected, just delays and connections problems.
+In this sense, it is expected that due to the partially synchronous protocol messages will sometime arrive to them.
+
+#### Case 4 (Byzantine Primary)
+
+- We are at Height `4` and view `0`, the primary will be `N
+4`;
+- `N4` is malicious and decides to send different block proposals to the network;
+- Each node is designed to just accept a single proposal per `view`. Until the majority `M = 2f+1` nodes do not reach an agreement on the same proposal (summarized by the `hash`) there will be no nodes committed.
+- If `M` nodes commits and the other `f = 2` cached a different Proposal they will receive a `Recover` message in some moment, which will allow them to match the hashes. If hashes are different we gonna have a counter-proof against this primary, which would surely make NEO holders to remove him as a validator.
+
 
 ## Practical exercise (hands-on)
 
