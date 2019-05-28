@@ -276,6 +276,8 @@ The most common case for this type of account is a multi-signature account. A mu
 
 We can generate a simple contract for this account using NEO op codes. Suppose we want to create a multi-signature contract account for THREE different persons (public keys):
 
+**Important to note that we need to sort public keys by its ECPoint(X,Y) in ascending order before the operation otherwise we will get a different scripthash which leads to different NEO address.**
+
 ```
 //pubkey1
 036245f426b4522e8a2901be6ccc1f71e37dc376726cc6665d80c5997e240568fb
@@ -297,10 +299,7 @@ PUSH PUBKEY 1
 PUSH PUBKEY 2
 PUSH PUBKEY 3
 
-//33 bytes
-PUSH OPCODE 21
-
-//total number of people (3)
+//total number of public keys (3)
 PUSH OPCODE 53
 
 //CHECK MULTISIHG
