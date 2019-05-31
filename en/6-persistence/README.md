@@ -148,7 +148,7 @@ public byte[] Hash160(byte[] message)
 
 #### Address
 UInt160 is used for contract hashes and the resulting hash is used to build the address.  
-The address is the script-hash of the contract, encoded in Bas58 prefixed with the contract version, currently `0x23`.
+The address is the script-hash of the contract, encoded in Bas58Check prefixed with the contract version, currently `0x17`.
 
 ![address](persistence_address.png)
 
