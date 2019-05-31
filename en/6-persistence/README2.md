@@ -1,67 +1,41 @@
 ### LevelDB Blockchain Data Structure
 The current implementation of NEO in C# uses LevelDB, a fast key-value database, to persist blockchain information. This DB is used for both system data, like blocks and transactions, but also for smart contract data.  
-The data is structured using *prefixes*.
-We can see here the prefixes used in our C# version:
+When the node receives a message that triggers a change in state (like a new block or header), it retrieves and updates a snapshot, commiting its results when the operation is done.   
+Below we have a simplified example of how this is happens:
+
+![snapshot](persistence_snapshot.png)
 
 
-| Prefix     | Data     |
-| :------------- | :------------- |
-| 0x01      | Block headers       |
-| 0x02      | Transactions       |
-| 0x40      | Accounts       |
-| 0x44      | Coins       |
-| 0x45      | Spent coins       |
-| 0x48      | Validators       |
-| 0x4c      | Assets       |
-| 0x50      | Contracts       |
-| 0x70      | Smart Contract Storage       |
-| 0x80      | Pending header hash list       |
-| 0x90      | Validators       |
-| 0xc0      | Current block       |
-| 0xc1      | Current header       |
-| 0xf0      | System version       |
-| 0xf4      | Consensus state       |
-
-The prefixes can be found in code [here](https://github.com/neo-project/neo/blob/master/neo/Persistence/LevelDB/Prefixes.cs).
-
-``` CSharp
-namespace Neo.Persistence.LevelDB
-{
-    internal static class Prefixes
-    {
-        public const byte DATA_Block = 0x01;
-        public const byte DATA_Transaction = 0x02;
-
-        public const byte ST_Account = 0x40;
-        public const byte ST_Coin = 0x44;
-        public const byte ST_SpentCoin = 0x45;
-        public const byte ST_Validator = 0x48;
-        public const byte ST_Asset = 0x4c;
-        public const byte ST_Contract = 0x50;
-        public const byte ST_Storage = 0x70;
-
-        public const byte IX_HeaderHashList = 0x80;
-        public const byte IX_ValidatorsCount = 0x90;
-        public const byte IX_CurrentBlock = 0xc0;
-        public const byte IX_CurrentHeader = 0xc1;
-
-        public const byte SYS_Version = 0xf0;
-
-        /* Prefixes 0xf1 to 0xff are reserved for external use.
-         *
-         * Note: The saved consensus state uses the Prefix 0xf4
-         */
-    }
-}
-
-```
 
 
+#### LevelDB Table Structure
+The data is stored using the structured provided by the classes from the [Ledger](https://github.com/neo-project/neo/tree/master-2.x/neo/Ledger) package. Using a `prefix` to separate each 'table'.
+
+We can see here the prefixes used in neo (C#):
+
+
+| Prefix     | Description     | LevelDB Key | Level DB Value
+| :------------- | :------------- | :------------- | :------------- |
+| 0x01      | **Block**: Block header prepended with `system fee`     | Block Hash | [BlockState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/BlockState.cs) |
+| 0x02      | **Transaction**: Transaction prepended with `block index`       | Transaction Hash | [TransactonState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/TransactionState.cs) |
+| 0x40      | **Account**: account meta-data (votes, balances)       | Account Script Hash | [AccountState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/AccountState.cs) |
+| 0x44      | **Unspent Coins**: Transactions that can be used as input in another transaction       | Transaction Hash | [UnspentCoinState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/UnspentCoinState.cs) |
+| 0x45      | **Spent Coins**: Transactions used as input in a previous transaction (spent)       | Transaction Hash | [SpentCoinState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/SpentCoinState.cs) |
+| 0x48      | **Validators**: Network Validators meta-data        | Validator Public Key | [ValidatorState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/ValidatorState.cs)|
+| 0x4c      | **Assets**: Native coins meta-data       | Register Transaction Hash | [AssetState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/AssetState.cs) |
+| 0x50      | **Contracts**: Contract meta-data       | Contract Script Hash| [ContractState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/ContractState.cs) |
+| 0x70    | **Smart Contract Storage**: Storage used by SmartContracts       | ScriptHash + Key | Byte[] |
+| 0x80      | **Pending Headers**: Used in synchronization to track blocks waiting to be synced        | Prefix only | [HeaderHashList](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/HeaderHashList.cs) |
+| 0x90      | **Validators Count**: TODO         | Prefix only| [ValidatorsCountState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/ValidatorsCountState.cs) |
+| 0xc0      | **Current block**: Last commited block    | Prefix only |  [HashIndexState]([HashIndexState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/HashIndexState.cs))|
+| 0xc1      | **Current header**: Block under synchronization    | Prefix only | [HashIndexState]([HashIndexState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/HashIndexState.cs))|
+| 0xf0      | **System version**: Current system version. Used to prevent data inconsistency     | Prefix only | String ("2.9.2") |
 *Prefixes 0xf1 to 0xff are reserved for external use.*
 
-There isn't a prefix for block, because like we saw before, the block itself is just a block header with transactions.
+The prefixes can be found [here](https://github.com/neo-project/neo/blob/master/neo/Persistence/LevelDB/Prefixes.cs).
 
-#### Memory Pool
+
+##### Memory Pool
 The memory pool is a collection in memory used to track transactions that are not yet committed/persisted.
 When looking for a transaction, the node will always check first if the transaction is in the memory pool, before checking the device storage.
 
@@ -70,8 +44,37 @@ When looking for a transaction, the node will always check first if the transact
 If the `Storage`  returns a null transaction, either the transaction does not exist (if the node is fully synchronized), or the transaction must be retrieved from other nodes.
 
 
-#### 0x01 Block Headers (blocks)
-This is where all block information is stored without it's transactions. A block is the block-header with transactions, so even if a block hash is found in this collection, it doesn't mean the block is fully synchronized. It can only be considered a block after it has transactions added to it.  
+#### Blocks Collection Usage
+```CSharp
+private void OnNewHeaders(Header[] headers)
+        {
+            using (Snapshot snapshot = GetSnapshot())
+            {
+                foreach (Header header in headers)
+                {
+                    if (header.Index - 1 >= header_index.Count) break;
+                    if (header.Index < header_index.Count) continue;
+                    if (!header.Verify(snapshot)) break;
+                    header_index.Add(header.Hash);
+                    snapshot.Blocks.Add(header.Hash, new BlockState
+                    {
+                        SystemFeeAmount = 0,
+                        TrimmedBlock = header.Trim()
+                    });
+                    snapshot.HeaderHashIndex.GetAndChange().Hash = header.Hash;
+                    snapshot.HeaderHashIndex.GetAndChange().Index = header.Index;
+                }
+                SaveHeaderHashList(snapshot);
+                snapshot.Commit();
+            }
+            UpdateCurrentSnapshot();
+            system.TaskManager.Tell(new TaskManager.HeaderTaskCompleted(), Sender);
+        }
+```
+
+
+**Important note**: The `block`that is returned to external peers through the network is called `trimmed block` at persistence level.
+
 
 
 ```CSharp
@@ -133,6 +136,7 @@ private bool AddTransaction(Transaction tx, bool verify)
 
 
 #### 0x40 - Accounts
+NEO uses this collection to track user balance, but without tracking UTXO.
 
 #### 0x44 - (Unspent) Coins collections
 A transaction is considered "unspent" if this it is not referenced as input by some transaction. The node keeps track of these unspent coins to validate transactions but doesn't group it by account, meaning it can determine if a coin is spendable, but it cannot get all spendable coins for a specific account. The role of tracking the spendable coins by account is done by the wallet or an indexer service like [neoscan](neoscan.io) or [neotracker](neotracker.io).
@@ -359,6 +363,8 @@ private void OnNewHeaders(Header[] headers)
 
 
 #### 0x90 - Validators count
+
+
 #### 0xc0 - Current block
 The current block represents the highest block verified block, with it's transactions. We store it this information to know the latest (higher) synchronized block.
 The current blockchain height is defined by the height of the object in this key.
@@ -497,11 +503,3 @@ public WalletIndexer(string path)
 thread.Start();
 }
 ```
-#### 0xf4 - Consensus state
-
-
-
-### Wallet Data Structure
-
-#### Spent Coins
-#### Blockchain Structure
