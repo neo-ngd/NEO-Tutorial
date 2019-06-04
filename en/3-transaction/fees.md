@@ -1,18 +1,22 @@
 # Transaction fees
 
 ## Overview of transaction fees
-To use the NEO network there are fees for some transactions. The network uses a fee structure with two types of fees. All fees are to be paid in the system utility token (NeoGas).
+Some transactions on the NEO network require fees. The network uses a fee structure with two types of fees; system fees and network fees. All fees are paid in the native utility token GAS (NeoGas).
 
 | Type        | Description                                                         |
 |-------------|---------------------------------------------------------------------|
 | Network Fee | Fee to pay the validator for including the transaction in the block |
-| System Fee  | Fixed fee to pay the network                                        |
+| System Fee  | Fixed fee to pay the network for operations                         |
 
 ### Network fee
-The currently optional network fee is calculated by the difference between [inputs](transactions.md#inputs) and [outputs](transactions.md#outputs) for the `GAS` system utility token. The network allows 20 low priority transactions per block without a network fee. Other transactions with a network fee will be prioritized by the amount of network fee. Paying a higher network fee will result in a faster transaction. The network fee can be collected and distributed by the validator to any contract address.
+Network fees are currently optional for transactions below 1024 bytes in size. Adding a network fee (minimum of 0.001 GAS) will grant the transaction higher priority. The NEO network currently allows only 20 low priority transactions per block, so paying a higher network fee during high traffic times can result in a faster transaction.
+
+Transactions larger than 1024 bytes require 0.001 GAS as a base fee, in addition to 0.00001 GAS per byte over 1024. Most basic NEP-5 transfers remain well under the 1024 byte threshold, however transactions with more complex logic or large quantities of [inputs](transactions.md#inputs) and [outputs](transactions.md#outputs) may exceed the threshold and require a network fee.
+
+Priority for transactions in the mempool is determined by the fee paid per byte. The network fee can be collected and distributed by the validator to any contract address.
 
 ### System fee
-The system fee is a fixed fee calculated by [transaction type](types.md) and instructions to be executed by the virtual machine. Generally speaking the more impact a transaction has on the network resources, the more the transaction will cost. There is a system fee discount of `10` GAS for each transaction, so most user interaction with the network and smart contracts will be free.
+The system fee is a fixed fee calculated by [transaction type](types.md) and instructions to be executed by the NEO virtual machine. Generally speaking, transaction costs scale with the network resources required. There is a system fee discount of `10` GAS for each transaction, so most user interaction with the network and smart contracts will be free.
 
 #### System calls
 
@@ -53,4 +57,4 @@ The system fee is a fixed fee calculated by [transaction type](types.md) and ins
 | `OpCode.CHECKMULTISIG`    | `0.1` per signature                                 |
 
 ## Utility fee in applications
-Any deployed application in the network is able to require an application fee in order to use the smart contract. This is often a NEP-5 compatible utility token, but smart contracts are able to charge GAS as well.
+Any deployed application in the network is able to require an application fee in order to use the smart contract. This fee is often charged using a NEP-5 compatible utility token, but smart contracts are able to charge GAS as well.
