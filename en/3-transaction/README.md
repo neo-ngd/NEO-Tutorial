@@ -12,7 +12,7 @@ A NEO transaction is a signed data package with an instruction for the network, 
   - [scripts](transactions.md#scripts)
 
 ### Transaction types
-There are several different types of transactions on NEO, each with a different purpose and different properties. Some previously used transaction types are now deprecated or even removed from the network. They should not be used anymore in new transactions on the MainNet.
+There are several different types of transactions on NEO, each with a different purpose and different properties. Some previously used transaction types are now deprecated or removed from the network, so these should not be used when creating new transactions on the MainNet.
 
 - **[Transaction types](types.md)**
   - [MinerTransaction](types.md#minertransaction)
