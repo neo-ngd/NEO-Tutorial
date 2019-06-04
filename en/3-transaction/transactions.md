@@ -1,7 +1,9 @@
 # Structure of transactions on the NEO blockchain
 
 ## Introduction to transactions
-A NEO transaction is a signed data package with an instruction for the network, for example a user indicating that he wants to transfer assets to another address. Each NEO block in the blockchain ledger contains one or more transactions, making each block a transaction batch. NEO currently has a maximum transaction size of 100 KiB and a maximum of 500 transactions per block. These limits can be increased in the future if necessary. NEO supports both the UTXO (*unspent transaction output*) and account/balance based record-keeping models. All native assets like NEO and GAS use the UTXO model, while all contract tokens use an account/balance model.
+A NEO transaction is a signed data package with an instruction for the network, for example a user indicating that he wants to transfer assets to another address. Each NEO block in the blockchain ledger contains one or more transactions, making each block a transaction batch. 
+
+NEO currently has a maximum transaction size of 100 KiB and a maximum of 500 transactions per block. These limits can be increased in the future if necessary. NEO supports both the UTXO (*unspent transaction output*) and account/balance-based record-keeping models. All native assets like NEO and GAS use the UTXO model, while all contract tokens use an account/balance model.
 
 ## Structure
 Each transaction has a minimum set of attributes.
@@ -15,7 +17,7 @@ Each transaction has a minimum set of attributes.
 | `inputs`     | array   | Assets to attach with the transaction    |
 | `scripts`    | array   | Scripts used to validate the transaction |
 
-For all transactions the unique transaction hash `txid` (uint256) and `size` (uint8) parameters will be calculated.
+For all transactions, the unique transaction hash `txid` (uint256) and `size` (uint8) parameters will be calculated.
 
 Read more about the transaction attributes:
 - [type](#type)
@@ -79,7 +81,7 @@ There are several different types of transactions. Each type has a different pur
   - `ClaimTransaction`
   - `MinerTransaction`
   - `StateTransaction`
-- Deprecated transaction types should not be used anymore:
+- Deprecated transaction types that should not be used anymore:
   - `RegisterTransaction`
   - `EnrollmentTransaction`
   - `IssueTransaction`
@@ -92,7 +94,7 @@ There are several different types of transactions. Each type has a different pur
 The version attribute allows updates to the transaction structure with backwards compatibility. Currently version `0` and `1` are supported for `InvocationTransaction` and version `0` is the only supported version for any other transaction type.
 
 ### Attributes
-Depending on the transaction type it is possible to add attributes. For each attribute a usage type has to be specified, together with the external data and the size of the external data.
+Depending on the transaction type, it is possible to add attributes. For each attribute a usage type has to be specified, together with the external data and the size of the external data.
 
 | Field    | Type  | Description                           |
 |----------|-------|---------------------------------------|
@@ -143,13 +145,13 @@ The following usage types can be included in the transaction attributes.
 A maximum of 16 attributes can be added to each transaction.
 
 ### Outputs
-An output `vout` is an amount of an asset transferred to an address as a result of the transaction. Each transaction can have up to `65536` outputs. It depends on the type of the transaction how the outputs are validated.
+An output `vout` is an amount of an asset transferred to an address as a result of the transaction. Each transaction can have up to `65536` outputs. The outputs are validated according to the transaction type being used.
 
 | Type                        | Description                                                                                     |
 |-----------------------------|-------------------------------------------------------------------------------------------------|
 | `IssueTransaction`          | Requires the transaction to be signed by the asset administrative contract                      |
 | `ClaimTransaction`          | Requires one or more unclaimed outputs to be referenced in the transaction `claims` attribute   |
-| `MinerTransaction`          | Requires `inputs` to be empty and the amount in `outputs` to match all system fees in the block |                                                                 
+| `MinerTransaction`          | Requires `inputs` to be empty and the amount in `outputs` to match all system fees in the block |           
 
 All other transactions require one or more unspent outputs to be referenced in the transaction `inputs` attribute.
 
@@ -161,7 +163,7 @@ The network will verify if the requirements are satisfied and if the total amoun
 | `value`   | int64   | The amount of the asset to transfer                              |
 | `address` | uint160 | Address where to transfer the asset to                           |
 
-For each output in the array of outputs a unique index `n` will be calculated. Each output can be referenced only once as input in a new transaction.
+For each output in the array of outputs a unique index `n` will be calculated. Each output can be referenced only once as an input in a new transaction.
 
 Example:
 
@@ -185,7 +187,7 @@ Example:
 ```
 
 ### Inputs
-An input `vin` is a reference to an unspent output in a previous transaction. This reference represents an amount of an asset transferred to an address. Each transaction can have up to `65536` inputs. Each input in the array of inputs has a set of required attributes.
+An input `vin` is a reference to an unspent output from a previous transaction. This reference represents the amount of an asset transferred to an address. Each transaction can have up to `65536` inputs. Each input in the array of inputs has a set of required attributes.
 
 | Field  | Type    | Description                                    |
 |--------|---------|------------------------------------------------|
@@ -215,7 +217,7 @@ The scripts attribute is used to verify the validity and integrity of the transa
 | `InvocationScript`   | Script to push validation signatures to the verification script                             |
 | `VerificationScript` | Verification script to push the public keys corresponding to the (multi-signature) contract |
 
-If the transaction is a `ContractTransaction` with assets attached in the `inputs` then the signature and public key that belongs to the inputs will be verified. You can add multiple witnesses to each transaction and using a multi-signature witness is possible as well.
+If the transaction is a `ContractTransaction` with assets attached in the `inputs`, then the signature and public key that belongs to the inputs will be verified. You can add multiple witnesses to each transaction or use a multi-signature witness as well.
 
 Example:
 
@@ -255,4 +257,4 @@ The verification script with a multi-signature contract is constructed with the 
 1. `0x52` (PUSH2) to `0x60` (PUSH16) to indicate the total amount of public keys for the signature
 1. `0xAE` (CHECKMULTISIG) to verify the signatures with the provided public keys
 
-To maintain performance it is required to have the same order for public keys and signatures with the verification of a multi-signature contract.
+To maintain performance it is required to have the same order for public keys and signatures during the verification of a multi-signature contract.
