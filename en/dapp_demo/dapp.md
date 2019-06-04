@@ -1,4 +1,4 @@
-# Building a Dapp based on NEO
+serialisation# Building a Dapp based on NEO
 
 
 <div align="center">  
@@ -13,8 +13,160 @@ In this tutorial we are going to build your first Dapp on the NEO, which is an o
 
 The main purpose of this demo is to writing the smart contract and using the javascript to handle the front-end logic for its usage.
 
-First of all, we need to write the smart contract part. The general idea of this NEO game shop is each item  in the shop has an ID, and the shop offer a kind of coupon which we can exchange from the store and then buy these items. Therefore, we can use the most part of [ITO]() contract, to let players exchange the coupon within the store, and then use the coupon to buy the Item.
+First of all, we need to write the smart contract part. The general idea of this NEO game shop is each item  in the shop has an ID, and the shop offer a kind of coupon which we can exchange from the store and then buy these items. Therefore, we can use the most part of [ITO](https://neo-ngd.github.io/NEO-Tutorial/en/9-smartContract/Give_an_ITO.html#give-an-ito-initial-token-offering) contract, to let players exchange the coupon within the store, and then use the coupon to buy the Item.
 
+
+### Constant properties
+
+First of all, here are some constant property for this smart contract. Here we first define a `NEP-5` similar asset *NEO GAME DIAMOND*, which is used to buy items in the shop. The Neo game diamond has such a list of properties:
+
+```csharp
+
+private const ulong factor = 100000000; //decided by Decimals()
+private const ulong initValue = 100000000 * factor;
+
+......
+
+[DisplayName("name")]
+public static string Name() => "NEO GAME DIAMOND"; //name of the token
+
+[DisplayName("symbol")]
+public static string Symbol() => "NGD"; //symbol of the token
+
+......
+
+
+[DisplayName("totalSupply")]
+public static BigInteger TotalSupply()
+{
+    StorageMap contract = Storage.CurrentContext.CreateMap(nameof(contract));
+    return contract.Get("totalSupply").AsBigInteger();
+}
+
+```
+
+### exchange_token(Mint Token)
+
+This is similar function as mint token in the [ITO](https://neo-ngd.github.io/NEO-Tutorial/en/9-smartContract/Give_an_ITO.html#give-an-ito-initial-token-offering). What end user can do is to send `NEO` to the smart contract and take NEP-5 to his balance.
+
+```csharp
+
+[DisplayName("exchange_token")]
+public static object exchange_token()
+{
+    Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
+    TransactionOutput reference = tx.GetReferences()[0];
+    if (reference.AssetId.AsBigInteger() != AssetId.AsBigInteger()) return false;
+
+    byte[] sender = reference.ScriptHash;
+    byte[] receiver = ExecutionEngine.ExecutingScriptHash;
+    ulong value = 0;
+    TransactionOutput[] outputs = tx.GetOutputs();
+
+    // get the total amount of Neo
+    foreach (TransactionOutput output in outputs)
+    {
+        if (output.ScriptHash == receiver)
+        {
+            value += (ulong)output.Value;
+        }
+    }
+
+    ulong exchanged_amount = value * 10;
+    StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
+    BigInteger balance = asset.Get(sender).AsBigInteger();
+    asset.Put(Owner, balance + exchanged_amount);
+    return true;
+}
+
+```
+
+The code above is the whole exchange_token function. First of all, it has to extract the transaction  of current smart contract invocation and get the UTXO that points to this smart contract, and check if it is sending NEO.
+
+```csharp
+
+Transaction tx = (Transaction)ExecutionEngine.ScriptContainer;
+TransactionOutput reference = tx.GetReferences()[0];
+if (reference.AssetId.AsBigInteger() != AssetId.AsBigInteger()) return false;
+
+```
+
+Next step is to calculate how much `NEO` the user wants to exchange the NEP5 token. To get it, just get all the outpus and to check if the outputs script is the smart contract address. For more detail about transaction, inputs and outputs, see this [UTXO](https://github.com/neo-ngd/NEO-Tutorial/blob/master/en/9-smartContract/UTXO.md).
+
+```csharp
+// get the total amount of Neo
+foreach (TransactionOutput output in outputs)
+{
+    if (output.ScriptHash == receiver)
+    {
+        value += (ulong)output.Value;
+    }
+}
+```
+Finally, we know the amount of NEO and then change the NEP-5 asset balance of the sender.
+
+```csharp
+
+ulong exchanged_amount = value * 10;
+StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
+BigInteger balance = asset.Get(sender).AsBigInteger();
+asset.Put(Owner, balance + exchanged_amount);
+
+```
+
+
+### Buy Items
+
+To buy items from the store, first thing is to decrease the number of Diamond from user. This is exactly same as invoke transfer function in the normal NEP-5 Token.
+
+```csharp
+
+StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
+var fromAmount = asset.Get(from).AsBigInteger();
+if (fromAmount < amount)
+    return false;
+//Reduce payer balances
+if (fromAmount == amount)
+    asset.Delete(from);
+else
+    asset.Put(from, fromAmount - amount);
+//Increase the payee balance
+var toAmount = asset.Get(Owner).AsBigInteger();
+asset.Put(Owner, toAmount + amount);
+
+```
+Now, after taking the Diamond, the item should be stored for user. In this Demo, each Item is just a random string as a Id and stored in the storage under each user account. In real life case, it can use Non-fungible token instead.
+In addition, here we just store the string Id in storage using `neo` word as a splitter and concat items in to one long string. Then in the front end, we can use javascript to slice it. However, this is just for demo purpose and in production. This should be replaced by using deserialisation and serialisation.
+
+
+```csharp
+
+StorageMap item = Storage.CurrentContext.CreateMap(nameof(item));
+byte[] my_item = item.Get(from);
+if (my_item.Length == 0)
+{
+    item.Put(from, to);
+}
+else
+{
+    item.Put(from, my_item.Concat(slider).Concat(to));
+
+}
+
+```
+
+### Check Items
+To check the items, it is just read from the storage.
+
+```csharp
+
+StorageMap item = Storage.CurrentContext.CreateMap(nameof(item));
+String my_item= item.Get(from).AsString();
+return my_item;
+
+```
+
+Now we finish the smart contract part. Let us move to the front-end side.
 
 
 ## Front end
