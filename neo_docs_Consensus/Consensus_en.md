@@ -2,12 +2,13 @@
 
 Multi-Agent Systems (MAS) are the core of Internet-of-Things (IoT), in which autonomous devices are able to interact with each other following their specific goals.
 Blockchain consensus operates in the same manner, autonomous nodes should reach an agreement throughout a negotiation protocol.
-While there could be a global metric to be optimized, there are, surely, selfish node trying to maximize their interests.
-Three pillars of MAS protocols for reaching agreements are: voting, auction and coordination.
+While there could be a global metric to be optimized, there are, surely, selfish nodes trying to maximize their interests.
+Usually, as described throughout the literature, three pillars of MAS protocols for reaching agreements are: voting, auction and coordination.
 
 We believe that Blockchain protocols are able to safely perform distributed rational decision making during its consensus.
 In particular, this may happen if the right incentives are given.
 Incentives are not just directly monetary (though rewards) but also involve prestige and the maintenance of projects that nodes are interested in.
+In the case of NEO Consensus Nodes (CN), two key points of this interest can be raised, involving two different spheres: 1) stakeholders interested in promoting their image as a reliability link for assisting the creation of blocks; 2) nodes that want to increase their trust among the Neo Holders, which motivates holders to support their candidature and also use their services.
 
 NEO protocol, so-called Delegated Byzantine Fault Tolerance (dBFT), has its design rooting the works of Practical Byzantine Fault Tolerance, from Miguel Castro and Barbara Liskov around 1999.
 
@@ -15,14 +16,13 @@ This tutorial will introduce the basic steps for understanding the importance of
 
 ## What we expected that you will learn
 
-After reading this tutorial it is expected that you will learn:
+After reading this material, it is expected that you will learn:
 
-- Distinguish Proof-of-Work and consensus based on coordination;
+- Distinguish Proof-of-Work and other Consensus mechanisms based on coordination;
 - Learn more about cryptography and multi-sig accounts;
 - Learn about Byzantine Fault Tolerant systems;
 - Comprehend the design of a fully distributed network, in which Consensus operates using digital signatures;
 - Understand the beauty of **one block finality**.
-
 
 ## The roots of proof-of-works
 
