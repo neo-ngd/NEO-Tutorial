@@ -5,32 +5,36 @@
 This workshop assumes intermediate knowledge of the command line.
 
 This portion involves installing and setting up the environment.
-This is part 1 of the workshop. [Part 2](https://github.com/HandsomeJeff/neo-python-workshop/blob/master/part2_neopy.md) is for command line operations. This portion involves interacting with neo-python command line.
+This is part 1 of the workshop. [Part 2](https://github.com/loubohan/NEO-Tutorial/blob/master/neo_docs_neopython_tutorial/part2_neopy.md) is for command line operations and smart contract development. This portion involves interacting with the neo-python command line.
 
 ___
-
+<!--
 ### Workshop Details
 **When**: Sunday, 1 Jul 2018. 1:30 PM - 5:30 PM.</br>
 **Where**: 太库北京孵化器</br>
 **Who**: NEO
 
-### Questions
+Questions
 Please raise your hand any time during the workshop or email your questions to [me](mailto:yefan0072001@gmail.com) later.
+
+-->
 
 ### Errors
 For errors, typos or suggestions, please do not hesitate to [post an issue](https://github.com/HandsomeJeff/NEO-smart-contract-workshop). Pull requests are very welcome! Thanks!
 
 ___
 
-## Task 0 - Install Pre-requisites
+## Task 0 - Installation Pre-requisites
 Before you start, make sure you have the following:
 1. **Linux/Mac Operating System**
   - Tested on Ubuntu (v16.04 and newer), Mint v18.3, CentOS v7.5, macOS Sierra
 2. **Docker**
-3. **Python3.6**
+3. **Python3.6+**
 4. **leveldb**
 
-For Docker, try running the following in terminal:
+It is possible to install and run NEO on your local machine but it is simple to download a Docker container and run the program from within the container. However, the Docker image might not always be updated with the newest version of NEO Python.
+
+For Docker installation, on Linux try running the following in terminal:
 ```
 sudo apt-get install curl
 sudo curl -sSL https://get.docker.com/ | sh
@@ -38,7 +42,18 @@ sudo apt-get update && apt-get upgrade
 sudo service docker start
 ```
 
-If you don't have Python 3.6, and have no idea how to install it, run the following commands:
+For Docker on MacOS, if you don't have Homebrew and cask:
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap phinze/homebrew-cask
+brew install brew-cask
+```
+With Homebrew:
+```
+brew cask install docker
+```
+
+If you don't have Python 3.6, and have no idea how to install it, run the following commands on Linux:
 ```
 sudo apt-get install software-properties-common python-software-properties
 sudo add-apt-repository ppa:deadsnakes/ppa
@@ -60,6 +75,7 @@ The process will go in the following order:
 
 
 #### 1.1 Setting up the Docker Container
+(On MacOS, omit sudo for the following commands)
 Pull the latest image from Docker hub <br> `sudo docker pull cityofzion/neo-privatenet`.
 
 ![docker pull](assets/docker_pull.png)
