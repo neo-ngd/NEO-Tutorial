@@ -6,12 +6,12 @@
 
 ## Table of Tutorials
 - Introduction to NEO
-- Wallet
-- Transactions 
+- [Wallet](en/2-wallet)
+- [Transactions](en/3-transaction)
 - Blocks
-- Network 
+- Network
 - Persistence
-- Consensus
+- [Consensus](en/7-consensus)
 - NVM
 - [Smart Contract](en/9-smartContract)
         
