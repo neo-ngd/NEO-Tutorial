@@ -26,7 +26,7 @@ We can see here the prefixes used in neo (C#):
 | 0x50      | **Contracts**: Contract meta-data       | Contract Script Hash| [ContractState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/ContractState.cs) |
 | 0x70    | **Smart Contract Storage**: Storage used by SmartContracts       | ScriptHash + Key | Byte[] |
 | 0x80      | **Pending Headers**: Used in synchronization to track blocks waiting to be synced        | Prefix only | [HeaderHashList](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/HeaderHashList.cs) |
-| 0x90      | **Validators Count**: TODO         | Prefix only| [ValidatorsCountState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/ValidatorsCountState.cs) |
+| 0x90      | **Validators Count**: Used for recording the votes of the consensus nodes to be selected         | Prefix only| [ValidatorsCountState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/ValidatorsCountState.cs) |
 | 0xc0      | **Current block**: Last commited block    | Prefix only |  [HashIndexState]([HashIndexState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/HashIndexState.cs))|
 | 0xc1      | **Current header**: Block under synchronization    | Prefix only | [HashIndexState]([HashIndexState](https://github.com/neo-project/neo/blob/master-2.x/neo/Ledger/HashIndexState.cs))|
 | 0xf0      | **System version**: Current system version. Used to prevent data inconsistency     | Prefix only | String ("2.9.2") |
@@ -44,7 +44,8 @@ When looking for a transaction, the node will always check first if the transact
 If the `Storage`  returns a null transaction, either the transaction does not exist (if the node is fully synchronized), or the transaction must be retrieved from other nodes.
 
 
-#### Blocks Collection Usage
+#### 0x01 - Blocks 
+
 ```CSharp
 private void OnNewHeaders(Header[] headers)
         {
@@ -191,13 +192,42 @@ public Dictionary<ushort, SpentCoin> GetUnclaimed(UInt256 hash)
 This collection is used to verify a block, since it is required to know the validators public keys in order to validate the multiple signatures contained in a block.  
 
 ```CSharp
-UInt160[] IVerifiable.GetScriptHashesForVerifying(Snapshot snapshot)
-{
-  ECPoint[] validators = snapshot.GetValidators();
-  if (validators.Length <= ValidatorIndex)
-  throw new InvalidOperationException();
-  return new[] { Contract.CreateSignatureRedeemScript(validators[ValidatorIndex]).ToScriptHash() };
-}
+private void Fill()
+        {
+            IEnumerable<Transaction> memoryPoolTransactions = Blockchain.Singleton.MemPool.GetSortedVerifiedTransactions();
+            foreach (IPolicyPlugin plugin in Plugin.Policies)
+                memoryPoolTransactions = plugin.FilterForBlock(memoryPoolTransactions);
+            List<Transaction> transactions = memoryPoolTransactions.ToList();
+            Fixed8 amountNetFee = Block.CalculateNetFee(transactions);
+            TransactionOutput[] outputs = amountNetFee == Fixed8.Zero ? new TransactionOutput[0] : new[] { new TransactionOutput
+            {
+                AssetId = Blockchain.UtilityToken.Hash,
+                Value = amountNetFee,
+                ScriptHash = wallet.GetChangeAddress()
+            } };
+            while (true)
+            {
+                ulong nonce = GetNonce();
+                MinerTransaction tx = new MinerTransaction
+                {
+                    Nonce = (uint)(nonce % (uint.MaxValue + 1ul)),
+                    Attributes = new TransactionAttribute[0],
+                    Inputs = new CoinReference[0],
+                    Outputs = outputs,
+                    Witnesses = new Witness[0]
+                };
+                if (!Snapshot.ContainsTransaction(tx.Hash))
+                {
+                    Nonce = nonce;
+                    transactions.Insert(0, tx);
+                    break;
+                }
+            }
+            TransactionHashes = transactions.Select(p => p.Hash).ToArray();
+            Transactions = transactions.ToDictionary(p => p.Hash);
+            NextConsensus = Blockchain.GetConsensusAddress(Snapshot.GetValidators(transactions).ToArray());
+            Timestamp = Math.Max(TimeProvider.Current.UtcNow.ToTimestamp(), this.PrevHeader().Timestamp + 1);
+        }
 ```
 
 #### 0x4c - (Native) Assets
