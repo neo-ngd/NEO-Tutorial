@@ -1,4 +1,4 @@
-﻿using Neo.SmartContract.Framework;
+using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
 using Neo.SmartContract.Framework.Services.System;
 using System;
@@ -15,7 +15,7 @@ namespace NEP5
 
         private static readonly byte[] Owner = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y".ToScriptHash(); //Owner Address
         private static readonly byte[] AssetId = Helper.HexToBytes("9b7cffdaa674beae0f930ebe6085af9093e5fe56b34a5c220ccdcf6efc336fc5"); //NEO Asset ID, littleEndian
-        private static readonly byte[] slider = Helper.HexToBytes("6e656f");
+        private static readonly byte[] slider = Helper.HexToBytes("6e656f");//the hexstring of "neo"
         private const ulong factor = 100000000; //decided by Decimals()
         private const ulong initValue = 100000000 * factor;
 
@@ -41,9 +41,9 @@ namespace NEP5
 
                 if (method == "totalSupply") return TotalSupply();
 
-                if (method == "buyCat") return buyCat((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
-                 
-                if(method == "checkCat") return checkCat( (byte[]) args[0]);
+                if (method == "buyItem") return buyItem((byte[])args[0], (byte[])args[1], (BigInteger)args[2]);
+
+                if(method == "checkItem") return checkItem( (byte[]) args[0]);
 
                 if (method == "exchange_token") return exchange_token();
             }
@@ -78,12 +78,12 @@ namespace NEP5
             return true;
         }
 
-        [DisplayName("checkCat")]
-        public static object checkCat(byte[] from)
+        [DisplayName("checkItem")]
+        public static object checkItem(byte[] from)
         {
-            StorageMap pet = Storage.CurrentContext.CreateMap(nameof(pet));
-            String my_pet = pet.Get(from + "CAT").AsString();
-            return my_pet;
+            StorageMap item = Storage.CurrentContext.CreateMap(nameof(item));
+            String my_item= item.Get(from).AsString();
+            return my_item;
         }
 
         [DisplayName("balanceOf")]
@@ -92,6 +92,7 @@ namespace NEP5
             StorageMap asset = Storage.CurrentContext.CreateMap(nameof(asset));
             return asset.Get(account).AsBigInteger();
         }
+        
         [DisplayName("decimals")]
         public static byte Decimals() => 8;
 
@@ -108,10 +109,10 @@ namespace NEP5
         }
 
         [DisplayName("name")]
-        public static string Name() => "NEO GAME TOKEN"; //name of the token
+        public static string Name() => "NEO GAME DIAMOND"; //name of the token
 
         [DisplayName("symbol")]
-        public static string Symbol() => "NGT"; //symbol of the token
+        public static string Symbol() => "NGD"; //symbol of the token
 
         [DisplayName("totalSupply")]
         public static BigInteger TotalSupply()
@@ -121,8 +122,8 @@ namespace NEP5
         }
 
         //Methods of actual execution
-        [DisplayName("buyCat")]
-        public static bool buyCat(byte[] from, byte[] to, BigInteger amount)
+        [DisplayName("buyItem")]
+        public static bool buyItem(byte[] from, byte[] to, BigInteger amount)
         {
             if (!Runtime.CheckWitness(from))
                 return false;
@@ -139,16 +140,16 @@ namespace NEP5
             var toAmount = asset.Get(Owner).AsBigInteger();
             asset.Put(Owner, toAmount + amount);
 
-            StorageMap pet = Storage.CurrentContext.CreateMap(nameof(pet));
-            byte[] my_pet = pet.Get(from + "CAT");
-            if (my_pet.Length == 0)
+            StorageMap item = Storage.CurrentContext.CreateMap(nameof(item));
+            byte[] my_item = item.Get(from);
+            if (my_item.Length == 0)
             {
-                pet.Put(from + "CAT", to);
+                item.Put(from, to);
             }
             else
             {
-                pet.Put(from + "CAT", my_pet.Concat(slider).Concat(to));
-               
+                item.Put(from, my_item.Concat(slider).Concat(to));
+
             }
             Transferred(from, Owner, amount);
             return true;

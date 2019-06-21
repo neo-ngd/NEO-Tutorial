@@ -223,7 +223,7 @@ private static bool Transfer(byte[] from, byte[] to, BigInteger amount, byte[] c
 	<img src="imgs/20190222-155608.png">
 </p>
 
-## 赋值
+## 作业
 
 自己定义一个新的NEP-5通证。
 

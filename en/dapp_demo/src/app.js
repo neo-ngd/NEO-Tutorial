@@ -1,11 +1,9 @@
 // You need to specify below info
-const NEO_SCAN_URL = "https://neoscan-testnet.io/api/main_net";
-const PRIV_RPC_NODE = "http://192.168.99.100:30333";
-const CONTRACT_ADDRESS = 'AdYrj6yhqL8EWPKmK5hgcJydthchFTpGsf';
-const CONTRACT_SCRIPTHASH = 'b6730fd741b632401f89020409c6c0415d97dcee';
+const NEO_SCAN_URL = "http://localhost:4000/api/main_net";
+const CONTRACT_ADDRESS = 'AcVwpkHqVFidzC3DFZEH2c1BjvSmbAbjSc';
+const CONTRACT_SCRIPTHASH = '63f902d6c5ed8c524cd2ce4f6af015dafc7857e3';
 const AMOUNT_OF_NEO_TO_BUY_ONE_VOUCHER = 0.1;
-
-const testNetNeoScan = new Neon.api.neoscan.instance("TestNet");
+const PRIV_RPC_NODE = "http://127.0.0.1:30333";
 
 // elements
 const privateKeyInputEle = document.getElementById('priv_key');
@@ -15,19 +13,31 @@ const confirmBuyItemEle = document.getElementById('confirm-buy-item');
 const loginButtonEle = document.getElementById('login_button');
 const neoCostAmountInputEle = document.getElementById('neo-cost-amount');
 const voucherAffordableAmountEle = document.getElementById('voucher-affordable-amoount');
-const petsContainerEle = document.getElementById('pets-container');
-const petsContainerStoreEle = document.getElementById('pets-container-store');
+const itemsContainerEle = document.getElementById('items-container');
+const itemsContainerStoreEle = document.getElementById('items-container-store');
 const globalGasDisplayEle = document.getElementById('gas_global_display');
 const globalVoucherDisplayEle = document.getElementById('voucher_global_display');
-
 const diamondsToBuyInputEle = document.getElementById('diamond_to_buy');
 const diamondsMinusEle = document.getElementById('diamonds_minus');
 const diamondsPlusEle = document.getElementById('diamonds_plus');
 const neoToCostEle = document.getElementById('neo_to_cost');
 const buyDiamondButtonEle = document.getElementById('buy_diamonds_button');
 
+
+
+// add private net config
+const config = {
+    name: "PrivateNet",
+    extra: {
+        neoscan: NEO_SCAN_URL
+    }
+};
+Neon.default.add.network(new Neon.rpc.Network(config));
+var privateNetNeoscan = new Neon.api.neoscan.instance("PrivateNet");
+
 let loginAccount;
 checkStoredPrivKey();
+
 
 // check whether session has private key
 function checkStoredPrivKey() {
@@ -46,33 +56,23 @@ function submitPrivateKey(event) {
     }
     window.sessionStorage.setItem('private_key', privateKeyInputEle.value);
     initWithPrivKey(privateKeyInputEle.value);
-    dismissLogin();
+    dismissLogin(); 
 }
 
 // init account when get private key from session or user input.
 function initWithPrivKey(privKey) {
     try {
-        loginAccount = new Neon.wallet.Account(privKey);
+        loginAccount = new Neon.wallet.Account(privKey);   
         loginButtonEle.innerText = "Logout";
 
-        // add private net config
-        const config = {
-            name: "PrivateNet",
-            extra: {
-                neoscan: NEO_SCAN_URL
-            }
-        };
-        Neon.default.add.network(new Neon.rpc.Network(config));
 
-        // get balance
-        var privateNetNeoscan = new Neon.api.neoscan.instance("PrivateNet");
         privateNetNeoscan.getBalance(loginAccount.address).then(res => {
             console.log(res);
             updateGasDisplay(res);
         });
 
         invokeScriptReadOnly('balanceOf', checkVoucherBalanceCallback);
-        invokeScriptReadOnly('checkCat', checkCatCallback);
+        invokeScriptReadOnly('checkItem', checkItemCallback);
     } catch(e){
         console.log(e);
     }
@@ -104,17 +104,15 @@ function buyDiamondPopup(event) {
 }
 
 function checkVoucherBalanceCallback(res) {
-    console.log(res);
     const voucherAmount = hexToBytes(res.result.stack[0].value);
     updateVoucherDisplay(voucherAmount);
 }
 
-function checkCatCallback(res) {
-    const pets = reformCheckCatResult2(res.result.stack[0].value);
-    console.log(pets);
-    ownedPets = pets;
-    renderPetsContainer(pets, false);
-    renderPetsContainer(pets, true);
+function checkItemCallback(res) {
+    const items = reformCheckItemResult2(res.result.stack[0].value);
+    ownedItems = items;
+    renderItemsContainer(items, false);
+    renderItemsContainer(items, true);
 }
 
 function updateGasDisplay(balance) {
@@ -143,14 +141,14 @@ function updateVoucherDisplay(voucherAmount) {
     globalVoucherDisplayEle.innerText = voucherAmount;
 }
 
-function buyCat(petName, price) {
+function buyItem(itemName, price) {
     confirmBuyItemEle.style.display = 'flex';
-    NAME_OF_PET_TO_BUY = petName;
-    PRICE_OF_PET_TO_BUY = price;
+    NAME_OF_ITEM_TO_BUY = itemName;
+    PRICE_OF_ITEM_TO_BUY = price;
 }
 
 document.getElementById('confirm_buy').onclick = function(event) {
-    _buyCat(NAME_OF_PET_TO_BUY, PRICE_OF_PET_TO_BUY);
+    _buyItem(NAME_OF_ITEM_TO_BUY, PRICE_OF_ITEM_TO_BUY);
     confirmBuyItemEle.style.display = 'none';
 }
 
@@ -158,24 +156,28 @@ document.getElementById('cancel_buy').onclick = function(event) {
     confirmBuyItemEle.style.display = 'none';
 }
 
-function _buyCat(petName, price) {
+function _buyItem(itemName, price) {
     const apiProvider = new Neon.api.neoscan.instance('PrivateNet');
     const param_address = Neon.sc.ContractParam.byteArray(
           loginAccount.address,
           "address"
         );
-    const param_petName = Neon.default.create.contractParam("String", petName);
+    const param_itemName = Neon.default.create.contractParam("String", itemName);
     const param_price = Neon.default.create.contractParam("Integer", price*1e8);
+    
 
     const props = {
         scriptHash: CONTRACT_SCRIPTHASH,
-        operation: "buyCat",
-        args: [param_address, param_petName, param_price]
+        operation: "buyItem",
+        args: [param_address, param_itemName, param_price]
     };
+
+    console.log(props)
+
     const script = Neon.default.create.script(props);
     const config = {
-        api: testNetNeoScan,
-        // url: PRIV_RPC_NODE,
+        api: privateNetNeoscan,
+        url: PRIV_RPC_NODE,
         account: loginAccount,
         script: script
     };
@@ -183,9 +185,9 @@ function _buyCat(petName, price) {
     Neon.default.doInvoke(config).then(config => {
         console.log(config.response);
         if (config.response.result == true) {
-            ownedPets = ownedPets.concat(petName);
-            renderPetsContainer(ownedPets, false);
-            renderPetsContainer(ownedPets, true);
+            ownedItems = ownedItems.concat(itemName);
+            renderItemsContainer(ownedItems, false);
+            renderItemsContainer(ownedItems, true);
             globalVoucherDisplayEle.innerText = Number(globalVoucherDisplayEle.innerText) - price;
         }
     }).catch(config => {
@@ -195,27 +197,32 @@ function _buyCat(petName, price) {
 
 // 80 03(item number) 0003(item1length) 426f62(item1) 0003 426f62 0005 416c696365
 function reformCheckCatResult(responseString) {
-    const pets = [];
+    const items = [];
     let result = responseString.slice(1);
     const arrayLength = Number(result.substring(0,3));
     result = result.slice(3);
     for (let i = 0; i < arrayLength; i++) {
         const length = Number(result.substring(0, 4));
-        pets.push(hexToString(result.substring(4, 4 + length * 2)));
+        items.push(hexToString(result.substring(4, 4 + length * 2)));
         result = result.slice(4 + length * 2);
     }
-    return pets;
+    return items;
 }
 
-function reformCheckCatResult2(responseString) {
-    let pets = [];
+function reformCheckItemResult2(responseString) {
+    let items = [];
     let result = hexToString(responseString);
-    pets = result.slice("neo");
-    return pets;
+    if(result!=""){
+        items = result.slice("neo");
+    }
+    return items;
 }
 
 function hexToString(hex) {
     var trimhex = hex.trim();
+    if(trimhex == ""){
+        return ""
+    }
     var rawStr = trimhex.substr(0, 2).toLowerCase() === "0x" ? trimhex.substr(2) : trimhex;
     var len = rawStr.length;
     if (len % 2 !== 0) {
@@ -231,42 +238,42 @@ function hexToString(hex) {
     return result.join("");
 }
 
-function renderPetsContainer(pets, inStore) {
-    let petsToBeShown;
-    let petContainer;
+function renderItemsContainer(items, inStore) {
+    let itemsToBeShown;
+    let itemContainer;
     if (inStore) {
-        petContainer = petsContainerStoreEle;
-        petsToBeShown = PETS.filter(pet => pets.indexOf(pet.name) < 0);
+        itemContainer = itemsContainerStoreEle;
+        itemsToBeShown = ITEMS.filter(item => items.indexOf(item.name) < 0);
     } else {
-        petContainer = petsContainerEle;
-        petsToBeShown = PETS.filter(pet => pets.indexOf(pet.name) >= 0);
+        itemContainer = itemsContainerEle;
+        itemsToBeShown = ITEMS.filter(item => items.indexOf(item.name) >= 0);
     }
 
-    petContainer.innerHTML = "";
+    itemContainer.innerHTML = "";
 
-    // <div class="pet-wrapper">
-    //           <img class="pet-image" src="./resources/neo-house/1-1.png" />
+    // <div class="item-wrapper">
+    //           <img class="item-image" src="./resources/neo-house/1-1.png" />
     //           <div onclick="buyCat('Alice', 20)">
     //             <img class="buy-item-img" src="./resources/neo-house/buy.png">
     //           </div>
     //         </div>
 
-    petsToBeShown.forEach(pet => {
+    itemsToBeShown.forEach(item => {
         let childNode = document.createElement('div');
-        childNode.classList = "pet-wrapper";
+        childNode.classList = "item-wrapper";
         let imgNode = document.createElement('img');
-        imgNode.classList = "pet-image";
-        imgNode.setAttribute('src', inStore? pet.image : pet.homeIcon);
+        imgNode.classList = "item-image";
+        imgNode.setAttribute('src', inStore? item.image : item.homeIcon);
         childNode.appendChild(imgNode);
         if (inStore) {
             let buyNode = document.createElement('img');
             buyNode.classList = "buy-item-img";
-            buyNode.setAttribute('onclick', `buyCat("${pet.name}", ${pet.price})`);
+            buyNode.setAttribute('onclick', `buyItem("${item.name}", ${item.price})`);
             buyNode.setAttribute('src', "./resources/neo-house/buy.png");
             childNode.appendChild(buyNode);
         }
-
-        petContainer.appendChild(childNode);
+        
+        itemContainer.appendChild(childNode);
     });
 }
 
@@ -276,11 +283,12 @@ function invokeScriptReadOnly(method, callback) {
       loginAccount.address,
       "address"
     );
-    let a = Neon.rpc.Query.invoke(
+    console.log(methodParam,loginAccount)
+    Neon.rpc.Query.invoke(
         CONTRACT_SCRIPTHASH,
         methodParam,
         Neon.sc.ContractParam.array(addressParam)
-    ).execute("http://seed6.ngd.network:20332").then(res => callback(res));
+    ).execute(PRIV_RPC_NODE).then(res => callback(res));
 }
 
 
@@ -320,7 +328,7 @@ buyDiamondButtonEle.onclick = function(event) {
     }
 
     const apiProvider = new Neon.api.neoscan.instance('PrivateNet');
-
+    
     const intent = Neon.api.makeIntent({NEO:neoAmount}, CONTRACT_ADDRESS);
     const props = {
         scriptHash: CONTRACT_SCRIPTHASH,
@@ -329,15 +337,13 @@ buyDiamondButtonEle.onclick = function(event) {
     };
     const script = Neon.default.create.script(props);
     const config = {
-        api: testNetNeoScan,
-        // url: PRIV_RPC_NODE,
+        api: privateNetNeoscan,
         account: loginAccount,
         intents: intent,
         script: script
     };
 
     Neon.default.doInvoke(config).then(config => {
-        console.log(config.response);
         if (config.response.result == true) {
             globalGasDisplayEle.innerText = Number(globalGasDisplayEle.innerText) - neoAmount;
             globalVoucherDisplayEle.innerText = Number(globalVoucherDisplayEle.innerText) + neoAmount*10;

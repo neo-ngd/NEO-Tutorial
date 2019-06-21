@@ -1,4 +1,4 @@
-const PETS = [
+const ITEMS = [
     {
         name: 'Alice',
         image: './resources/neo-house/1-1.png',
