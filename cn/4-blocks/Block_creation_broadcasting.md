@@ -9,7 +9,7 @@
 
 当用户想要发送交易时，通常做法是，通过钱包创建交易并对交易进行签名，之后将其发送到RPC或P2P节点。 RPC和P2P节点都会向网络中继（有效）交易，最终交易会到达一个共识节点。更多内容请查看  [5. 网络](../5-network/)一节。这篇[Medium上的文章](https://medium.com/neoresearch/understanding-neo-network-in-five-pictures-e51b7c19d6e0)对这一机制也给出了一个很好概述。
 
-一旦有效交易到达共识节点，它们就会被存储在节点的内存池中。创建新块时，会从这个内存池中选择要加入的交易。每个区块最多可以包含500个交易，且第一个区块总是MinerTransaction类型（**TODO ADD LINK TO CHAPTER 3 MINER TYPE ONCE CHAPTER WRITEN**）。
+一旦有效交易到达共识节点，它们就会被存储在节点的内存池中。创建新块时，会从这个内存池中选择要加入的交易。每个区块最多可以包含500个交易，且第一个区块总是[MinerTransaction类型](../3-transaction/types.md#minertransaction)。
 
 ## 交易（网络）费用
 
