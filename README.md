@@ -7,9 +7,9 @@
 ## Table of Tutorials
 - Introduction to NEO
 - [Wallet](en/2-wallet)
-- [Transactions](en/3-transaction)
-- Blocks
-- Network
+- [Transactions](en/3-transactions)
+- [Blocks](en/4-blocks)
+- [Network](en/5-network)
 - Persistence
 - [Consensus](en/7-consensus)
 - NVM
