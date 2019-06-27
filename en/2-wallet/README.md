@@ -17,80 +17,80 @@
 
 
 # Understanding Wallets
-When a user begins interacting with NEO or other blockchains they must create a unique user "wallet" locally on their machine in order to make transactions on the network. This is different from modern centralized applications where user must create a user account which is stored on centralized server and managed exclusively by the service provider. Although your wallet is used to access your NEO, GAS, and other tokens, the name "wallet" is actually a misnomer. At its core, a wallet is a cryptographic public/private key pair which is used to sign and authenticate database transactions that occur on the NEO network. 
+For a user to begin interacting with NEO or other blockchains, they must first create a unique user "wallet" locally on their machine, allowing them to make transactions on the network. This is different from modern centralized applications where users must create a user account, which is then stored on a centralized server where it is managed exclusively by the service provider. Although a wallet is used to access NEO, GAS, and other NEO-based tokens, the name "wallet" is actually a misnomer. At its core, a wallet is a cryptographic public/private key pair which is used to sign and authenticate database transactions that occur on the NEO network.
 
-Let's consider how a user would perform a write operation on a traditional centralized database, and compare it to how a user would perform a write operation to the NEO blockchain. This should help clear up the misconception that your coins are stored on a wallet, as opposed to them being stored in the blockckchain.
+Let's first consider how a user would perform a write operation on a traditional centralized database, and compare it to how a user would perform a write operation on the NEO blockchain. This should help clear up the misconception that coins are stored on a wallet, as opposed to them being stored in the blockckchain.
 
 ## Centralized Database
-In a client/server architecture, a user would first create an account using identity credentials like an email/password combination. These credentials are then stored on the services database. When the user logs in to the service they receive a session token in their local environment which allows them to perform write operations on the services database.
+In client/server architecture, a user would first create an account using identity credentials such as an email/password combination. These credentials are then stored on the service's database. When the user logs in to the service they receive a session token in their local environment which allows them to perform write operations on the services database.
 
-So if this centralized application was a banking service, the "coins" would be stored on the banks servers, and you would be able to perform transfers by providing valid credentials to the bank.
+So if this centralized application was a banking service, the "coins" would be stored on the bank's servers, and you would be able to perform transfers after providing valid credentials to the bank.
 
 
 ### Advantages:
--> If user loses their credential information, it can be recovered by service
--> Email/Password is a standardized UX paradigm that almost all internet users are used to
+-> If the user loses their credential information, it can be recovered by the service provider
+-> Email/Password is a standardized UX paradigm that almost all internet users are accustomed to
 
 ### Disadvantages
--> Storing all user credentials in a centralized error makes this attractive for hacking
--> A seperate set of credentials needs to be generated for every single service
+-> Storing all user credentials in a centralized server makes it an attractive target for hacking
+-> A separate set of credentials needs to be generated for every single service
 
-But most importantly, and a phrase often spread in the cryptocurrency community.
+But most importantly, and a phrase often spread in the cryptocurrency community:
 
-"Not your keys, not your coins"
+"Not your keys, not your coins."
 
-The nature of the traditional client server architecture means that the end user has very little control of whatever data is being stored in the server's database. Although this is particularly relevant for financial applications, it applies more broadly to general user data.
+The nature of traditional client/server architecture means that the end user has very little control of whatever data is being stored in the server's database. Although this is particularly relevant for financial applications, it applies more broadly to general user data.
 
 
 ## NEO Blockchain
-Let's contrast this to how a user would perform write operations on the NEO blockchain. A user would first generate a public/private key pair. These key pairs are stored locally on the user device, in a dedicated hardware module, or somewhere else in the client. These key pairs NEVER touch a remote server. When a user wishes to perform a write an operation on the NEO blockchain (database), they generate a transaction locally with their intended operation. For example, this operation could be sending 1 NEO to a friend. They then sign this transaction with their cryptographic signature, which is generated via their public key pair.
+Let's contrast this with how a user would perform write operations on the NEO blockchain. A user would first generate a public/private key pair. These key pairs are stored locally on the user device, in a dedicated hardware module, or somewhere else in the client. These key pairs NEVER touch a remote server. When a user wishes to perform a write operation on the NEO blockchain (database), they generate a transaction locally with their intended operation. For example, this operation could be sending 1 NEO to a friend. They then sign this transaction with their cryptographic signature, which is generated via the public key pair.
 
-This transaction is then verified, and distributed amongst the network which finalizes the write operation. We can see that no other entity can perform write operations to the remote database on the users behalf without explicit authorization because the cryptographic signature can ONLY be generated by the user.
+This transaction is then verified and propagated across the network which then finalizes the write operation. We can see that no other entity can perform write operations to the remote database on the user's behalf without explicit authorization because the cryptographic signature can ONLY be generated by the user.
 
 ### Advantages
 -> No central point of attack for a hacker. This removes a lot of responsibility from the service provider
--> User public identities can be shared, amongst various service providers
+-> User public identities can be shared amongst various service providers
 -> Your Keys, Your Coins
 
 ### Disadvantages
--> No recovery mechanism if user lose their credentials
--> New UX pattern for users who are not used to this kind of system
+-> No recovery mechanism if a user lose their credentials
+-> New UX pattern for users who are not experienced with this kind of system
 
 
-So in summary we an accureately describe a wallet as a public/private key pair which is used to perform write operations on a distributed database (blockchain). It has advantages and advantages compared to typical client/server authentication architecture, but we believe that the security and user control that this system provides, allows for an overall more robust internet. 
+In summary, we can accurately describe a wallet as a public/private key pair which is used to perform write operations on a distributed database (blockchain). It has advantages and disadvantages when compared to typical client/server authentication architecture, but we believe that the security and user control that this system provides allows for a more robust experience overall.
 
-We'll now go into some of the specifics about NEO key architecture.
+We will now go into some of the specifics about NEO key architecture.
 
 ## Keys and Addresses
-Now that we know what a wallet actually is, how do we actually generate one?  First we generate a private key, which is simply a 64 character hexadecimal string. This represents a number between the range 0 and 2^256 (1.15792089e77). From this number, the rest of your “Account” information is derived. For our purposes an account will consist of your Private Key, WIF (Wallet Import Format), public key, and address.
+Now that we know what a wallet actually is, how do we actually generate one? First we generate a private key, which is simply a 64 character hexadecimal string. This represents a number between the range 0 and 2^256 (1.15792089e77). From this number, the rest of the “Account” information is derived. For our purposes an account will consist of your Private Key, WIF (Wallet Import Format), public key, and address.
 
-This random source can technically be generated from any source of entropy, but it SHOULD be generated by some form of cryptographically number generation. Most modern programming languages support some form of Private Key Generation via a secure random function in some standard library. 
+This random source can technically be generated from any source of entropy, but it SHOULD be generated through some form of cryptographic number generation. Most modern programming languages support some form of Private Key Generation via a secure random function available in a standard library.
 
-The first real challenge of any wallet software is deriving all of the account information from the generated private key. Let's go into detail on how each of these pieces of information is derived.
+The first real challenge of any wallet software is deriving all of the account information from the generated private key. Let's go into detail on how each piece of information is derived.
 
 ### WIF
-The WIF is relatively to understand. In practice a private key can end up looking something like this…
+The WIF is relatively easy to understand. In practice, a private key can end up looking something like this:
 
 ```
 0C28FCA386C7A227600B2FE50B7CAEEC86D3BF1FBE471BE89827E19D72AA1D 
 ```
 
-It would be nice to have something that is a bit more human readable, so we can convert the private key into the WIF otherwise known as the wallet import format
+It would be nice to have something that is a bit more human-readable, so we can convert the private key into the WIF, otherwise known as the wallet import format:
 
 ```
 5HueCGU8rMjxEXxiPuD5BDku4MkFqeZyd4dZ1jvhTVqvbTLvyTJ
 ```
 
-Although this is still not entirely readable, it is certainly better than the original string. The WIF also has some basic error checking so that when you send to an address denominated by WIF format you are more likely to catch an error. The conversion from the raw private key to the wif format was done via a BASE 58 check encoding algorithm.
+Although this is still not entirely readable, it is certainly better than the original string. The WIF also has some basic error checking, so that when you send to an address denominated by WIF format, you are more likely to catch an error. The conversion from the raw private key to the WIF format was done via a Base58 check encoding algorithm.
 
-## Base 58 check encoding
-Base 58 is similar to the common base 64 encoding scheme exept that it removes non alphanumeric characters as well as characters that might look similar to each other to the human eye. For example 0 (zero), O (capital o), I (capital i) and l (lower case L) are all omitted from the base 58 encoding scheme. The full list of available characters in NEO's base58 encoding is 
+## Base58 check encoding
+Base58 is similar to the common Base64 encoding scheme, except that it removes non-alphanumeric characters as well as characters that might look similar to each other to the human eye. For example 0 (zero), O (capital o), I (capital i) and l (lower case L) are all omitted from the Base58 encoding scheme. The full list of available characters in NEO's Base58 encoding is: 
 
 ```
 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
 ```
 
-A full implementation of NEO's check encoding written in go can be seen below
+A full implementation of NEO's check encoding (written in Go) can be seen below:
 ```
 func b58checkencode(ver uint8, b []byte) (s string) {
 	/* Prepend version */
@@ -126,14 +126,14 @@ func b58checkencode(ver uint8, b []byte) (s string) {
 	return s
 }
 ```
-The steps to perform the check encoding can be broken down as follows
+The steps to perform the check encoding can be broken down as follows:
 1. Prepend the version byte
-2. Double Hash the resulting hex using SHA256
+2. Double hash the resulting hex using SHA256
 3. Append the first four bytes of the hash to the prepended version
-4. Convert the hex with prepended version and appended checksum to base58.
-5. If any leading zeros in the bytes attach 1
+4. Convert the hex with prepended version and appended checksum to Base58
+5. If there any leading zeros in the bytes, attach 1
 
-So to go from the original private key described above  to the wif format we can use this simple function
+So to go from the original private key described above to the WIF format we can use this simple function:
 
 ```
 // ToWIF converts a NEO private key to a Wallet Import Format string.
@@ -150,50 +150,52 @@ func (priv *PrivateKey) ToWIF() (wif string) {
 }
 ```
 
-So we can see that WIF is an encoding algorithm of the private key which provides basic error checking, and improved human readability by attaching a version and checksum, as well as encoding it into Base58.
+We can see that WIF is an encoding algorithm of the private key which provides basic error checking, and improves human readability by encoding it into Base58 and attaching a version and checksum.
 
 
 ## Public key derivation
-Generally cryptocurrencies use the form of cryptography called elliptic curve cryptography. It's used to derive public key from private key and it's computationally infeasible to do the opposite.
+Generally cryptocurrencies use the form of cryptography called Elliptic-curve cryptography. It is used to derive public key from private key whilst being computationally infeasible to do the opposite.
 
-Form of elliptic curve equation is the following:  
+The form of elliptic curve equation is the following:
 *y^2 = x^3 + ax + b*
 
-Bitcoin uses elliptic curve called secp256k1, while NEO uses secp256r1, where k -- means Koblitz and r -- means Random.
+Bitcoin uses an elliptic curve called secp256k1, while NEO uses secp256r1, where k -- means Koblitz and r -- means Random.
 Essentially, secp256k1's parameters were chosen in a way that allows more efficient calculation (for a very small security trade-off), while secp256r1's parameters were chosen randomly.
 
-secp256k1 equation is:  
+The secp256k1 equation is:
 *y^2 = x^3 + 7*
 
-secp256r1 equation is:  
+The secp256r1 equation is:
 *y^2 = x^3 - 3x + b*, where *b* is *41058363725152142129326129780047268409114441015993725554835256314039467401291*
 
-Because of large *b* used in secp256r1, below we will use secp256k1 for explanation, but principle is the same.
+Because of the large *b* used in secp256r1, below we will use secp256k1 for explanation, but in principle it is the same.
 
-This is how secp256k1 curve looks:  
+This is what the secp256k1 curve looks like:
 ![](https://cdn-images-1.medium.com/max/1600/1*4dcCrlQfGqZECDLy-25fnw.png)
 
-First, we'll explain how to do point addition on an elliptic curve.  
-Having points *P* and *Q*, we draw a line that goes through both of them and find third point on the intersection of the curve and the line. Then we reflect that point across x-axis to get *R*.  
+Firstly we'll explain how to do point addition on an elliptic curve.
+
+Having points *P* and *Q*, we draw a line that goes through both of them, and find the third point on the intersection of the curve and the line. Then we reflect that point across the x-axis to get *R*.
 *P + Q = R*  
 ![](https://cdn-images-1.medium.com/max/1600/1*dErGh_rL2ExM6AX-Rtyb7w.png)
 
-But in the elliptic cryptography, rather than adding two arbitrary points together, we add specified base point on the curve to itself.  
-We draw tangent line to the curve at the point *P*, then we apply the same rules as above.  
-*P + P = 2 * P*  
+But in elliptic cryptography, rather than adding two arbitrary points together, we add the specified base point on the curve to itself.  
+We draw a line tangent to the curve at the point *P*, then apply the same rules as above.
+*P + P = 2 * P*
 ![](https://cdn-images-1.medium.com/max/1600/1*ffYKgW-4_Paxve3G1HIJXw.png)
 
-Remember that private key is a 256-bit number? Basically, public key is the result of *P* adding to itself *x* times, where *x* is our private key.  
+Remember that the private key is a 256-bit number? Basically, the public key is the result of *P* adding to itself *x* times, where *x* is our private key.
 
 *X = x * P*, where *X* is the public key.
 
-To do the opposite (figure out *x* from *X* and *P*) we have to keep adding *P* to itself until we get *X*, which on average make us do *2^128* point additions to figure out *x*, which is computationally infeasible.
+To do the opposite (figure out *x* from *X* and *P*) we would need to keep adding *P* to itself until we get *X*, which would, on average, make us do *2^128* point additions to figure out *x*, which is computationally infeasible.
 
 ## ECDSA signing
-Elliptic curve digital signature algorithm (ECDSA) is a simulation of Digital Signature Algorithm (DSA) by ECC algorithm. Its advantage includes fast speed, reliable strength and short signature.
+Elliptic Curve Digital Signature Algorithm (ECDSA) is a simulation of Digital Signature Algorithm (DSA) by ECC algorithm. Its advantages include fast speed, reliable strength, and a short signature.
 
-Brief steps are as follows:  
-Assume private key, public key and base point as *k*, *K* and *G*, respectively. We know that *K = k * G* according to ECC algorithm.
+The brief steps are as follows:
+
+Assume private key, public key, and base point as *k*, *K*, and *G* respectively. We know that *K = k * G* according to the ECC algorithm.
 
 ### Signing procedure
 1. Select random number *r* and compute point *r * G(x, y)*.
@@ -209,16 +211,18 @@ Deduction is as follows
 ![](https://docs.neo.org/developerguide/en/images/blockchain_paradigm/formula_ecdsa.jpg)
 
 ## NEO Address
-NEO address is generated from address script, which defines who can spend a transaction output.  
-Usually script used is of the form:  
-*PUSHBYTES21* opcode (*0x21*) + compressed public key (33 bytes) + *CHECKSIG* opcode (*0xAC*), meaning output could be spent only by the owner of the private key for the specified public key.
+A NEO address is generated from the address script, which defines who can spend a transaction output.
 
-To calculate NEO address from transaction script:  
-1. Calculate sha256 hash of transaction script
-2. Calculate ripemd160 hash of the previous output (this is known as the script hash)
-3. Use base58 check to encode previous output with the version 0x17 (meaning result will start with A)
+Usually the script used is of the form:
 
-And here's an example code to generate NEO address from public key:
+*PUSHBYTES21* opcode (*0x21*) + compressed public key (33 bytes) + *CHECKSIG* opcode (*0xAC*), meaning the output could be spent only by the owner of the private key for the specified public key.
+
+To calculate a NEO address from transaction script:
+1. Calculate SHA-256 hash of transaction script
+2. Calculate RIPEMD-160 hash of the previous output (this is known as the script hash)
+3. Use Base58 check to encode previous output with the version 0x17 (meaning result will start with A)
+
+Below you will find example code to generate a NEO address from a public key:
 ```
 // ToNeoAddress converts a NEO public key to a NEO address string.
 func (pub *PublicKey) ToNeoAddress() (address string) {
@@ -249,28 +253,30 @@ func (pub *PublicKey) ToNeoAddress() (address string) {
 }
 ```
 
-Script hash is typically what is used in smart contracts as the public identifier as opposed to the address. Since the use of byte arrays is common, it makes a lot more sense as the base58 encoded versions is meant to be read by humans, not computers!
+Script hash is typically used in smart contracts as the public identifier, as opposed to the address. Since the use of byte arrays is common, it makes a lot more sense as the Base58 encoded versions is meant to be read by humans, not computers!
 
 ## Mnemonic Words
 The use of Mnemonic words is not common in the NEO ecosystem, this section should be omitted as there is no proposed NEP for the use of mnemonic phrases for seed derivation
 
-## Nep6 File
+## NEP-6 File
 Storing raw private keys on disk is a security liability. Anyone that that has access to a raw private key can drain these funds. It would be more secure if these keys were encrypted via a password. For this reason we have the NEP-2 standard format (https://github.com/neo-project/proposals/blob/master/nep-2.mediawiki)
 
-This encrypted key provides an additional layer of security to the raw private so that the attacker would require would both the encrypted key and the password in order to access that funds. This is good, but it is often that one might need to have multiple wallets, which means that they have multiple keys. Storing each NEP2 encrypted key would be very cumbersome, so instead we can create a file structure that would allow for all of these encrypted keys to be stored in the same place. 
+This encrypted key provides an additional layer of security to the raw private key, requiring an attacker to acquire both the encrypted key and the password in order to access the funds. This is good, but it is often the case that one might need to have multiple wallets, which means that they have multiple keys. Storing each NEP-2 encrypted key would be very cumbersome, so instead we can create a file structure that would allow for all of these encrypted keys to be stored in the same place.
 
-This standards allows for a standard way of importing wallets into various blockchain clients and contains the additional secruity guarantees of the NEP2 format.
+This standard allows for a standardized way of importing wallets into various blockchain clients and contains the additional security guarantees of the NEP-2 format.
 
-A full specification of the file format can be found here. (https://github.com/neo-project/proposals/blob/master/nep-6.mediawiki). It follows a JSON structure that contains information about the private/public key pairs as well as metadata about each account. The metadata details contains info like which wallet should be used as default, the encryption parameters, and any other relevant metadata. 
+A full specification of the file format can be found here. (https://github.com/neo-project/proposals/blob/master/nep-6.mediawiki). It follows a JSON structure that contains information about the private/public key pairs, as well as metadata about each account. The metadata details contains information such as which wallet should be used as the default, the encryption parameters, and any other relevant metadata. 
 
-The NEP6 file also supports watch only addresses. Watch only addresses do not contain any information related to the private key, which maybe useful if the account is stored seperately in a more secure location.
+The NEP-6 file also supports watch-only addresses. Watch-only addresses do not contain any information related to the private key, which maybe useful if the account is stored separately in a more secure location.
 
 ## Contract Account
-NEO also supports more sophisticated Account Types. In these cases the funds are not associated with a single user but stored in a smart contract. The contract would create special rules on what is required in order for funds to to be withdrawn from this account. The most common case of this type of account is a multi signature account. A multi signature account requires that N of X people provides signatures for the transaction in order to transfer funds. For example 2 of 3 of the account owners must sign in order for the funds to be withdrawn. 
+NEO also supports more sophisticated account types. In these cases, the funds are not associated with a single user but stored in a smart contract. The contract would include special rules which define what is required in order for funds to to be withdrawn from the account. 
 
-We can generate a simple contract for this account using NEO op codes
+The most common case for this type of account is a multi-signature account. A multi-signature account requires that *N* of *X* people provides signatures for the transaction in order to transfer funds. For example, 2 out of 3 of the account owners must sign in order for the funds to be withdrawn.
 
-Suppose we want to create a multisignature contract account for THREE different persons (public keys):
+We can generate a simple contract for this account using NEO op codes. Suppose we want to create a multi-signature contract account for THREE different persons (public keys):
+
+**Important to note that we need to sort public keys by its ECPoint(X,Y) in ascending order before the operation otherwise we will get a different scripthash which leads to different NEO address.**
 
 ```
 //pubkey1
@@ -283,7 +289,7 @@ Suppose we want to create a multisignature contract account for THREE different 
 02e2baf21e36df2007189d05b9e682f4192a101dcdf07eed7d6313625a930874b4
 ```
 
-We want to have at least TWO of them to sign the transactions. So we must create a custom script for this purpose. The script is as follows
+We want to require at least TWO of them to sign the transactions. So we must create a custom script for this purpose. The script is as follows:
 ```
 // minimum number of signatures (2)
 PUSH OPCODE 52
@@ -293,17 +299,14 @@ PUSH PUBKEY 1
 PUSH PUBKEY 2
 PUSH PUBKEY 3
 
-//33 bytes
-PUSH OPCODE 21
-
-//total number of people (3)
+//total number of public keys (3)
 PUSH OPCODE 53
 
 //CHECK MULTISIHG
 PUSH OPCODE AE
 ```
 
-which results in the script
+This results in the script:
 
 ```
 5221036245f426b4522e8a2901be6ccc1f71e37dc376726cc6665d80c5997e240568fb210303897394935bb5418b1c1c4cf35513e276c6bd313ddd1330f113ec3dc34fbd0d2102e2baf21e36df2007189d05b9e682f4192a101dcdf07eed7d6313625a930874b453ae
@@ -311,50 +314,52 @@ which results in the script
 
 We then calculate the script hash and address of this account with the methods that we have already described previously.
 
-Calculate the scripthash (and Address): 4d0c0932fa032debdceaaf5cd8086cf3f882961f / AJetuB7TxUkSmRNjot1G7FL5dDpNHE6QLZ
+Calculate the scripthash (and address): 4d0c0932fa032debdceaaf5cd8086cf3f882961f / AJetuB7TxUkSmRNjot1G7FL5dDpNHE6QLZ
 
-*Multisig example courtesy of NEOResearch*
+*Multi-sig example courtesy of NeoResearch*
 
-This contract information can also be stored in the NEP6 file, which allows you to keep track of accounts that are not necessarily associated with a single private key. More complex account types can be created using NEO's scripting capabilities. 
+This contract information can also be stored in the NEP-6 file, which allows a user to keep track of accounts that are not necessarily associated with a single private key. More complex account types can be created using NEO's scripting capabilities. 
 
-Multi signatures are currently supported in the NEO-GUI wallet.
+Multi-signatures are currently supported in the NEO-GUI wallet.
 
 ### NEO DB3
-NEO db3 is a legacy file format that was previously supported in NEO GUI prior to the introduction of the NEP-6 file format. It is highly reccommended to upgrade to NEP6 file format which can be done in the NEO-GUI
+NEO db3 is a legacy file format that was previously supported in NEO-GUI prior to the introduction of the NEP-6 file format. It is highly reccommended to upgrade to NEP-6 file format, which can be done in NEO-GUI.
 
 https://docs.neo.org/en-us/node/gui/wallet.html
 
 
 ## UTXO Model
-One of the main purposes of wallets is facilitating asset transfer. Assets are divided into categories. One's which are based on UTXO's (Unspent transaction outputs) and ones which are based on the account model. In NEO, NEO and GAS follow the UTXO model while NEP-5 tokens follow the account model. Lets go into both in more detail. 
+One of the main functions of a wallet is to facilitate the transfer of assets. Assets on NEO are divided into two categories; UTXO-based (Unspent transaction outputs) and account-based. In NEO, NEO and GAS follow the UTXO model, while NEP-5 tokens follow the account model. Lets explore both in more detail.
 
-Let's consider a simple example where a user has 10 NEO. This 10 NEO actually consists of multiple UTXO's. The sum of all the UTXO's must equal 10. For example this 10 NEO may be consist of 3 UTXOs. UTXO_1 is worth 2 NEO, UTXO_2 is worth 3 NEO, and UTXO_3 is worth 5 NEO, which sums up to the total balance of 10 NEO. So if we need to send someone 3 NEO then we can simply use UTXO_2 3 as the input of the transaction and the the recipient receives as an output UTXO also worth 3 NEO. 
+First, let us consider a simple example where a user has 10 NEO. This 10 NEO actually consists of multiple UTXOs. The sum of all the UTXOs must equal 10. For example this 10 NEO may be consist of 3 UTXOs. UTXO_1 is worth 2 NEO, UTXO_2 is worth 3 NEO, and UTXO_3 is worth 5 NEO, which sums up to the total balance of 10 NEO. So if we need to send someone 3 NEO then we can simply use UTXO_2 3 as the input of the transaction, and the recipient receives as an output one UTXO that is also worth 3 NEO.
 
-If we try to send 5 NEO, then we can combine the UTXO_1 and UTXO_2 together as the inputs, and the recipient recieves 5 NEO as a single output of the transaction. It becomes slightly more complicated when we need to send an amount where we cannot create a perfect sum of UTXOs. Let's sat that we want to send 4 NEO to someone. No combination of UTXO's will allows us to get get 4 exactly. The best we can do is use UTXO_1 and UTXO_2 together which will combine to equal 5 NEO. So we use UTXO_1 and UTXO_2 as inputs to our transaction, but instead of having a single output like the previous examples we need to have to output UTXO's. One worth 4 NEO is generated for the recipient, and then a new UTXO worh 1 NEO is returned as change back to our account.
+If we try to send 5 NEO, then we can combine the UTXO_1 and UTXO_2 together as the inputs, and the recipient recieves 5 NEO as one single output of the transaction. It becomes slightly more complicated when we need to send an amount where we cannot create a perfect sum of UTXOs. 
 
-So for core NEO transactions they mus satisfy this formula in order to be considered valid on the network.
+Let's say that we want to send 4 NEO to someone. No combination of our UTXOs will allows us to get get 4 exactly. The best we can do is use UTXO_1 and UTXO_2 together which will combine to equal 5 NEO. So we use UTXO_1 and UTXO_2 as the inputs to our transaction, but instead of having a single output as with the previous examples, we need to have two output UTXOs. One UTXO worth 4 NEO is generated for the recipient, and then a second UTXO worth 1 NEO is created and returned as change back to the sender's address.
+
+For core NEO transactions, they must satisfy this formula in order to be considered valid on the network:
 
 Sum(NEO_i) + Sum(GAS_i) = Sum(NEO_o) + (Sum(GAS_I) - Sum(GAS_sys_fee) - Sum(GAS_net_fee))
 
-In this sense UTXO's are not created or destroyed, but recycled into new ones. Inclusion of UTXO's allows for parallel transaction execution, as each UTXO is unique it is impossible to double spend. 
+In this sense, UTXOs are not really created or destroyed, but are instead recycled into new ones. Inclusion of UTXOs allows for parallel transaction execution, as each UTXO is unique and therefore is impossible to double spend.
 
-Account Model
-The account model which is adopted by other blockchain platforms like Ethereum creates a global state for each account which has coins. So instead of having a set of UTXOs which you can use for your transaction, you would simply have a balance of 10 associated with your account. Because of this, the global state of all acounts must be store locally on the nodes in the network. Transactions are interpreted by the virtual machine in the network, and make the corresponding state changes to all accounts in the global state. 
+## Account Model
+The account model, which is adopted by other blockchain platforms such as Ethereum, creates a global state for each account which has funds. Instead of having a set of UTXOs which can be used for a transaction, you would simply have a balance of 10 associated with your account. Because of this, the global state of all acounts must be store locally on the nodes in the network. Transactions are interpreted by the virtual machine in the network, and make the corresponding state changes to all accounts in the global state. 
 
-NEP-5 token contracts deployed on the NEO network typically follow the account model of balance storage. They do not have any associated UTXO data, and changes in balance state are done via smart contract executions. These executions are interpreted by the NEO virtual machine, and recorded in the smart contract storage area. 
+NEP-5 token contracts deployed on the NEO network typically follow the account model of balance storage. They do not have any associated UTXO data, and changes in balance state are handled via smart contract executions. These executions are interpreted by the NEO virtual machine, and recorded in the smart contract storage area.
 
 ### Creating a wallet
-There are several options avialable to you when creating a new wallet.
+There are several options avaalable to you when creating a new wallet.
 
-For full blockchain syncronization, consider
+For full blockchain synchronization, consider:
 * NEO-GUI -> https://docs.neo.org/en-us/node/gui/install.html
 * NEO-CLI -> https://docs.neo.org/en-us/node/cli/cli.html
 
-For light clients which do nor require synchronization consider
+For light clients which do not require synchronization, consider:
 * O3 Wallet -> https://o3.network/
 * NEON Wallet -> https://neonwallet.com/
 
-You can find more detailed usage guides at the relevant wallet links
+You can find more detailed usage guides at the relevant wallet links.
 
 
 
