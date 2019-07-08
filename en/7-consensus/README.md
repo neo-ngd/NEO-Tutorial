@@ -1,38 +1,35 @@
 # Introduction
 
-Multi-Agent Systems (MAS) are the core of Internet-of-Things (IoT), in which autonomous devices are able to interact with each other following their specific goals.
-Blockchain consensus operates in the same manner, autonomous nodes should reach an agreement throughout a negotiation protocol.
-While there could be a global metric to be optimized, there are, surely, selfish nodes trying to maximize their interests.
-Usually, as described throughout the literature, three pillars of MAS protocols for reaching agreements are: voting, auction and coordination.
+Multi-Agent Systems (MAS) are the core of Internet-of-Things (IoT), in which autonomous devices are able to interact with each other whilst following their own specific goals. Blockchain consensus operates in the same manner, where autonomous nodes aim to reach an agreement through a negotiation protocol despite selfish nodes attempting to maximize their own interests. Typically in the literature, MAS protocols are described as having three pillars for reaching agreements: voting, auction, and coordination.
 
-We believe that Blockchain protocols are able to safely perform distributed rational decision making during its consensus.
-In particular, this may happen if the right incentives are given.
-Incentives are not just directly monetary (though rewards) but also involve prestige and the maintenance of projects that nodes are interested in.
-In the case of NEO Consensus Nodes (CN), two key points of this interest can be raised, involving two different spheres: 1) stakeholders interested in promoting their image as a reliability link for assisting the creation of blocks; 2) nodes that want to increase their trust among the Neo Holders, which motivates holders to support their candidature and also use their services.
+We believe that blockchain protocols are able to safely perform distributed rational decision making during the consensus process. In particular, this may happen if the right incentives are provided.Incentives are not just directly monetary (though rewards) but also involve prestige and the safeguarding of projects that participating nodes are interested in.
 
-NEO protocol, so-called Delegated Byzantine Fault Tolerance (dBFT), has its design rooting the works of Practical Byzantine Fault Tolerance, from Miguel Castro and Barbara Liskov around 1999.
+In the case of NEO Consensus Nodes (CN), two key points of this interest can be raised, involving two different spheres:
 
-This tutorial will introduce the basic steps for understanding the importance of designing and developing such mechanism for our Ecosystem.
+1) Stakeholders interested in promoting their image as a reliability link for assisting the creation of blocks; 
+2) Nodes that want to increase their reputation among the NEO holders, which motivates holders to support their candidature and utilize their services.
 
-## What we expected that you will learn
+The consensus mechanism used by the NEO protocol, named Delegated Byzantine Fault Tolerance (dBFT), has its design rooted in the works of Practical Byzantine Fault Tolerance by Miguel Castro and Barbara Liskov around 1999.
+
+This tutorial will introduce the basic steps for understanding the importance of designing and developing such a mechanism for the NEO ecosystem.
+
+## What we expect that you will learn
 
 After reading this material, it is expected that you will learn:
 
-- Distinguish Proof-of-Work and other Consensus mechanisms based on coordination;
+- Distinguish Proof-of-Work and other consensus mechanisms based on coordination;
 - Learn more about cryptography and multi-sig accounts;
 - Learn about Byzantine Fault Tolerant systems;
-- Comprehend the design of a fully distributed network, in which Consensus operates using digital signatures;
+- Comprehend the design of a fully distributed network, in which consensus operates using digital signatures;
 - Understand the beauty of **one block finality**.
 
-## The roots of proof-of-works
+## The roots of Proof-of-Work
 
-Prof-of-work was mentioned by Satoshi Nakamoto as a mechanism that could cross CPU and voting, namely one-CPU-one-vote.
-The basic idea behind this is to create a protocol in which blocks are generating every `X` seconds.
-If blocks are generated faster or slower, difficulty would be reduced.
+Proof-of-Work was first mentioned by Satoshi Nakamoto as a mechanism that could combine CPU usage with voting, namely one-CPU-one-vote. The basic idea behind this is to create a protocol in which blocks are generating every `X` seconds. If blocks are generated faster or slower, difficulty would be altered.
 
-For instance, let's take the word `NEO Ecosystem` and convert it to a Hash256 `4bf65a74b608f6b785286b5da1d39ceb36ed87b62fee6ba97a65ecd4655b7661`.
-Now let's take the word `NEO Ecosystem+Nonce`, let's say `NEO Ecosystem+1` and we would get the following Hash256 `0739bcb67c6e934c669b95d65f1c98cdd67bcef0ef8ab22a7c1b4404f0e11450`.
-Now, let's see `NEO Ecosystem+12345678` and we would get `011c65a33085565814548bc2860a1a3b1c68b627581381382447147788b0240c`, which has its beginning with `01`, less significative than `07`.
+For instance, let's take the string `NEO Ecosystem` and convert it to a Hash256 `4bf65a74b608f6b785286b5da1d39ceb36ed87b62fee6ba97a65ecd4655b7661`.
+Now let's take the string `NEO Ecosystem+Nonce`, let's say `NEO Ecosystem+1` and we would get the following Hash256 `0739bcb67c6e934c669b95d65f1c98cdd67bcef0ef8ab22a7c1b4404f0e11450`.
+Next, we will test `NEO Ecosystem+12345678`, resulting in `011c65a33085565814548bc2860a1a3b1c68b627581381382447147788b0240c`, which has its beginning with `01`, less significative than `07`.
 Now, start to play with this nonce until you gets words that should start with `0000000000` and you are going to verify how hard this task is.
 Hashes are a kind of cryptographic signature for any data file, which has its basin on the classic SHA-256 algorithm that generates nearly unique fixed-size 32 bytes words.
 Hashes are so unidirectional that any known algorithm can revert its information, even with the assist of quantum computers.
@@ -73,27 +70,22 @@ pBFT was designed for....
 
 **Disclaimer:** *Part of the content of this tutorial has been extracted from the [dBFT formal specification](https://github.com/NeoResearch/yellowpaper/blob/master/sections/08_dBFT.md).*
 
-While the previous aforementioned livess was proved for the pBFT, the scenario in which dBFT works is a real-word large-scale public blockchain with state machine replication.
-The nature of the information shared is different and information could not be leaked.
-For this purpose, a refined and precisely designed recover mechanism is part of the dBFT mechanism.
+While the previous aforementioned liveness was proved for pBFT, the scenario in which dBFT works is a real-word large-scale public blockchain with state machine replication. The nature of the information shared is different and information can not be leaked. This required a refined and precisely designed recovery mechanism to be created for dBFT.
 
 
-The current dBFT 2.0 flow of states can be seen ![here](https://github.com/NeoResearch/yellowpaper/blob/master/sections/graphviz-images/graphviz-dbft-v2-recover.jpg?raw=true)
+The current dBFT 2.0 flow of states can be seen below: ![here](https://github.com/NeoResearch/yellowpaper/blob/master/sections/graphviz-images/graphviz-dbft-v2-recover.jpg?raw=true)
 
 ### One-block finality
 
-One block finality offers significant advantages for real-world applications - For example, end users, merchants, and exchanges can be confident that their transactions were definitively processed and that there is no chance for them to be reverted.
-While the NEO Ecosystem has been designed for hosting Decentralized Applications (DApps), it is noteworthy that persisting SC transactions (which involves State Machine Replication (SMR) and is the core functionality of several DApps) poses a unique set of challenges.
-Keep block-finality has been a trick task since CN can not expose and reveal information of any duplicated block.
-In this sense, block signatures should be only provided when the majority of CN are already in an agreement.
+One block finality offers significant advantages for real-world applications. For example, end users, merchants, and exchanges can be confident that their transactions were definitively processed and settled, with no chance for them to be reverted. While the NEO blockchain has been designed for hosting Decentralized Applications (DApps), it is noteworthy that persisting SC transactions, which involves State Machine Replication (SMR) and is the core functionality of several DApps, poses a unique set of challenges. Maintaining block finality is a difficult task, as consensus nodes may not expose and reveal the information of duplicated blocks. Due to this, block signatures should be only provided when the majority of consensus nodes are already in an agreement.
 
-This problem has been called as the **indefatigable miners problem** (defined here):
+This problem has been called as the **indefatigable miners problem** (defined below):
 
-1. The speaker is a Geological Engineering and he is searching for a place to dig for Kryptonite;
-1. He proposes a geographic location (coordinates to dig);
+1. The speaker is a Geological Engineer who is searching for a place to dig for Kryptonite;
+1. He proposes a geographical location (coordinates to dig);
 1. The majority (`M` guys) agrees with the coordinates (with their partial signatures);
-1. Time for digging: they will now dig until they really find Kryptonite (no other place will be accepted to be dig until Kryptonite is found). Kryptonite is an infinite divisible crystal, thus, as soon as one finds he will share the kryptonite so that everyone will have a piece for finishing their contract 3.;
-1. If one of them dies, when it resurrects it will see its previous signed agreement (3.) and it will automatically start to dig again. The other minority will suffer the same, they will be fulfilled with hidden messages saying that they should also dig.
+1. Time to dig! The miners will now dig until they really find Kryptonite (no other location will be accepted to be dug until Kryptonite is found). Kryptonite is an infinitely divisible crystal, thus as soon as one miner finds some, he will share the Kryptonite so that everyone will have a piece to submit, finishing their contract (3.);
+1. If one of the miners dies, it will resurrect, see the agreement it previously signed (3.), and will automatically start to dig again. The other miners will suffer the same, and also receive hidden messages saying that they should also dig.
 
 ### Blocking changing views and giving the network extra time
 
@@ -162,65 +154,61 @@ It is noteworthy that nodes can have special features and summarize any informat
 
 ### dBFT scenarios
 
-For exemplifying some of possible consensus scenarios, let's consider the following characters:
+We will now outline possible consensus scenarios, using the following characters to represent nodes:
 
-![dBFT consensus nodes characters](./cn_characters.jpeg)
+![dBFT consensus node characters](./cn_characters.jpg)
 
 - **N1:** Erik Zhang, the Jedi Master;
 - **N2:** Da Hongfei, the hearth of the Smart Economy;
 - **N3:** Peter Lin, the truth in the hearth;
-- **N4:** NEO Ecosystem, the sum of all projects and interests of users, exchanges and developers;
-- **N5:** City of Zion, the combination and partnership between different parts of the world;
-- **N6:** NeoResearch Buterfly, the ability to explore, recover and transform;
+- **N4:** NEO Ecosystem, the sum of all projects and interests of users, exchanges, and developers;
+- **N5:** City of Zion, the combination and partnership of individuals around the world;
+- **N6:** NeoResearch Butterfly, the ability to explore, recover, and transform;
 - **N7:** Master Yoda, learning from past.
 
-By using these 7 consensus nodes and their virtues, we are going give some examples that may enlight the mind of the readers about how dBFT may work:
+By using these 7 consensus nodes and their virtues, we are going give some examples that may enlighten the mind of the readers about how dBFT may work:
 
-#### The genesis block
+#### The Genesis Block
 
-Genesis block is created with 3 transactions, in which native assets NEO and GAS are magically created by the teachings of its ancestors, and transferred to the account of the current validators (a multi-signature account composed of those 7 characters);
+Genesis block is created with 3 transactions, in which native assets NEO and GAS are created then subsequently transferred to a multi-signature account composed of the current validators.
 
 #### Case 1 (normal operation)
 
 - We are at Height `1` and view `0`, the primary will be `N1`(considering a didactic formula);
-- Erik Zhang picks the first set of transactions signed by the multi-sig accounts and proposes a block `b_1_0`;
-- `2f+1`nodes needs to agree with the proposal. Nodes N2, N3, N4 and N5 are the first ones to reply their wish to proceed with this block. With, N1, they are 5 (exactly 2f +1);
-- N1, ..., N5 will probably be the ones that will firstly enter in the commit phase.
-- Those that are in the commit phase will automatically send their signature for the current Block proposal `b_1_0`;
-- As soon as a node sees `2f+1` signatures it can broadcast a valid block to the network. Even a **watch-only node** could be the first one to perform this task (which highlights how this MAS enviroment may work).
+- Erik Zhang picks the first set of transactions, signed by the multi-sig accounts, and proposes a block `b_1_0`;
+- `2f+1`nodes needs to agree with the proposal. Nodes N2, N3, N4, and N5 are the first ones to reply with their agreement on this block. Together with N1, they reach the required total of 5 (exactly 2f +1);
+- N1, ..., N5 will probably be the ones that are first to enter into the commit phase.
+- Those that are in the commit phase will automatically send their signature for the current block proposal `b_1_0`;
+- As soon as a node sees `2f+1` signatures, it can broadcast a valid block to the network. Even a **watch-only node** could be the first one to perform this task (which highlights how this MAS enviroment may work).
 
 #### Case 2 (faulty primary)
 
 - We are at Height `2` and view `0`, the primary will be `N2`;
-- Da Hongfei took a brief nap and was not able to communicate with the other characters during some couple of seconds;
-- `2f+1` nodes agreed that they should `change_view`. No progress on the network has happen and they should timeout exactly with `blocktime` shifted 1 bit. In the case of 15s it would be after 30s.
-- Primary will change to N3.
-- N3 will propose a block only if it has participated in the `view_change`, otherwise, it would still be waiting for `N2` proposal.
-- Considering that N3 got the `2f+1` `change_view` messages, it would now proposes a block `b_2_1`;
-- The same normal flow of case 1 would happen from here.
+- Da Hongfei took a brief nap and was not able to communicate with the other characters for a few seconds;
+- `2f+1` nodes agreed that they should `change_view`. No progress on the network has occurred, and they should timeout exactly with `blocktime` shifted 1 bit. In the case of a 15 second block time, it would be after 30s;
+- The primary will change to N3;
+- N3 will propose a block only if it has participated in the `view_change`, otherwise it would still be waiting for `N2` to propose a block;
+- Considering that N3 received `2f+1` `change_view` messages, it would now proposes a block `b_2_1`;
+- The standard flow outlined in Case 1 would happen from here.
 
-#### Case 3 (Faulty after commit)
+#### Case 3 (faulty after commit)
 
 - We are at Height `3` and view `0`, the primary will be `N3`;
 - N3 proposes a block `b_3_0`
-- the majority agrees, from `N3`, ..., `N7`;
-- However, after entering in the commit phase, `N4` dies before broadcasting its signature for `b_3_0`;
-- `N3`, `N5`, `N6` and `N7` are just `2F` and are still need one more signature for `b_3_0`. The possibilities are: 1) `N4` will recover from its faulty; 2) `N1` and `N2` would see the messages they lost; 3) `N1` and `N2` will ask for `change_view` but will not have the majority `M` and the other nodes will reply to them with a `Recovery` message, in which they would automatically receive all known messages. As soon as any of these 3 nodes receive such message they will contribute to the current block `b_3_0`.
+- The majority agrees, from `N3`, ..., `N7`;
+- However, after entering into the commit phase, `N4` dies before broadcasting its signature for `b_3_0`;
+- `N3`, `N5`, `N6` and `N7` are just `2F` and are still need one more signature for `b_3_0`. The possibilities are: 1) `N4` will recover from its fault; 2) `N1` and `N2` would see the messages they lost; 3) `N1` and `N2` will ask for `change_view` but will not have the majority `M` and the other nodes will reply to them with a `Recovery` message, in which they would automatically receive all known messages. As soon as any of these 3 nodes receive such messages, they will continue to contribute to the current block `b_3_0`.
 
-It should be noticed that 3 faulty nodes are `f+1` which is expected to stop the progress of the network.
-On the other hand, it should be noticed that no real byzantine behavior was really detected, just delays and connections problems.
-In this sense, it is expected that due to the partially synchronous protocol messages will sometime arrive to them.
+It should be noticed that 3 faulty nodes are `f+1` which is expected to halt the progress of the network. On the other hand, it should be noticed that no real Byzantine behavior was really detected, only delays and connections problems. In this sense, it is expected that due to the partially synchronous protocol, messages will eventually arrive at these nodes.
 
 #### Case 4 (Byzantine Primary)
 
-- We are at Height `4` and view `0`, the primary will be `N
-4`;
+- We are at Height `4` and view `0`, the primary will be `N4`;
 - `N4` is malicious and decides to send different block proposals to the network;
-- Each node is designed to just accept a single proposal per `view`. Until the majority `M = 2f+1` nodes do not reach an agreement on the same proposal (summarized by the `hash`) there will be no nodes committed.
-- If `M` nodes commits and the other `f = 2` cached a different Proposal they will receive a `Recover` message in some moment, which will allow them to match the hashes. If hashes are different we gonna have a counter-proof against this primary, which would surely make NEO holders to remove him as a validator.
+- Each node is designed to just accept a single proposal per `view`. Until the majority `M = 2f+1` nodes reach an agreement on the same proposal (summarized by the `hash`), no nodes will be committed;
+- If `M` nodes commit and the other `f = 2` cached a different proposal, they will receive a `Recover` message at some time, which will allow them to match the hashes. If the hashes are different we have proof of malicious activity by the primary, which would surely make NEO holders to remove him as a validator.
 
 
 ## Practical exercise (hands-on)
 
-We suggest that those interested in initializing and testing such consensus, and easily following its logs, to take some time to check [NeoCompiler-Eco Github](https://github.com/NeoResearch/neocompiler-eco), following its guidelines for setting up a local blockchain system.
-Follow the [README](https://github.com/NeoResearch/neocompiler-eco/blob/master/README.md) and the steps described there to initialize your Consensus Nodes according to your desired specification.
+We suggest that those interested in initializing, testing, and observing dBFT consensus to take some time to view [NeoCompiler-Eco Github](https://github.com/NeoResearch/neocompiler-eco), following its guidelines for setting up a local blockchain system. Follow the [README](https://github.com/NeoResearch/neocompiler-eco/blob/master/README.md) and the steps described therein to initialize the consensus nodes on your private network according to your desired specification.
