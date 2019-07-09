@@ -1,7 +1,7 @@
- - Introduction to NEO
-    - The introduction of Cryptography and CryptoCurrency 
+ - NEO介绍
+    - 加密算法与加密货币介绍
     - NEO
-        - History
-        - White Paper
-        - Features
-        - Documentations
+        - 历史
+        - 白皮书
+        - 特性
+        - 文档
