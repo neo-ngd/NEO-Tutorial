@@ -1,4 +1,4 @@
-#NEO协议和网络教程
+# NEO协议和网络教程
 
 [NEO](https://neo.org/)是一个面向去中心化应用的开源平台。NEO区块链使用了 [dBFT](https://docs.neo.org/en-us/basic/consension/consension.html)共识机制，与以太坊类似，可支持部署和运行智能合约。
 
