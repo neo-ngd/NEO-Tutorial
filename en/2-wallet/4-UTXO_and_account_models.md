@@ -18,16 +18,3 @@ In this sense, UTXOs are not really created or destroyed, but are instead recycl
 The account model, which is adopted by other blockchain platforms such as Ethereum, creates a global state for each account which has funds. Instead of having a set of UTXOs which can be used for a transaction, you would simply have a balance of 10 associated with your account. Because of this, the global state of all acounts must be store locally on the nodes in the network. Transactions are interpreted by the virtual machine in the network, and make the corresponding state changes to all accounts in the global state. 
 
 NEP-5 token contracts deployed on the NEO network typically follow the account model of balance storage. They do not have any associated UTXO data, and changes in balance state are handled via smart contract executions. These executions are interpreted by the NEO virtual machine, and recorded in the smart contract storage area.
-
-### Creating a wallet
-There are several options avaalable to you when creating a new wallet.
-
-For full blockchain synchronization, consider:
-* NEO-GUI -> https://docs.neo.org/en-us/node/gui/install.html
-* NEO-CLI -> https://docs.neo.org/en-us/node/cli/cli.html
-
-For light clients which do not require synchronization, consider:
-* O3 Wallet -> https://o3.network/
-* NEON Wallet -> https://neonwallet.com/
-
-You can find more detailed usage guides at the relevant wallet links.
