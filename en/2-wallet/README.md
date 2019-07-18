@@ -1,4 +1,4 @@
-## Contents
+## Section Contents
 
 1. [Introduction to Blockchain Wallets](1-Introduction_to_wallets.md)
 2. [Key deriviation and address generation on NEO](2-Key_derivation_and_address_generation_on_NEO.md)
