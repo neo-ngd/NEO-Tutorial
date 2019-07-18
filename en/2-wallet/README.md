@@ -8,7 +8,7 @@
 ## Additional Resources
 
 ### Creating a wallet
-There are several options avaalable to you when creating a new wallet.
+There are several options available to you when creating a new wallet.
 
 For full blockchain synchronization, consider:
 * NEO-GUI -> https://docs.neo.org/en-us/node/gui/install.html
