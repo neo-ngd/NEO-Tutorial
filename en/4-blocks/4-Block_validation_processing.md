@@ -1,7 +1,6 @@
 # Validation of blocks
 As with transactions, blocks are validated by every node on the network. The goal for this validation is that every block can independently be validated on any node, and is not depending on any external characteristics. For more information on transaction validations, have a look at [Chapter 3](../3-transaction).
 
-# Block Verification
 ## Invocation and Verification Script
 Every full node on the network receives the full NEO blockchain from its peers, and will independently validate every block it receives to ensure that the block received was not sent by a malicious or faulty node. This way, the nodes are not required to trust any other node, creating a secure and trustless system. For every block received, the node will validate all individual transactions in that block by means of using the Verification Script to validate the Invocation Script. This Invocation Script can be seen as the key to unlock the UTXO, proving that it has the right to spend it, and passing the Verification Script as a tool for every node to validate this. For more information on transaction validation, have a look at [Chapter 3](../3-transaction).
 
@@ -106,3 +105,5 @@ Now all we need to be able to do, is to validate that these 5 signatures are act
 We already found the meaning of the Verification Script. What happens is that the 7 public keys of the consensus nodes that were involved in creating this specific block are used. The way this is done is with a concept similar to a multisig transaction, which is then applied on a block. The last OpCode `CHECKMULTISIG` is the one that gives meaning to everything that came before. The syntax is interpreted as a 5-out-of-7 multisig, and the 7 33-byte strings on the stack are therefore interpreted as the public keys of these 7 nodes.
 
 A block is then considered valid if the 5 signatures in the Invocation Script can be verified using 5 out of the 7 provided public keys in the Verification Script.
+
+[Return to contents](README.md#contents).
