@@ -1,5 +1,3 @@
-# Transaction fees
-
 ## Overview of transaction fees
 Some transactions on the NEO network require fees. The network uses a fee structure with two types of fees; system fees and network fees. All fees are paid in the native utility token GAS (NeoGas).
 
@@ -58,3 +56,5 @@ The system fee is a fixed fee calculated by [transaction type](3-NEO_transaction
 
 ## Utility fee in applications
 Any deployed application in the network is able to require an application fee in order to use the smart contract. This fee is often charged using a NEP-5 compatible utility token, but smart contracts are able to charge GAS as well.
+
+[Return to contents](README.md#contents).
