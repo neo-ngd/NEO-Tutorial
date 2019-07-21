@@ -67,7 +67,7 @@ Claim GAS from unclaimed transaction outputs
 | `claims` | array | References to spent outputs in previous transactions |
 
 #### Claims
-A `claim` is a reference to a spent [`output`](transactions.md#outputs) (only for the NEO asset) in a previous transaction. Each transaction can have up to 65536 claim references. Each claim reference in the array of claims has a set of required attributes.
+A `claim` is a reference to a spent [`output`](2-Structure_of_NEO_transactions.md#outputs) (only for the NEO asset) in a previous transaction. Each transaction can have up to 65536 claim references. Each claim reference in the array of claims has a set of required attributes.
 
 | Field  | Type    | Description                                    |
 |--------|---------|------------------------------------------------|
