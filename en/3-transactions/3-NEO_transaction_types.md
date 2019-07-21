@@ -1,6 +1,4 @@
-# Transaction types
-
-## Overview of different transaction types
+## Transaction type overview
 There are several different types of transactions on NEO, each with a different purpose and different properties. Some previously used transaction types are now deprecated or removed from the network, so these should not be used when creating new transactions on the MainNet.
 
 | Byte   | Name                    | Status       | Transaction fee | Description                                             |
@@ -282,3 +280,5 @@ Example:
 
 ## Registering assets
 NEO supports the registration of native (UTXO) assets on the blockchain with the `RegisterTransaction` and `IssueTransaction` transaction types. NEO and GAS are both examples of these native assets. For digital asset registration it is more common now to use a (NEP-5 compatible) smart contract. Using a smart contract is more scalable and flexible than using native assets. The new token smart contract may be deployed to the blockchain with an [InvocationTransaction](#InvocationTransaction).
+
+[Next chapter](4-NEO_transaction_fees.md) or [return to contents](README.md#contents).
