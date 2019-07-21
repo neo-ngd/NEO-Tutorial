@@ -25,10 +25,10 @@ There are several different types of transactions on NEO, each with a different 
 ### Transaction fees
 Some transactions on the NEO network require fees. The network uses a fee structure with two types of fees; system fees and network fees. All fees are paid in the native utility token GAS (NeoGas).
 
-- **[Transaction fees](3-NEO_transaction_fees.md)**
-  - [System fees](3-NEO_transaction_fees.md#system-fees)
-  - [Network fees](3-NEO_transaction_fees.md#network-fees)
-  - [Utility fee in applications](3-NEO_transaction_fees.md#utility-fee-in-applications)
+- **[Transaction fees](4-NEO_transaction_fees.md)**
+  - [System fees](4-NEO_transaction_fees.md#system-fees)
+  - [Network fees](4-NEO_transaction_fees.md#network-fees)
+  - [Utility fee in applications](4-NEO_transaction_fees.md#utility-fee-in-applications)
 
 ## Broadcasting
 Once a transaction has been created it can be sent to a network peer node. If the peer node determines the transaction as being valid, it will be placed in the memory pool and distributed through the rest of the network. Eventually a consensus node (validators on the NEO blockchain) will receive the transaction and process it by including it in a block.
