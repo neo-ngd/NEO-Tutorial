@@ -1,9 +1,9 @@
 ## Contents
 
 1. [Introduction to Consensus](1-Introduction_to_consensus.md)
-2. Proof of Work and Proof of Stake
-3. PBFT and dBFT
-4. dbFT consensus examples and scenarios
+2. [Proof of Work and Proof of Stake](2-Proof_of_work_and_proof_of_stake.md)
+3. [pBFT and dBFT](3-PBFT_and_DBFT.md)
+4. [dbFT consensus examples and scenarios](4-Examples_and_consensus_scenarios_for_dBFT.md)
 
 ## Additional Resources
 
