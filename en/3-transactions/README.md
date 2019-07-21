@@ -3,7 +3,7 @@
 1. [Introduction to transactions](1-Introduction_to_transactions.md)
 2. [Structure of NEO transactions](2-Structure_of_NEO_transactions.md)
 3. [NEO transaction types](3-NEO_transaction_types.md)
-4. [Transaction fees](-NEO_transaction_fees.md)
+4. [Transaction fees](4-NEO_transaction_fees.md)
 
 ## Additional Resources
 
