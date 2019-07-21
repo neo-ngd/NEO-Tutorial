@@ -1,5 +1,3 @@
-# Transactions
-
 ## Introduction to transactions
 A NEO transaction is a signed data package with an instruction for the network, for example a user indicating that he wants to transfer assets to another address. Each NEO block in the blockchain ledger contains one or more transactions, making each block a transaction batch. To use the NEO blockchain we need to understand how transactions work.
 
@@ -32,3 +30,5 @@ Some transactions on the NEO network require fees. The network uses a fee struct
 
 ## Broadcasting
 Once a transaction has been created it can be sent to a network peer node. If the peer node determines the transaction as being valid, it will be placed in the memory pool and distributed through the rest of the network. Eventually a consensus node (validators on the NEO blockchain) will receive the transaction and process it by including it in a block.
+
+[Next chapter](2-Structure_of_NEO_transactions.md) or [return to contents](README.md#contents).
