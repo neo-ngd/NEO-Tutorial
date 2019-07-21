@@ -1,4 +1,6 @@
-## Private key encryption - NEP-6 Files
+# Wallets
+
+## Private key encryption (NEP-6 Files)
 Storing raw private keys on disk is a security liability. Anyone that that has access to a raw private key can drain these funds. It would be more secure if these keys were encrypted via a password. For this reason we have the NEP-2 standard format (https://github.com/neo-project/proposals/blob/master/nep-2.mediawiki)
 
 This encrypted key provides an additional layer of security to the raw private key, requiring an attacker to acquire both the encrypted key and the password in order to access the funds. This is good, but it is often the case that one might need to have multiple wallets, which means that they have multiple keys. Storing each NEP-2 encrypted key would be very cumbersome, so instead we can create a file structure that would allow for all of these encrypted keys to be stored in the same place.
