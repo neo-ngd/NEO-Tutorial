@@ -1,3 +1,4 @@
+# Wallets
 
 ## UTXO Model
 One of the main functions of a wallet is to facilitate the transfer of assets. Assets on NEO are divided into two categories; UTXO-based (Unspent transaction outputs) and account-based. In NEO, NEO and GAS follow the UTXO model, while NEP-5 tokens follow the account model. Lets explore both in more detail.
