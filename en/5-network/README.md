@@ -1,6 +1,6 @@
 ## Contents
 
-1. [Introduction to the NEO network protocol](1-Introduction_to_NEO_protocol.md)
+1. [Introduction to the NEO network protocol](1-Introduction_to_the_NEO_network_protocol.md)
 2. [Developing a NEO Ping using Golang](2-Developing_a_NEO_ping_using_Golang.md)
 
 ## Additional Resources
