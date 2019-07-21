@@ -1,4 +1,4 @@
-# Introduction to Consensus
+## Introduction to Consensus
 
 Multi-Agent Systems (MAS) are the core of Internet-of-Things (IoT), in which autonomous devices are able to interact with each other whilst following their own specific goals. Blockchain consensus operates in the same manner, where autonomous nodes aim to reach an agreement through a negotiation protocol despite the existence of selfish nodes attempting to maximize their own interests. Typically in the literature, MAS protocols are described as having three pillars for reaching agreements: voting, auction, and coordination.
 
@@ -22,3 +22,5 @@ After reading this material, it is expected that you will learn:
 - Learn about Byzantine Fault Tolerant systems;
 - Comprehend the design of a fully distributed network, in which consensus operates using digital signatures;
 - Understand the beauty of **one block finality**.
+
+[Next chapter](2-Proof_of_work_and_proof_of_stake.md) or [return to contents](README.md#contents).
