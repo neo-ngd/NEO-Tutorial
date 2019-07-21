@@ -1,4 +1,4 @@
-# NEO Protocol and Networking Tutorial
+## NEO Protocol and Networking Tutorial
 
 [NEO](https://neo.org/) is an open-source platform for decentralized applications. It is a blockchain with the [dBFT](https://docs.neo.org/en-us/basic/consensus/consensus.html) consensus protocol, baring similarity to Ethereum in that it can deploy and execute smart contracts.
 
@@ -27,4 +27,4 @@ The NEO network consists of two kind of protocols: a protocol to communicate wit
 ```
 In this tutorial, we will focus on the other protocol, the [NEO protocol](https://docs.neo.org/en-us/network/network-protocol.html). Using the Golang programming language, we will learn how to communicate with a NEO node. 
 
-[Follow this link to get started](2-Developing_a_NEO_ping_using_Golang.md).
+[Follow this link to get started](2-Developing_a_NEO_ping_using_Golang.md) or [return to contents](README.md#contents).
