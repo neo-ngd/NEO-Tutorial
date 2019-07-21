@@ -1,5 +1,3 @@
-# Wallets
-
 ## Private key encryption (NEP-6 Files)
 Storing raw private keys on disk is a security liability. Anyone that that has access to a raw private key can drain these funds. It would be more secure if these keys were encrypted via a password. For this reason we have the NEP-2 standard format (https://github.com/neo-project/proposals/blob/master/nep-2.mediawiki)
 
@@ -68,3 +66,5 @@ Multi-signatures are currently supported in the NEO-GUI wallet.
 NEO db3 is a legacy file format that was previously supported in NEO-GUI prior to the introduction of the NEP-6 file format. It is highly reccommended to upgrade to NEP-6 file format, which can be done in NEO-GUI.
 
 https://docs.neo.org/en-us/node/gui/wallet.html
+
+[Next chapter](4-UTXO_and_account_models.md) or [return to contents](README.md#contents).
