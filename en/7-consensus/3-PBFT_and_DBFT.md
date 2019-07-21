@@ -1,4 +1,4 @@
-## pBFT
+## Practical Byzantine Fault Tolerance (pBFT)
 
 It has been argued that implementing a consensus fully based on an asynchronous system is not possible, in the work of  *M. Fischer, N. Lynch, and M. Paterson*, "Impossibility of
 Distributed Consensus With One Faulty Process", in the Journal of the ACM, in 1985.
@@ -12,7 +12,7 @@ A brief summary of the pBFT follows of states can be seen in the ![Neo Specifica
 
 pBFT was designed for....
 
-## dBFT
+## Delegated Byzantine Fault Tolerance (dBFT)
 
 **Disclaimer:** *Part of the content of this tutorial has been extracted from the [dBFT formal specification](https://github.com/NeoResearch/yellowpaper/blob/master/sections/08_dBFT.md).*
 
@@ -45,3 +45,5 @@ This mechanism ensured an extra layer of protection before asking for changing v
 
 Along with this, another strategy that has been designed was to avoid `change_views` when nodes are seeing progress on the network.
 In this sense, each time that nodes shared signed information between them, extra timeout are added to their internal timers, summarizing that nodes are reaching agreements and communicating between them.
+
+[Next chapter](4-Examples_and_consensus_scenarios_for_dBFT.md) or [return to contents](README.md#contents).
