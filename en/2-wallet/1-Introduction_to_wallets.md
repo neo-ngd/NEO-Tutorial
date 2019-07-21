@@ -44,6 +44,6 @@ In summary, we can accurately describe a wallet as a public/private key pair whi
 
 In the next chapter, we will now go into some of the specifics about NEO key architecture.
 
-[Next chapter](2-Key_derivation_and_address_generation_on_NEO.md) or [return to contents](2-wallet#contents).
+[Next chapter](2-Key_derivation_and_address_generation_on_NEO.md) or [return to contents](README.md#contents).
 
 
