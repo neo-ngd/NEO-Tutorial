@@ -1,4 +1,3 @@
-# Wallets
 
 ## Understanding Wallets
 For a user to begin interacting with NEO or other blockchains, they must first create a unique user "wallet" locally on their machine, allowing them to make transactions on the network. This is different from modern centralized applications where users must create a user account, which is then stored on a centralized server where it is managed exclusively by the service provider. Although a wallet is used to access NEO, GAS, and other NEO-based tokens, the name "wallet" is actually a misnomer. At its core, a wallet is a cryptographic public/private key pair which is used to sign and authenticate database transactions that occur on the NEO network.
@@ -44,3 +43,7 @@ This transaction is then verified and propagated across the network which then f
 In summary, we can accurately describe a wallet as a public/private key pair which is used to perform write operations on a distributed database (blockchain). It has advantages and disadvantages when compared to typical client/server authentication architecture, but we believe that the security and user control that this system provides allows for a more robust experience overall.
 
 In the next chapter, we will now go into some of the specifics about NEO key architecture.
+
+[Next chapter](2-Key_derivation_and_address_generation_on_NEO.md) or [return to contents](2-wallet#contents).
+
+
