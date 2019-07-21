@@ -1,5 +1,4 @@
-# Block creation
-## Consensus nodes
+## Block creation by Consensus Nodes
 As discussed in [Part 1](1-Introduction_to_blocks_and_blockchain.md), NEO uses the dBFT mechanism to generate new blocks. In short, this means there are a selected amount of consensus nodes, elected by the network, which are required to reach a 2/3 majority agreement on any new potential block.
 
 For each new block that needs to be generated, one of these nodes is elected as the speaker. In the best case scenario, where we have no Byzantine nodes, the speaker node will propose a new block and distribute it to all other consensus nodes for agreement. When the speaker node receives enough signatures from other consensus nodes, the block is propagated to the network and final. For more details on the dBFT consensus mechanism, have a look at the [whitepaper](https://docs.neo.org/en-us/basic/consensus/whitepaper.html).
@@ -32,5 +31,7 @@ A transaction fee is used to gain priority on the network. There are, however, f
 
 - ***Smart Contract Execution*** To be able to execute a Smart contract, the nodes need to perform specific computations for you. In order to compensate the nodes for this effort, a system fee should be added to the transaction that is executing the contract. Currently, the first 10 GAS of any system call is free, meaning no fee is required for contract invocations that require less than 10 GAS. [This page](https://docs.neo.org/en-us/sc/systemfees.html) gives the complete overview of the system fees required to execute a Smart Contract. For each operation, the required fee for the specific operation is mentioned.
 
-# Block broadcasting
+## Block broadcasting
 Once the consensus nodes agree on a new block according to the dBFT mechanism, they will broadcast the new block to the entire network. Because of the characteristics of the dBFT consensus mechanism, block finality is achieved immediately in 1 single block. This means that all clients can interrogate the blockchain (any RPC or P2P node) immediately after a new block has been created, and be certain these transactions are final.
+
+[Next chapter](4-Block_validation_processing.md) or [return to contents](README.md#contents).
