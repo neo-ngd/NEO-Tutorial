@@ -1,4 +1,4 @@
-# Validation of blocks
+## Validation of blocks
 As with transactions, blocks are validated by every node on the network. The goal for this validation is that every block can independently be validated on any node, and is not depending on any external characteristics. For more information on transaction validations, have a look at [Chapter 3](../3-transaction).
 
 ## Invocation and Verification Script
