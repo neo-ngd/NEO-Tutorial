@@ -12,14 +12,14 @@ lang-ref: NEO-Tutorial
 </div>
 
 ## Table of Tutorials
-- Introduction to NEO
-- Wallet
-- Transactions
-- Blocks
-- Network
-- Persistence
-- Consensus
-- NVM
+- [Introduction to NEO](en/1-introduction)
+- [Wallet](en/2-wallet)
+- [Transactions](en/3-transactions)
+- [Blocks](en/4-blocks)
+- [Network](en/5-network)
+- [Persistence](en/6-persistence)
+- [Consensus](en/7-consensus)
+- [NVM](en/8-nvm)
 - [Smart Contract](en/9-smartContract)
 
 ## Smart contract development Learning Resources
