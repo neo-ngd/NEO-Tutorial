@@ -1,6 +1,4 @@
-# Transaction types
-
-## Overview of different transaction types
+## Transaction type overview
 There are several different types of transactions on NEO, each with a different purpose and different properties. Some previously used transaction types are now deprecated or removed from the network, so these should not be used when creating new transactions on the MainNet.
 
 | Byte   | Name                    | Status       | Transaction fee | Description                                             |
@@ -67,7 +65,7 @@ Claim GAS from unclaimed transaction outputs
 | `claims` | array | References to spent outputs in previous transactions |
 
 #### Claims
-A `claim` is a reference to a spent [`output`](transactions.md#outputs) (only for the NEO asset) in a previous transaction. Each transaction can have up to 65536 claim references. Each claim reference in the array of claims has a set of required attributes.
+A `claim` is a reference to a spent [`output`](2-Structure_of_NEO_transactions.md#outputs) (only for the NEO asset) in a previous transaction. Each transaction can have up to 65536 claim references. Each claim reference in the array of claims has a set of required attributes.
 
 | Field  | Type    | Description                                    |
 |--------|---------|------------------------------------------------|
@@ -282,3 +280,5 @@ Example:
 
 ## Registering assets
 NEO supports the registration of native (UTXO) assets on the blockchain with the `RegisterTransaction` and `IssueTransaction` transaction types. NEO and GAS are both examples of these native assets. For digital asset registration it is more common now to use a (NEP-5 compatible) smart contract. Using a smart contract is more scalable and flexible than using native assets. The new token smart contract may be deployed to the blockchain with an [InvocationTransaction](#InvocationTransaction).
+
+[Next chapter](4-NEO_transaction_fees.md) or [return to contents](README.md#contents).

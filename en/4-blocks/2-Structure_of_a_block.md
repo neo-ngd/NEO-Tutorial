@@ -1,4 +1,4 @@
-# Structure of a block
+## Structure of a block
 
 Below is the JSON dump of block #3649960 on the NEO MainNet. It can be obtained using the following command (NB: the node chosen is random and may stop working in the future. It can be replaced with any node on the NEO MainNet that accepts RPC requests):
 ```
@@ -143,3 +143,5 @@ Below are the type of transactions that can occur in a block:
 - ***confirmations***: The amount of blocks that were built on top of this block. Each time a new block is confirmed on top of the chain that contains this block, the latter block gets an extra confirmation. This field is not present in the block itself but is calculated by the node serving the RPC request for completeness.
 
 - ***nextblockhash***: The hash of the next block, resulting in a linked-list of blocks. This field is not present in the block itself but is calculated by the node serving the RPC request for completeness.
+
+[Next chapter](3-Block_creation_broadcasting.md) or [return to contents](README.md#contents).
