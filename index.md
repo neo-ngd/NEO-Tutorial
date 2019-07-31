@@ -22,6 +22,6 @@ lang-ref: NEO-Tutorial
 - [NVM](en/8-nvm)
 - [Smart Contract](en/9-smartContract)
 
-## Smart contract development Learning Resources
+## Other Smart contract development Learning Resources
 - [Neo Smart contract quick start](neo_docs_SmartContract_QuickStart)
 - [Neo-python tutorial](neo_docs_neopython_tutorial)

@@ -1,8 +1,9 @@
 ---
 layout: post
-lang: en
+lang: cn
 lang-ref: sc-index
 ---
+
 
 - Smart Contract
     - [What is smart contract](What_is_smart_contract.md)
