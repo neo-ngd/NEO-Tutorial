@@ -60,7 +60,7 @@ Calculate the scripthash (and address): 4d0c0932fa032debdceaaf5cd8086cf3f882961f
 
 This contract information can also be stored in the NEP-6 file, which allows a user to keep track of accounts that are not necessarily associated with a single private key. More complex account types can be created using NEO's scripting capabilities. 
 
-Multi-signatures are currently supported in the NEO-GUI wallet.
+Multi-signatures are currently supported in the [NEO-GUI](https://github.com/neo-project/neo-gui) and [neo-python](https://github.com/CityOfZion/neo-python) clients.
 
 ### NEO DB3
 NEO db3 is a legacy file format that was previously supported in NEO-GUI prior to the introduction of the NEP-6 file format. It is highly reccommended to upgrade to NEP-6 file format, which can be done in NEO-GUI.
