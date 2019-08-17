@@ -12,4 +12,4 @@ NGD maintains [a team of core developers](https://neo.org/team) who are primaril
 
 NEO is a community-driven project, which has led to the creation and funding of numerous community development groups distributed around the world. These teams contribute to the development of NEO's core infrastructure, in addition to producing user facing applications such as wallets or tooling for developers looking to build on NEO.
 
-[Next chapter](2-Cryptography_blockchain_and_Smart_contracts.md) or [return to contents](README.md#contents).
+[Next chapter](2-Cryptography_Blockchain_and_Smart_Contracts.md) or [return to contents](README.md#contents).
