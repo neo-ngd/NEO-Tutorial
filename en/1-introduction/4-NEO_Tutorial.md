@@ -5,5 +5,3 @@ NEO Tutorial is designed as an onboarding tool for developers or other individua
 It should be noted that this version of NEO Tutorial is applicable only to NEO 2.x, the current version of the NEO MainNet. Large changes are expected during the transition to NEO3, at which point an updated tutorial will be created.
 
 The NEO Tutorial contents page may be found [here](https://neo-ngd.github.io/NEO-Tutorial/).
-
-[Return to contents](README.md#contents).
