@@ -1,7 +1,7 @@
 ## Contents
 
 1. [Introduction to NEO](1-Introduction_to_NEO.md)
-2. [Cryptography, Blockchain, and Smart Contracts](2-Cryptography_blockchain_and_Smart_contracts.md)
+2. [Cryptography, Blockchain, and Smart Contracts](2-Cryptography_Blockchain_and_Smart_Contracts.md)
 3. [NEO Fundamentals](3-Fundamentals_of_NEO.md)
 4. [NEO Tutorial](4-NEO_Tutorial.md)
 
