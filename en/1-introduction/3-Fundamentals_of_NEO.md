@@ -14,7 +14,9 @@ In return, NEO holders receive GAS, the second native asset on the NEO blockchai
 
 Unlike the majority of current blockchains that use variants of PoW (Proof-of-Work) or PoS (Proof-of-Stake) for their respective consensus mechanisms, NEO uses an original consensus mechanism known as dBFT (delegated Byzantine Fault Tolerance).
 
-PoW- and PoS-based consensus mechanisms encourage a large number of participants to propose blocks to the network. Conflicts are resolved through the use of forks, with the longest chain considered to be the truthful chain. In these blockchains, transactions within blocks are finalized in a probabilistic manner.
+PoW- and PoS-based consensus mechanisms encourage a large number of participants to propose blocks to the network. Conflicts are resolved through the use of forks, with the longest chain considered to be the truthful chain. 
+
+In these blockchains, transactions within blocks are finalized over time in a probabilistic manner through the use of confirmations. The more blocks have been added to the blockchain since the block containing a given transaction, the less likely that transaction will be nullified by a fork.
 
 In dBFT, NEO owners vote to elect a set of consensus nodes; a delegated group responsible for producing blocks. Each block in NEO must be agreed on by a 2/3 majority of consensus nodes before it is committed to the blockchain. 
 
