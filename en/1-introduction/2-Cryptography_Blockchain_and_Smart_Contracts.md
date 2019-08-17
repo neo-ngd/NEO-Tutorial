@@ -2,7 +2,7 @@
 
 Cryptography is one of the fundamental pillars of blockchain, referring to a branch of mathematics and computer science that can be used to protect information or validate the authenticity of a given piece of data.
 
-With most blockchains, public-key cryptography is used to create digital signatures, which are used to prove that an individual has the right to perform a given action. With public-key crytography, keys are created in pairs; one public key that can be freely shared, and one private key that must be kept secret.
+In addition to its role in a blockchain's consensus mechanism, cryptography is used to create digital signatures, which are used to prove that an individual has the right to perform a given action. Through public-key crytography, keys are created in related by asymmetric pairs; one public key that can be freely shared, and one private key that must be kept secret. In essence, the private key is used to prove ownership of the public key.
 
 The use of cryptography coupled with the immutability of a blockchain allows individuals to send or receive value (in the form of digital assets such as cryptocurrencies) safely without requiring trust in a third party. This trustlessness is instrinsically linked to the decentralization of the blockchain.
 
