@@ -5,24 +5,23 @@ lang-ref: wallet-index
 ---
 
 
-## Contents
+## 目录
 
-1. [Introduction to Blockchain Wallets](1-Introduction_to_wallets.md)
-2. [Key deriviation and address generation on NEO](2-Key_derivation_and_address_generation_on_NEO.md)
-3. [Encrypting private keys and creating contract accounts](3-Key_encryption_and_contract_accounts.md)
-4. [The UTXO and Account models](4-UTXO_and_account_models.md)
+1. [区块链钱包介绍](1-钱包介绍.md)
+2. [NEO私钥和地址生成](2-NEO私钥和地址生成.md)
+3. [加密私钥与创建合约账户](3-密钥加密与合约账户.md)
+4. [UTXO模型与账户模型](4-UTXO与账户模型.md)
 
-## Additional Resources
+## 更多资源
+### 创建钱包
+可以有多种方式创建钱包。
 
-### Creating a wallet
-There are several options available to you when creating a new wallet.
-
-For full blockchain synchronization, consider:
+完全同步了区块链数据的，可以考虑
 * NEO-GUI -> https://docs.neo.org/en-us/node/gui/install.html
 * NEO-CLI -> https://docs.neo.org/en-us/node/cli/cli.html
 
-For light clients which do not require synchronization, consider:
-* O3 Wallet -> https://o3.network/
-* NEON Wallet -> https://neonwallet.com/
+对于不需要进行同步的轻客户端，可以考虑
+* O3 钱包-> https://o3.network/
+* NEON 钱包-> https://neonwallet.com/
 
-You can find more detailed usage guides at the relevant wallet links.
+你可以在相关的钱包链接中查看更详细的使用指南

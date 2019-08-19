@@ -1,3 +1,9 @@
+---
+layout: post
+lang: cn
+lang-ref: network-2
+---
+
 ## 使用Golang来Ping NEO 网络
 
 虽然很多的[NEO核心库](https://github.com/neo-project/neo)都是用C#或Python编写的，但在本教程中，我们将使用[Golang](https://golang.org/)语言。通信基础对任何语言而言都是相同的。
@@ -163,11 +169,11 @@ fmt.Printf("magic: 0x%x\n", binary.LittleEndian.Uint32(b))
 
 *version（uint32）指定协议的版本，当前版本为0。
 
-*Services（uint64）- 指定服务，当前设置为1 
+*Services（uint64）- 指定服务，当前设置为1
 
 *Timestamp（uint32）- 自1970年1月1日起经过的时间（单位：秒）
 
-*Port（uint16）- 监听的端口号，如果节点不处理传入连接，可以设为0 
+*Port（uint16）- 监听的端口号，如果节点不处理传入连接，可以设为0
 
 *Nonce（uint32）- 随机数
 

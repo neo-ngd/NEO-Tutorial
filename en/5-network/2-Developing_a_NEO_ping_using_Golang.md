@@ -1,3 +1,9 @@
+---
+layout: post
+lang: en
+lang-ref: network-2
+---
+
 ## NEO Ping with Golang
 
 Although many [core libraries of NEO](https://github.com/neo-project/neo) are written in C# or Python, for this tutorial we will us [Golang](https://golang.org/). The communication basics are the same for all languages.
