@@ -1,6 +1,6 @@
 <div align="center">  
 <h1>NEO-Tutorial</h1>
-<img src="neo_color_dark.png" alt="NEO-Tutorial" height="150">
+<img src="neo_color_dark.png" alt="NEO-Tutorial" height="100">
 <p>A complete learning tutorial for NEO developers and learners</p>
 </div>
 
