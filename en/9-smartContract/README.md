@@ -8,7 +8,7 @@
 		- [Properties](Smart_Contract_basics.md#constract-property)
 		- [Storage usage](Smart_Contract_basics.md#storage-property)
 		- [Data types](Smart_Contract_basics.md#data-type)
-    - [Your first NEO smart contract](Smart_Contract_basics.md#Your first NEO contract)
+    - [Your first NEO smart contract](Smart_Contract_basics.md)
 		- [Method and triggers](Smart_Contract_basics.md#trigger)
 		- [Events](Smart_Contract_basics.md#events)
 
