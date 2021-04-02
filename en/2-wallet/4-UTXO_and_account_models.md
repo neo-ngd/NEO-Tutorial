@@ -1,7 +1,7 @@
 ## UTXO Model
 One of the main functions of a wallet is to facilitate the transfer of assets. Assets on NEO are divided into two categories; UTXO-based (Unspent transaction outputs) and account-based. In NEO, NEO and GAS follow the UTXO model, while NEP-5 tokens follow the account model. Lets explore both in more detail.
 
-First, let us consider a simple example where a user has 10 NEO. This 10 NEO actually consists of multiple UTXOs. The sum of all the UTXOs must equal 10. For example this 10 NEO may be consist of 3 UTXOs. UTXO_1 is worth 2 NEO, UTXO_2 is worth 3 NEO, and UTXO_3 is worth 5 NEO, which sums up to the total balance of 10 NEO. So if we need to send someone 3 NEO then we can simply use UTXO_2 3 as the input of the transaction, and the recipient receives as an output one UTXO that is also worth 3 NEO.
+First, let us consider a simple example where a user has 10 NEO. This 10 NEO actually consists of multiple UTXOs. The sum of all the UTXOs must equal 10. For example, these 10 NEO might consist of 3 UTXOs. UTXO_1 is worth 2 NEO, UTXO_2 is worth 3 NEO, and UTXO_3 is worth 5 NEO, which sums up to the total balance of 10 NEO. So if we need to send someone 3 NEO then we can simply use UTXO_2 3 as the input of the transaction, and the recipient receives as an output one UTXO that is also worth 3 NEO.
 
 If we try to send 5 NEO, then we can combine the UTXO_1 and UTXO_2 together as the inputs, and the recipient recieves 5 NEO as one single output of the transaction. It becomes slightly more complicated when we need to send an amount where we cannot create a perfect sum of UTXOs. 
 
